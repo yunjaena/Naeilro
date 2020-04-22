@@ -31,7 +31,8 @@ import android.view.animation.Animation;
 
 import androidx.core.view.ViewCompat;
 
-import in.koreatech.koin.core.R;
+import com.koreatech.core.R;
+
 
 /**
  * Private class created to work around issues with AnimationListeners being
