@@ -1,0 +1,3 @@
+rootProject.name='Naeilro'
+include ':app'
+include ':core:'
