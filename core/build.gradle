@@ -71,6 +71,7 @@ dependencies {
     api project.retrofit
     api project.retrofitGsonConvert
     api project.retrofitRxJava
+    api project.retrofitXmlConvert
 
     /* Dependency - leakcanary */
     debugImplementation project.leakcanaryDebug
