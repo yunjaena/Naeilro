@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.koreatech.naeilro.HomeFragment"
+        android:label="@string/bottom_nav_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_shared_info"
+        android:name="com.koreatech.naeilro.SharedInfoFragment"
+        android:label="@string/bottom_nav_shared_info"
+        tools:layout="@layout/fragment_shared_info" />
+
+    <fragment
+        android:id="@+id/navigation_my_plan"
+        android:name="com.koreatech.naeilro.MyPlanFragment"
+        android:label="@string/bottom_nav_my_plan"
+        tools:layout="@layout/fragment_my_plan" />
+    <fragment
+        android:id="@+id/navigation_my_info"
+        android:name="com.koreatech.naeilro.MyInfoFragment"
+        android:label="@string/bottom_nav_my_info"
+        tools:layout="@layout/fragment_my_info" />
+
+</navigation>

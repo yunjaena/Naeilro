@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Naeilro</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="bottom_nav_home">홈</string>
+    <string name="bottom_nav_shared_info">정보공유</string>
+    <string name="bottom_nav_my_plan">마이플랜</string>
+    <string name="bottom_nav_my_info">내정보</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

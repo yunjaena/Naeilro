@@ -63,6 +63,8 @@ dependencies {
     api project.androidxRecyclerView
     api project.androidxCardView
     api project.androidxMaterial
+    api project.androidxNavigation
+    api project.androidxNavigationFragment
 
     /* Dependency - Firebase */
     api project.firebaseCore
