@@ -24,8 +24,8 @@ public class TrainRetrofitManager {
 
     private static TrainRetrofitManager instance = null;
 
-    public static final String BASE_URL_PRODUCTION = "http://openapi.tago.go.kr/openapi/service"; //release server
-    public static final String BASE_URL_STAGE = "http://openapi.tago.go.kr/openapi/service"; //development server
+    public static final String BASE_URL_PRODUCTION = "http://openapi.tago.go.kr/openapi/service/TrainInfoService"; //release server
+    public static final String BASE_URL_STAGE = "http://openapi.tago.go.kr/openapi/service/TrainInfoService"; //development server
 
     private Retrofit retrofit;
 
