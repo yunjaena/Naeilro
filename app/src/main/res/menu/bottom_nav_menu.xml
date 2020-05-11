@@ -3,24 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_home"
         app:showAsAction="always|withText"
         android:title="@string/bottom_nav_home" />
 
     <item
         android:id="@+id/navigation_shared_info"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_sharedinfo"
         app:showAsAction="always|withText"
         android:title="@string/bottom_nav_shared_info" />
 
     <item
         android:id="@+id/navigation_my_plan"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_myplan"
         app:showAsAction="always|withText"
         android:title="@string/bottom_nav_my_plan" />
     <item
         android:id="@+id/navigation_my_info"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_myinfo"
         app:showAsAction="always|withText"
         android:title="@string/bottom_nav_my_info" />
 </menu>
