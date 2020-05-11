@@ -8,7 +8,32 @@
         android:id="@+id/navigation_home"
         android:name="com.koreatech.naeilro.HomeFragment"
         android:label="@string/bottom_nav_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_tourspot"
+            app:destination="@id/navigation_tourspot" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_train"
+            app:destination="@id/navigation_train" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_restraunt"
+            app:destination="@id/navigation_restraunt" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_house"
+            app:destination="@id/navigation_house" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_reports"
+            app:destination="@id/navigation_reports" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_facility"
+            app:destination="@id/navigation_facility" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_festival"
+            app:destination="@id/navigation_festival" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_weather"
+            app:destination="@id/navigation_weather" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_shared_info"
@@ -26,5 +51,45 @@
         android:name="com.koreatech.naeilro.MyInfoFragment"
         android:label="@string/bottom_nav_my_info"
         tools:layout="@layout/fragment_my_info" />
+    <fragment
+        android:id="@+id/navigation_tourspot"
+        android:name="com.koreatech.naeilro.tourspot.TourSpotFragment"
+        android:label="@string/category_search_tourspot"
+        tools:layout="@layout/fragment_tour_spot" />
+    <fragment
+        android:id="@+id/navigation_train"
+        android:name="com.koreatech.naeilro.train.TrainInfoFragment"
+        android:label="@string/category_train_info"
+        tools:layout="@layout/fragment_train_info" />
+    <fragment
+        android:id="@+id/navigation_restraunt"
+        android:name="com.koreatech.naeilro.restraunt.RestrauntFragment"
+        android:label="@string/category_serarch_restraunt"
+        tools:layout="@layout/fragment_restraunt" />
+    <fragment
+        android:id="@+id/navigation_house"
+        android:name="com.koreatech.naeilro.house.HouseFragment"
+        android:label="@string/category_search_house"
+        tools:layout="@layout/fragment_house" />
+    <fragment
+        android:id="@+id/navigation_reports"
+        android:name="com.koreatech.naeilro.reports.ReportsFragment"
+        android:label="@string/category_search_reports"
+        tools:layout="@layout/fragment_reports" />
+    <fragment
+        android:id="@+id/navigation_facility"
+        android:name="com.koreatech.naeilro.facility.FacilityFragment"
+        android:label="@string/category_search_facility"
+        tools:layout="@layout/fragment_facility" />
+    <fragment
+        android:id="@+id/navigation_festival"
+        android:name="com.koreatech.naeilro.festival.FestivalFragment"
+        android:label="@string/category_festival"
+        tools:layout="@layout/fragment_festival" />
+    <fragment
+        android:id="@+id/navigation_weather"
+        android:name="com.koreatech.naeilro.weather.WeatherFragment"
+        android:label="@string/category_weather"
+        tools:layout="@layout/fragment_weather" />
 
 </navigation>

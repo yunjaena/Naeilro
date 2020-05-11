@@ -10,6 +10,18 @@
     <string name="bottom_nav_my_plan">마이플랜</string>
     <string name="bottom_nav_my_info">내정보</string>
 
+    <string name="app_name_korea">내일로 투어</string>
+
+    <!-- category-->
+    <string name="category_search_tourspot">관광지 찾기</string>
+    <string name="category_train_info">기차 정보</string>
+    <string name="category_serarch_restraunt">식당 찾기</string>
+    <string name="category_search_house">숙박 찾기</string>
+    <string name="category_search_reports">레포츠 찾기</string>
+    <string name="category_search_facility">문화시설 찾기</string>
+    <string name="category_festival">측제/행사 찾기</string>
+    <string name="category_weather">날씨 정보</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
