@@ -77,12 +77,10 @@ def getPassword() {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':core')
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.guava:guava:29.0-android'
     /* Dependency - glide */
     implementation project.glide
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor project.glideAnnotation
     /* Dependency - butterknife */
     implementation project.butterknife

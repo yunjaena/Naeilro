@@ -29,11 +29,19 @@ ext {
     targetSdkVersion = 26
 
     /* Dependency - AndroidX Jetpack */
-    def android_x_version = "1.0.0"
+    def android_x_version = "1.1.0"
     androidxAppCompat = "androidx.appcompat:appcompat:$android_x_version"
     androidxRecyclerView = "androidx.recyclerview:recyclerview:$android_x_version"
-    androidxCardView = "androidx.cardview:cardview:$android_x_version"
     androidxMaterial = "com.google.android.material:material:$android_x_version"
+
+    /* Dependency - AndroidX Version Jetpack */
+    def android_x_card_view_version = "1.0.0"
+    androidxCardView = "androidx.cardview:cardview:$android_x_card_view_version"
+
+    /* Dependency - AndroidX Navigation */
+    def android_x_navigation_version = "2.0.0"
+    androidxNavigationFragment = "androidx.navigation:navigation-fragment:$android_x_navigation_version"
+    androidxNavigation = "androidx.navigation:navigation-ui:$android_x_navigation_version"
 
     /* Dependency - Firebase */
     def firebase_version = "17.0.0"
