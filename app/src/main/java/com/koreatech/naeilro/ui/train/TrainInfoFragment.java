@@ -1,4 +1,4 @@
-package com.koreatech.naeilro.festival;
+package com.koreatech.naeilro.ui.train;
 
 import android.os.Bundle;
 
@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import com.koreatech.naeilro.R;
 
 
-public class FestivalFragment extends Fragment {
+public class TrainInfoFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_festival, container, false);
+        return inflater.inflate(R.layout.fragment_train_info, container, false);
     }
 }

@@ -1,4 +1,4 @@
-package com.koreatech.naeilro;
+package com.koreatech.naeilro.ui.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-public class SharedInfoFragment extends Fragment {
+import com.koreatech.naeilro.R;
 
+public class SharedInfoFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {

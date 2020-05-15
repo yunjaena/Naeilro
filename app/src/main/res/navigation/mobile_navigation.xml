@@ -6,7 +6,7 @@
     app:startDestination="@+id/navigation_home">
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.koreatech.naeilro.HomeFragment"
+        android:name="com.koreatech.naeilro.ui.main.HomeFragment"
         android:label="@string/bottom_nav_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -37,58 +37,58 @@
 
     <fragment
         android:id="@+id/navigation_shared_info"
-        android:name="com.koreatech.naeilro.SharedInfoFragment"
+        android:name="com.koreatech.naeilro.ui.main.SharedInfoFragment"
         android:label="@string/bottom_nav_shared_info"
         tools:layout="@layout/fragment_shared_info" />
 
     <fragment
         android:id="@+id/navigation_my_plan"
-        android:name="com.koreatech.naeilro.MyPlanFragment"
+        android:name="com.koreatech.naeilro.ui.main.MyPlanFragment"
         android:label="@string/bottom_nav_my_plan"
         tools:layout="@layout/fragment_my_plan" />
     <fragment
         android:id="@+id/navigation_my_info"
-        android:name="com.koreatech.naeilro.MyInfoFragment"
+        android:name="com.koreatech.naeilro.ui.main.MyInfoFragment"
         android:label="@string/bottom_nav_my_info"
         tools:layout="@layout/fragment_my_info" />
     <fragment
         android:id="@+id/navigation_tourspot"
-        android:name="com.koreatech.naeilro.tourspot.TourSpotFragment"
+        android:name="com.koreatech.naeilro.ui.tourspot.TourSpotFragment"
         android:label="@string/category_search_tourspot"
         tools:layout="@layout/fragment_tour_spot" />
     <fragment
         android:id="@+id/navigation_train"
-        android:name="com.koreatech.naeilro.train.TrainInfoFragment"
+        android:name="com.koreatech.naeilro.ui.train.TrainInfoFragment"
         android:label="@string/category_train_info"
         tools:layout="@layout/fragment_train_info" />
     <fragment
         android:id="@+id/navigation_restraunt"
-        android:name="com.koreatech.naeilro.restraunt.RestrauntFragment"
+        android:name="com.koreatech.naeilro.ui.restraunt.RestrauntFragment"
         android:label="@string/category_serarch_restraunt"
         tools:layout="@layout/fragment_restraunt" />
     <fragment
         android:id="@+id/navigation_house"
-        android:name="com.koreatech.naeilro.house.HouseFragment"
+        android:name="com.koreatech.naeilro.ui.house.HouseFragment"
         android:label="@string/category_search_house"
         tools:layout="@layout/fragment_house" />
     <fragment
         android:id="@+id/navigation_reports"
-        android:name="com.koreatech.naeilro.reports.ReportsFragment"
+        android:name="com.koreatech.naeilro.ui.reports.ReportsFragment"
         android:label="@string/category_search_reports"
         tools:layout="@layout/fragment_reports" />
     <fragment
         android:id="@+id/navigation_facility"
-        android:name="com.koreatech.naeilro.facility.FacilityFragment"
+        android:name="com.koreatech.naeilro.ui.facility.FacilityFragment"
         android:label="@string/category_search_facility"
         tools:layout="@layout/fragment_facility" />
     <fragment
         android:id="@+id/navigation_festival"
-        android:name="com.koreatech.naeilro.festival.FestivalFragment"
+        android:name="com.koreatech.naeilro.ui.festival.FestivalFragment"
         android:label="@string/category_festival"
         tools:layout="@layout/fragment_festival" />
     <fragment
         android:id="@+id/navigation_weather"
-        android:name="com.koreatech.naeilro.weather.WeatherFragment"
+        android:name="com.koreatech.naeilro.ui.weather.WeatherFragment"
         android:label="@string/category_weather"
         tools:layout="@layout/fragment_weather" />
 

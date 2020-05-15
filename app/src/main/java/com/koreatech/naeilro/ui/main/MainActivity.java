@@ -1,4 +1,4 @@
-package com.koreatech.naeilro;
+package com.koreatech.naeilro.ui.main;
 
 import android.os.Bundle;
 
@@ -9,6 +9,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.koreatech.naeilro.R;
 
 public class MainActivity extends AppCompatActivity {
     @Override
