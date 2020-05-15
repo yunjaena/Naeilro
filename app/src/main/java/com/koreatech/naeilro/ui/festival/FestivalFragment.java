@@ -1,4 +1,4 @@
-package com.koreatech.naeilro.facility;
+package com.koreatech.naeilro.ui.festival;
 
 import android.os.Bundle;
 
@@ -11,11 +11,12 @@ import android.view.ViewGroup;
 import com.koreatech.naeilro.R;
 
 
-public class FacilityFragment extends Fragment {
+public class FestivalFragment extends Fragment {
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_facility, container, false);
+        return inflater.inflate(R.layout.fragment_festival, container, false);
     }
 }

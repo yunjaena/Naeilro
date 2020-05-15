@@ -1,4 +1,4 @@
-package com.koreatech.naeilro;
+package com.koreatech.naeilro.ui.restraunt;
 
 import android.os.Bundle;
 
@@ -8,17 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.koreatech.naeilro.R;
 
 
-public class MyInfoFragment extends Fragment {
-
-
-
+public class RestrauntFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_my_info, container, false);
-        return root;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_restraunt, container, false);
     }
 }

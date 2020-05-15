@@ -1,4 +1,4 @@
-package com.koreatech.naeilro.reports;
+package com.koreatech.naeilro.ui.tourspot;
 
 import android.os.Bundle;
 
@@ -11,11 +11,13 @@ import android.view.ViewGroup;
 import com.koreatech.naeilro.R;
 
 
-public class ReportsFragment extends Fragment {
+public class TourSpotFragment extends Fragment {
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reports, container, false);
+        return inflater.inflate(R.layout.fragment_tour_spot, container, false);
     }
 }

@@ -1,4 +1,4 @@
-package com.koreatech.naeilro.tourspot;
+package com.koreatech.naeilro.ui.weather;
 
 import android.os.Bundle;
 
@@ -11,13 +11,11 @@ import android.view.ViewGroup;
 import com.koreatech.naeilro.R;
 
 
-public class TourSpotFragment extends Fragment {
-
-
+public class WeatherFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tour_spot, container, false);
+        return inflater.inflate(R.layout.fragment_weather, container, false);
     }
 }

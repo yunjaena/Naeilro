@@ -1,4 +1,4 @@
-package com.koreatech.naeilro;
+package com.koreatech.naeilro.ui.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+
+import com.koreatech.naeilro.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
