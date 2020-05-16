@@ -9,9 +9,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.koreatech.core.activity.ActivityBase;
 import com.koreatech.naeilro.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ActivityBase {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

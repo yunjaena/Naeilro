@@ -22,6 +22,14 @@
     <string name="category_festival">측제/행사 찾기</string>
     <string name="category_weather">날씨 정보</string>
 
+    <!--weather-->
+    <string name="current_weather_status">날씨 상태</string>
+    <string name="current_weather_temperature">현재 온도</string>
+    <string name="current_weather_min_temperature">최저 온도</string>
+    <string name="current_weather_max_temperature">최고 온도</string>
+    <string name="current_weather_pressure">현재 기압</string>
+    <string name="current_weather_humidity">현제 습도</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
