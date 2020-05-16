@@ -3,6 +3,7 @@ package com.koreatech.naeilro.ui.weather;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,9 +14,11 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -26,10 +29,13 @@ import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.NaeilroApplication;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.CurrentWeather;
+import com.koreatech.naeilro.network.entity.OneWeekWeather;
 import com.koreatech.naeilro.network.interactor.WeatherRestInteractor;
+import com.koreatech.naeilro.ui.main.MainActivity;
 import com.koreatech.naeilro.ui.weather.presenter.WeatherFragmentContract;
 import com.koreatech.naeilro.ui.weather.presenter.WeatherFragmentPresenter;
 import com.koreatech.naeilro.util.BitmapUtil;
+import com.koreatech.naeilro.util.TemperatureUtil;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapMarkerItem2;
 import com.skt.Tmap.TMapPoint;
@@ -75,22 +81,22 @@ public class WeatherFragment extends Fragment implements WeatherFragmentContract
 
     @Override
     public void showLoading() {
-
+        ((MainActivity) getActivity()).showProgressDialog(R.string.loading);
     }
 
     @Override
     public void hideLoading() {
-
+        ((MainActivity) getActivity()).hideProgressDialog();
     }
 
     @Override
     public void showMessage(String message) {
-
+        ToastUtil.getInstance().makeShort(message);
     }
 
     @Override
     public void showMessage(int message) {
-
+        ToastUtil.getInstance().makeShort(message);
     }
 
     @Override
@@ -138,8 +144,14 @@ public class WeatherFragment extends Fragment implements WeatherFragmentContract
 
     public String getWeatherInfoToString(CurrentWeather currentWeather) {
         StringBuilder weatherInfoStringBuilder = new StringBuilder();
-        weatherInfoStringBuilder.append(getResources().getString(R.string.current_weather_status)).append(" : ").append(currentWeather.getCurrentWeather().get(0).getCurrentWeatherDescription())
-        .append("\n").append("");
+        weatherInfoStringBuilder
+                .append(getResources().getString(R.string.current_weather_status)).append(" : ").append(currentWeather.getCurrentWeather().get(0).getCurrentWeatherDescription()).append("\n")
+                .append(getResources().getString(R.string.current_weather_temperature)).append(" : ").append(String.format(Locale.KOREA,"%.0f",TemperatureUtil.kelvinToCelsius(currentWeather.getWeatherMain().getTemperature()))).append("\n")
+//                .append(getResources().getString(R.string.current_weather_max_temperature)).append(" : ").append(TemperatureUtil.kelvinToCelsius(currentWeather.getWeatherMain().getMaxTemperature())).append("\n")
+//                .append(getResources().getString(R.string.current_weather_min_temperature)).append(" : ").append(TemperatureUtil.kelvinToCelsius(currentWeather.getWeatherMain().getMinTemperature())).append("\n")
+//                .append(getResources().getString(R.string.current_weather_pressure)).append(" : ").append(currentWeather.getWeatherMain().getHumidity()).append("\n")
+//                .append(getResources().getString(R.string.current_weather_pressure)).append(" : ").append(currentWeather.getWeatherMain().getPressure()).append("\n");
+        ;
         return weatherInfoStringBuilder.toString();
     }
 
@@ -147,7 +159,20 @@ public class WeatherFragment extends Fragment implements WeatherFragmentContract
     public void onCalloutRightButton(TMapMarkerItem tMapMarkerItem) {
         String markerName = tMapMarkerItem.getName();
         WeatherCityInfo weatherCityInfo = WeatherCityInfo.getWeatherCityInfoByCItyName(markerName);
-        ToastUtil.getInstance().makeShort(String.format("위치 : %s 위도 : %f 경도 %f", weatherCityInfo.getCityName(), weatherCityInfo.getLocationLatitude(),
-                weatherCityInfo.getLocationLongitude()));
+        weatherFragmentPresenter.getOneWeekWeatherInfo(weatherCityInfo,"kr");
+
+    }
+
+    @Override
+    public void showOnwWeekWeatherInfo(OneWeekWeather oneWeekWeather) {
+        WeatherInfoDialog weatherInfoDialog = new WeatherInfoDialog(getActivity(), oneWeekWeather);
+        weatherInfoDialog.show();
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        Window widow = weatherInfoDialog.getWindow();
+        int x = (int) (size.x * 0.8f);
+        int y = (int) (size.y * 0.5f);
+        widow.setLayout(x, y);
     }
 }

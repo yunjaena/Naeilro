@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface WeatherInteractor {
     void getCurrentWeather(List<WeatherCityInfo> weatherCityInfos, String responseLanguage, ApiCallback apiCallback);
+
+    void getOneWeekWeather(WeatherCityInfo weatherCityInfo, String exclude, String responseLanguage, ApiCallback apiCallback);
 }

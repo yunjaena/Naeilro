@@ -4,6 +4,7 @@ import androidx.annotation.StringRes;
 
 import com.koreatech.core.contract.BaseView;
 import com.koreatech.naeilro.network.entity.CurrentWeather;
+import com.koreatech.naeilro.network.entity.OneWeekWeather;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ public interface WeatherFragmentContract {
         void showMessage(String message);
 
         void showMessage(@StringRes int message);
+
+        void showOnwWeekWeatherInfo(OneWeekWeather oneWeekWeather);
 
         void showTodayWeatherInfo(List<CurrentWeather> currentWeatherList);
     }

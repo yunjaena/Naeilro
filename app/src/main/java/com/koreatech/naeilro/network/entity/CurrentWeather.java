@@ -13,7 +13,16 @@ public class CurrentWeather {
 
     @SerializedName("weather")
     @Expose
-    List<Weather> currentWeather;
+    private List<Weather> currentWeather;
+
+    @SerializedName("main")
+    @Expose
+    private WeatherMain weatherMain;
+
+    @SerializedName("visibility")
+    @Expose
+    private int visibility;
+
 
     private WeatherCityInfo weatherCityInfo;
 
@@ -39,5 +48,21 @@ public class CurrentWeather {
 
     public void setWeatherCityInfo(WeatherCityInfo weatherCityInfo) {
         this.weatherCityInfo = weatherCityInfo;
+    }
+
+    public WeatherMain getWeatherMain() {
+        return weatherMain;
+    }
+
+    public void setWeatherMain(WeatherMain weatherMain) {
+        this.weatherMain = weatherMain;
+    }
+
+    public int getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(int visibility) {
+        this.visibility = visibility;
     }
 }

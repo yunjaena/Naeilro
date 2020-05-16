@@ -6,6 +6,7 @@ import com.koreatech.core.network.ApiCallback;
 import com.koreatech.core.network.WeatherRetrofitManager;
 import com.koreatech.naeilro.NaeilroApplication;
 import com.koreatech.naeilro.network.entity.CurrentWeather;
+import com.koreatech.naeilro.network.entity.OneWeekWeather;
 import com.koreatech.naeilro.network.entity.Weather;
 import com.koreatech.naeilro.network.service.WeatherService;
 import com.koreatech.naeilro.ui.weather.WeatherCityInfo;
@@ -33,7 +34,7 @@ public class WeatherRestInteractor implements WeatherInteractor {
 
         for (WeatherCityInfo weatherCityInfo : weatherCityInfos) {
             Observable<CurrentWeather> observable = WeatherRetrofitManager.getInstance().getRetrofit().create(WeatherService.class).
-                    getTrainArrivalDepartInfo(weatherCityInfo.getLocationLatitude(), weatherCityInfo.getLocationLongitude(), apiKey, responseLanguage)
+                    getCurrentWeather(weatherCityInfo.getLocationLatitude(), weatherCityInfo.getLocationLongitude(), apiKey, responseLanguage)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .map(currentWeather -> {
@@ -82,5 +83,51 @@ public class WeatherRestInteractor implements WeatherInteractor {
         });
     }
 
+    @Override
+    public void getOneWeekWeather(WeatherCityInfo weatherCityInfo, String exclude, String responseLanguage, ApiCallback apiCallback) {
+        String apiKey = NaeilroApplication.getWeatherApiKey();
+        Observable<OneWeekWeather> observable = WeatherRetrofitManager.getInstance().getRetrofit().create(WeatherService.class).
+                getOneWeekWeather(weatherCityInfo.getLocationLatitude(), weatherCityInfo.getLocationLongitude(), exclude, apiKey, responseLanguage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(currentWeather -> {
+                    currentWeather.setCity(weatherCityInfo.getCityName());
+                    return currentWeather;
+                });
+
+        observable.subscribe(new Observer<OneWeekWeather>() {
+            @Override
+            public void onSubscribe(Disposable disposable) {
+
+            }
+
+            @Override
+            public void onNext(final OneWeekWeather response) {
+                if (response != null) {
+                    for (int i = 0; i < response.getDailyWeather().size(); i++) {
+                        String icon = response.getDailyWeather().get(i).getWeather().get(0).getIcon();
+                        icon = iconURL + icon + ".png";
+                        response.getDailyWeather().get(i).getWeather().get(0).setIcon(icon);
+                    }
+                    apiCallback.onSuccess(response);
+                } else {
+                    apiCallback.onFailure(new Throwable("fail read weather info"));
+                }
+            }
+
+
+            @Override
+            public void onError(Throwable throwable) {
+                if (throwable instanceof HttpException) {
+                    Log.d(TAG, ((HttpException) throwable).code() + " ");
+                }
+                apiCallback.onFailure(throwable);
+            }
+
+            @Override
+            public void onComplete() {
+            }
+        });
+    }
 
 }

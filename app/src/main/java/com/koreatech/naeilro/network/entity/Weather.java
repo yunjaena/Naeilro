@@ -3,7 +3,9 @@ package com.koreatech.naeilro.network.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Weather {
+import java.io.Serializable;
+
+public class Weather implements Serializable {
     @SerializedName("id")
     @Expose
     private int id;
