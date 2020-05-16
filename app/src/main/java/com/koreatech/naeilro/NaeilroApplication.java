@@ -26,4 +26,8 @@ public class NaeilroApplication  extends Application {
     public static String getTMapApiKey(){
         return applicationContext.getResources().getString(R.string.t_map_key);
     }
+
+    public static String getWeatherApiKey(){
+        return applicationContext.getResources().getString(R.string.weather_api_key);
+    }
 }
