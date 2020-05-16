@@ -2,6 +2,7 @@ package com.koreatech.naeilro.ui.weather;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -22,6 +23,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.NaeilroApplication;
 import com.koreatech.naeilro.R;
+import com.koreatech.naeilro.util.BitmapUtil;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
@@ -61,13 +63,10 @@ public class WeatherFragment extends Fragment {
         );
 
         for(WeatherCityInfo weatherCityInfo : WeatherCityInfo.values()){
-            addWeatherMarker("http://openweathermap.org/img/wn/50n@2x.png", weatherCityInfo.getLocationLongitude(), weatherCityInfo.getLocationLongitude(), weatherCityInfo.getCityName());
+            addWeatherMarker("http://openweathermap.org/img/wn/50n.png", weatherCityInfo.getLocationLongitude(), weatherCityInfo.getLocationLatitude(), weatherCityInfo.getCityName());
         }
-
-
-
-
     }
+
 
     public void addWeatherMarker(final String weatherIconUrl, final double LocationLongitude, final double LocationLatitude, String name){
         Glide.with(this)
@@ -76,15 +75,16 @@ public class WeatherFragment extends Fragment {
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        TMapMarkerItem markerItem1 = new TMapMarkerItem();
-                        TMapPoint tMapPoint1 = new TMapPoint(LocationLatitude, LocationLongitude); // SKT타워
-                        markerItem1.setIcon(resource); // 마커 아이콘 지정
-                        markerItem1.setPosition(0.5f, 1.0f); // 마커의 중심점을 중앙, 하단으로 설정
-                        markerItem1.setTMapPoint( tMapPoint1 ); // 마커의 좌표 지정
-                        markerItem1.setName(name); // 마커의 타이틀 지정
-                        markerItem1.setCanShowCallout(true);
-                        markerItem1.setCalloutTitle(name);
-                        tMapView.addMarkerItem(name, markerItem1); // 지도에 마커 추가
+                            Bitmap markerBitmap = BitmapUtil.getRoundedCornerBitmap(BitmapUtil.transParentBackgroundToWhiteBackground(resource));
+                            TMapMarkerItem markerItem1 = new TMapMarkerItem();
+                            TMapPoint tMapPoint1 = new TMapPoint(LocationLatitude, LocationLongitude); // SKT타워
+                            markerItem1.setIcon(markerBitmap); // 마커 아이콘 지정
+                            markerItem1.setPosition(0f, 0f); // 마커의 중심점을 중앙, 하단으로 설정
+                            markerItem1.setTMapPoint( tMapPoint1 ); // 마커의 좌표 지정
+                            markerItem1.setName(name); // 마커의 타이틀 지정
+                            markerItem1.setCanShowCallout(true);
+                            markerItem1.setCalloutTitle(name);
+                            tMapView.addMarkerItem(name, markerItem1); // 지도에 마커 추가
                     }
 
                     @Override

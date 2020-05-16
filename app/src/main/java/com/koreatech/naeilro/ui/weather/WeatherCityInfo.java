@@ -31,7 +31,7 @@ public enum WeatherCityInfo {
     private double locationLongitude;
     private double locationLatitude;
 
-    WeatherCityInfo(String cityName, double locationLongitude, double locationLatitude) {
+    WeatherCityInfo(String cityName, double locationLatitude, double locationLongitude) {
         this.locationLatitude = locationLatitude;
         this.locationLongitude = locationLongitude;
         this.cityName = cityName;
