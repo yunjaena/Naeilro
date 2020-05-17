@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -36,8 +37,10 @@ import com.koreatech.naeilro.ui.weather.presenter.WeatherFragmentContract;
 import com.koreatech.naeilro.ui.weather.presenter.WeatherFragmentPresenter;
 import com.koreatech.naeilro.util.BitmapUtil;
 import com.koreatech.naeilro.util.TemperatureUtil;
+import com.skt.Tmap.TMapLayer;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapMarkerItem2;
+import com.skt.Tmap.TMapMarkerItemLayer;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
 
@@ -75,8 +78,6 @@ public class WeatherFragment extends Fragment implements WeatherFragmentContract
 
         tMapView.setOnCalloutRightButtonClickListener(this);
         weatherFragmentPresenter.getCurrentWeatherInfo(WeatherCityInfo.getWeatherCityInfoList(), "kr");
-
-
     }
 
     @Override
@@ -170,9 +171,15 @@ public class WeatherFragment extends Fragment implements WeatherFragmentContract
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        Window widow = weatherInfoDialog.getWindow();
-        int x = (int) (size.x * 0.8f);
-        int y = (int) (size.y * 0.5f);
-        widow.setLayout(x, y);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(weatherInfoDialog.getWindow().getAttributes());
+        lp.width = (int) (size.x * 0.8f);
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        weatherInfoDialog.show();
+        Window window = weatherInfoDialog.getWindow();
+        window.setAttributes(lp);
+
     }
 }
