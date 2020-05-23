@@ -8,15 +8,60 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.R;
+import com.koreatech.naeilro.network.entity.traininfo.TrainInfo;
+import com.koreatech.naeilro.network.interactor.TrainRestInteractor;
+import com.koreatech.naeilro.ui.main.MainActivity;
+import com.koreatech.naeilro.ui.train.presenter.TrainInfoFragmentContract;
+import com.koreatech.naeilro.ui.train.presenter.TrainInfoFragmentPresenter;
+
+import java.util.List;
 
 
-public class TrainInfoFragment extends Fragment {
+public class TrainInfoFragment extends Fragment implements TrainInfoFragmentContract.View {
+    public static final String TAG = "TrainInfoFragment";
+    private TrainInfoFragmentPresenter trainInfoFragmentPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        init();
+        trainInfoFragmentPresenter.getTrainList();
         return inflater.inflate(R.layout.fragment_train_info, container, false);
+    }
+
+    public void init() {
+        trainInfoFragmentPresenter = new TrainInfoFragmentPresenter(this, new TrainRestInteractor());
+    }
+
+    @Override
+    public void showLoading() {
+        ((MainActivity) getActivity()).hideProgressDialog();
+    }
+
+    @Override
+    public void hideLoading() {
+        ((MainActivity) getActivity()).hideProgressDialog();
+    }
+
+    @Override
+    public void showMessage(String message) {
+        ToastUtil.getInstance().makeShort(message);
+    }
+
+    @Override
+    public void showMessage(int message) {
+        ToastUtil.getInstance().makeShort(message);
+    }
+
+    @Override
+    public void showTrainList(List<TrainInfo> trainInfoList) {
+
+    }
+
+    @Override
+    public void setPresenter(TrainInfoFragmentPresenter presenter) {
+        this.trainInfoFragmentPresenter = presenter;
     }
 }

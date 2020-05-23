@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.koreatech.naeilro.R;
-import com.koreatech.naeilro.network.entity.OneWeekWeather;
+import com.koreatech.naeilro.network.entity.weather.OneWeekWeather;
 import com.koreatech.naeilro.util.TemperatureUtil;
 import com.koreatech.naeilro.util.TimeUtil;
 

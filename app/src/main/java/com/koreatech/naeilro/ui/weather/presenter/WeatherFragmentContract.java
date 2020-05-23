@@ -3,8 +3,8 @@ package com.koreatech.naeilro.ui.weather.presenter;
 import androidx.annotation.StringRes;
 
 import com.koreatech.core.contract.BaseView;
-import com.koreatech.naeilro.network.entity.CurrentWeather;
-import com.koreatech.naeilro.network.entity.OneWeekWeather;
+import com.koreatech.naeilro.network.entity.weather.CurrentWeather;
+import com.koreatech.naeilro.network.entity.weather.OneWeekWeather;
 
 import java.util.List;
 

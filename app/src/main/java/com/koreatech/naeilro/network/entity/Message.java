@@ -7,9 +7,25 @@ import org.simpleframework.xml.Root;
 public class Message {
 
     @Element(name = "resultCode")
-    public String resultCode;
+    private String resultCode;
     @Element(name = "resultMsg")
-    public String resultMsg;
+    private String resultMsg;
+
+    public String getResultCode() {
+        return resultCode;
+    }
+
+    public void setResultCode(String resultCode) {
+        this.resultCode = resultCode;
+    }
+
+    public String getResultMsg() {
+        return resultMsg;
+    }
+
+    public void setResultMsg(String resultMsg) {
+        this.resultMsg = resultMsg;
+    }
 
     @Override
     public String toString() {

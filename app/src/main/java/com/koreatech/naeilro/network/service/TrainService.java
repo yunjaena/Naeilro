@@ -1,7 +1,8 @@
 package com.koreatech.naeilro.network.service;
 
 import com.koreatech.core.network.Xml;
-import com.koreatech.naeilro.network.entity.TrainArrivalDepartInfo;
+import com.koreatech.naeilro.network.entity.weather.TrainArrivalDepartInfo;
+import com.koreatech.naeilro.network.entity.traininfo.TrainList;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -9,7 +10,7 @@ import retrofit2.http.Query;
 
 public interface TrainService {
     String TRAIN_ARRIVAL_DEPART_INFO_PATH = "getStrtpntAlocFndTrainInfo";
-
+    String TRAIN_INFO = "getVhcleKndList";
     /**
      *
      * @param serviceKey 서비스 키
@@ -25,8 +26,10 @@ public interface TrainService {
     @Xml
     Observable<TrainArrivalDepartInfo> getTrainArrivalDepartInfo(@Query("serviceKey")String serviceKey, @Query("numOfRows")int numOfRows,
                                                                  @Query("pageNo")int pageNo, @Query("depPlaceId") String depPlaceId,
-                                                                 @Query("arrPlaceId")String arrPlaceId, @Query("depPlandTime")String depPlandTime,
+                                                                      @Query("arrPlaceId")String arrPlaceId, @Query("depPlandTime")String depPlandTime,
                                                                  @Query("trainGradeCode") String trainGradeCode);
-
+    @GET(TRAIN_INFO)
+    @Xml
+    Observable<TrainList> getTrainList(@Query("serviceKey")String serviceKey);
 
 }

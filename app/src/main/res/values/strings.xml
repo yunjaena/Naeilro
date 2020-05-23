@@ -30,6 +30,9 @@
     <string name="current_weather_pressure">현재 기압</string>
     <string name="current_weather_humidity">현제 습도</string>
 
+    <!--train-->
+    <string name="train_info_fail">열차 정보를 불러올 수 없습니다.</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

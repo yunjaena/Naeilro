@@ -2,8 +2,8 @@ package com.koreatech.naeilro.ui.weather.presenter;
 
 import com.koreatech.core.network.ApiCallback;
 import com.koreatech.naeilro.R;
-import com.koreatech.naeilro.network.entity.CurrentWeather;
-import com.koreatech.naeilro.network.entity.OneWeekWeather;
+import com.koreatech.naeilro.network.entity.weather.CurrentWeather;
+import com.koreatech.naeilro.network.entity.weather.OneWeekWeather;
 import com.koreatech.naeilro.network.interactor.WeatherInteractor;
 import com.koreatech.naeilro.ui.weather.WeatherCityInfo;
 

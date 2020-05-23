@@ -5,9 +5,9 @@ import android.util.Log;
 import com.koreatech.core.network.ApiCallback;
 import com.koreatech.core.network.WeatherRetrofitManager;
 import com.koreatech.naeilro.NaeilroApplication;
-import com.koreatech.naeilro.network.entity.CurrentWeather;
-import com.koreatech.naeilro.network.entity.OneWeekWeather;
-import com.koreatech.naeilro.network.entity.Weather;
+import com.koreatech.naeilro.network.entity.weather.CurrentWeather;
+import com.koreatech.naeilro.network.entity.weather.OneWeekWeather;
+import com.koreatech.naeilro.network.entity.weather.Weather;
 import com.koreatech.naeilro.network.service.WeatherService;
 import com.koreatech.naeilro.ui.weather.WeatherCityInfo;
 
