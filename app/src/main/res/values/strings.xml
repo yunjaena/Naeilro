@@ -32,6 +32,7 @@
 
     <!--train-->
     <string name="train_info_fail">열차 정보를 불러올 수 없습니다.</string>
+    <string name="train_city_info_fail">도시 정보를 불러올 수 없습니다.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

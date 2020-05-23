@@ -5,6 +5,7 @@ import android.util.Log;
 import com.koreatech.core.network.ApiCallback;
 import com.koreatech.core.network.TrainRetrofitManager;
 import com.koreatech.naeilro.NaeilroApplication;
+import com.koreatech.naeilro.network.entity.traincitycode.TrainCityList;
 import com.koreatech.naeilro.network.entity.traininfo.TrainList;
 import com.koreatech.naeilro.network.service.TrainService;
 
@@ -38,6 +39,44 @@ public class TrainRestInteractor implements TrainInteractor {
                     apiCallback.onSuccess(response);
                 } else {
                     apiCallback.onFailure(new Throwable("fail read train list info"));
+                }
+            }
+
+
+            @Override
+            public void onError(Throwable throwable) {
+                if (throwable instanceof HttpException) {
+                    Log.d(TAG, ((HttpException) throwable).code() + " ");
+                }
+                apiCallback.onFailure(throwable);
+            }
+
+            @Override
+            public void onComplete() {
+            }
+        });
+    }
+
+    @Override
+    public void getTrainCityList(ApiCallback apiCallback) {
+        String apiKey = NaeilroApplication.getDataApiKey();
+        Observable<TrainCityList> observable = TrainRetrofitManager.getInstance().getRetrofit().create(TrainService.class).
+                getTrainCityList(apiKey)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+        observable.subscribe(new Observer<TrainCityList>() {
+            @Override
+            public void onSubscribe(Disposable disposable) {
+
+            }
+
+            @Override
+            public void onNext(final TrainCityList response) {
+                if (response != null) {
+                    apiCallback.onSuccess(response);
+                } else {
+                    apiCallback.onFailure(new Throwable("fail read train city list info"));
                 }
             }
 

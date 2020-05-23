@@ -4,4 +4,6 @@ import com.koreatech.core.network.ApiCallback;
 
 public interface TrainInteractor {
     void getTrainList(ApiCallback apiCallback);
+
+    void getTrainCityList(ApiCallback apiCallback);
 }

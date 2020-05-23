@@ -3,6 +3,7 @@ package com.koreatech.naeilro.ui.train.presenter;
 import androidx.annotation.StringRes;
 
 import com.koreatech.core.contract.BaseView;
+import com.koreatech.naeilro.network.entity.traincitycode.TrainCityInfo;
 import com.koreatech.naeilro.network.entity.traininfo.TrainInfo;
 
 import java.util.List;
@@ -18,5 +19,7 @@ public interface TrainInfoFragmentContract {
         void showMessage(@StringRes int message);
 
         void showTrainList(List<TrainInfo> trainInfo);
+
+        void showTrainCityList(List<TrainCityInfo> trainCityInfoList);
     }
 }

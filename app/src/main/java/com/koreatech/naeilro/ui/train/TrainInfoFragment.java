@@ -4,12 +4,14 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.R;
+import com.koreatech.naeilro.network.entity.traincitycode.TrainCityInfo;
 import com.koreatech.naeilro.network.entity.traininfo.TrainInfo;
 import com.koreatech.naeilro.network.interactor.TrainRestInteractor;
 import com.koreatech.naeilro.ui.main.MainActivity;
@@ -28,6 +30,7 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
                              Bundle savedInstanceState) {
         init();
         trainInfoFragmentPresenter.getTrainList();
+        trainInfoFragmentPresenter.getTrainCityList();
         return inflater.inflate(R.layout.fragment_train_info, container, false);
     }
 
@@ -58,6 +61,11 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
     @Override
     public void showTrainList(List<TrainInfo> trainInfoList) {
 
+    }
+
+    @Override
+    public void showTrainCityList(List<TrainCityInfo> trainCityInfoList) {
+        Log.d(TAG, "showTrainCityList: "+ trainCityInfoList.get(0).getCityName());
     }
 
     @Override
