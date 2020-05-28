@@ -45,7 +45,7 @@ public class TrainStationList {
 
     @Override
     public String toString() {
-        return "TrainStationList{" +
+        return "TrainSearchList{" +
                 "messageList=" + messageList +
                 ", trainInfoList=" + trainStationInfoBodyList +
                 '}';

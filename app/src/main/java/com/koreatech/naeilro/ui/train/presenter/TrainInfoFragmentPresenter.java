@@ -4,6 +4,7 @@ import com.koreatech.core.network.ApiCallback;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.traincitycode.TrainCityList;
 import com.koreatech.naeilro.network.entity.traininfo.TrainList;
+import com.koreatech.naeilro.network.entity.trainsearch.TrainSearchInfo;
 import com.koreatech.naeilro.network.entity.trainstaion.TrainStationInfo;
 import com.koreatech.naeilro.network.entity.trainstaion.TrainStationList;
 import com.koreatech.naeilro.network.interactor.TrainInteractor;
@@ -70,6 +71,22 @@ public class TrainInfoFragmentPresenter {
             trainInfoView.hideLoading();
         }
     };
+    final ApiCallback trainSearchListApiCallback = new ApiCallback() {
+        @Override
+        public void onSuccess(Object object) {
+            List<TrainSearchInfo> trainStationInfoList = (List<TrainSearchInfo>) object;
+            trainInfoView.showTrainSearchList(trainStationInfoList);
+            trainInfoView.hideLoading();
+        }
+
+        @Override
+        public void onFailure(Throwable throwable) {
+            trainInfoView.showMessage(R.string.train_info_fail);
+            trainInfoView.hideLoading();
+        }
+    };
+
+
 
     public void getTrainList() {
         trainInfoView.showLoading();
@@ -84,5 +101,10 @@ public class TrainInfoFragmentPresenter {
     public void getTrainStationList() {
         trainInfoView.showLoading();
         trainInteractor.getTrainStationList(trainStationListApiCallback);
+    }
+
+    public void getTrainSearchList(String depPlaceId, String arrPlaceId, String depPlandTime, String trainGradeCode) {
+        trainInfoView.showLoading();
+        trainInteractor.getTrainSearchList(depPlaceId, arrPlaceId, depPlandTime, trainGradeCode, trainSearchListApiCallback);
     }
 }

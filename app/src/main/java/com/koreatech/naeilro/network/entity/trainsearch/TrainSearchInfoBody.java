@@ -1,4 +1,4 @@
-package com.koreatech.naeilro.network.entity.trainstaion;
+package com.koreatech.naeilro.network.entity.trainsearch;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -7,10 +7,10 @@ import org.simpleframework.xml.Root;
 import java.util.List;
 
 @Root(name = "body")
-public class TrainStationInfoBody {
+public class TrainSearchInfoBody {
 
     @ElementList(inline = true, required = false)
-    private List<TrainStationInfoItem> trainStationInfoItemList;
+    private List<TrainSearchInfoItem> trainSearchInfoItemList;
     @Element(name = "numOfRows")
     private int numOfRows;
     @Element(name = "pageNo")
@@ -18,12 +18,12 @@ public class TrainStationInfoBody {
     @Element(name = "totalCount")
     private int totalCount;
 
-    public List<TrainStationInfoItem> getTrainStationInfoItemList() {
-        return trainStationInfoItemList;
+    public List<TrainSearchInfoItem> getTrainSearchInfoItemList() {
+        return trainSearchInfoItemList;
     }
 
-    public void setTrainStationInfoItemList(List<TrainStationInfoItem> trainStationInfoItemList) {
-        this.trainStationInfoItemList = trainStationInfoItemList;
+    public void setTrainSearchInfoItemList(List<TrainSearchInfoItem> trainSearchInfoItemList) {
+        this.trainSearchInfoItemList = trainSearchInfoItemList;
     }
 
     public int getNumOfRows() {
@@ -53,7 +53,7 @@ public class TrainStationInfoBody {
     @Override
     public String toString() {
         return "TrainSearchInfoBody{" +
-                "trainStationInfoItemList=" + trainStationInfoItemList +
+                "trainSearchInfoItemList=" + trainSearchInfoItemList +
                 ", numOfRows=" + numOfRows +
                 ", pageNo=" + pageNo +
                 ", totalCount=" + totalCount +

@@ -1,5 +1,6 @@
 package com.koreatech.naeilro.ui.train;
 
+import android.app.DatePickerDialog;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +20,7 @@ import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.traincitycode.TrainCityInfo;
 import com.koreatech.naeilro.network.entity.traininfo.TrainInfo;
+import com.koreatech.naeilro.network.entity.trainsearch.TrainSearchInfo;
 import com.koreatech.naeilro.network.entity.trainstaion.TrainStationInfo;
 import com.koreatech.naeilro.network.interactor.TrainRestInteractor;
 import com.koreatech.naeilro.ui.main.MainActivity;
@@ -26,9 +30,10 @@ import com.koreatech.naeilro.util.TimeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
-public class TrainInfoFragment extends Fragment implements TrainInfoFragmentContract.View, TrainStationSelectDialog.DialogCallback, View.OnClickListener {
+public class TrainInfoFragment extends Fragment implements TrainInfoFragmentContract.View, TrainStationSelectDialog.DialogCallback, TrainTypeSelectDialog.DialogCallback, View.OnClickListener {
     public static final String TAG = "TrainInfoFragment";
     private TrainInfoFragmentPresenter trainInfoFragmentPresenter;
     private List<TrainInfo> trainInfoList;
@@ -37,6 +42,7 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
     private TextView arrivalStationTextView;
     private TextView departDateTextView;
     private TextView trainTypeTextView;
+    private LinearLayout searchLinearLayout;
     private int departStation;
     private int arrivalStation;
     private String departDate;
@@ -60,10 +66,12 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
         arrivalStationTextView = view.findViewById(R.id.train_arrival_station_text_view);
         departDateTextView = view.findViewById(R.id.train_depart_date_text_view);
         trainTypeTextView = view.findViewById(R.id.train_type_text_view);
+        searchLinearLayout = view.findViewById(R.id.train_search_linear_layout);
         departDateTextView.setOnClickListener(this);
         arrivalStationTextView.setOnClickListener(this);
         trainTypeTextView.setOnClickListener(this);
         departStationTextView.setOnClickListener(this);
+        searchLinearLayout.setOnClickListener(this);
         departDate = TimeUtil.getTodayDate();
     }
 
@@ -120,8 +128,13 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
                 openTrainStationSelectDialog(false);
                 break;
             case R.id.train_depart_date_text_view:
+                openCalendarView();
                 break;
             case R.id.train_type_text_view:
+                openTrainTypeSelectDialog();
+                break;
+            case R.id.train_search_linear_layout:
+                onClickedSearchButton();
                 break;
         }
     }
@@ -160,6 +173,23 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
         window.setAttributes(lp);
     }
 
+    public void openTrainTypeSelectDialog() {
+        TrainTypeSelectDialog trainTypeSelectDialog = new TrainTypeSelectDialog(getActivity(), this, trainInfoList);
+        trainTypeSelectDialog.show();
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(trainTypeSelectDialog.getWindow().getAttributes());
+        lp.width = (int) (size.x * 0.9f);
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+
+        trainTypeSelectDialog.show();
+        Window window = trainTypeSelectDialog.getWindow();
+        window.setAttributes(lp);
+    }
+
     @Override
     public void stationItemSelect(int index, boolean isDepart) {
         if (isSameStation(index, isDepart)) {
@@ -174,12 +204,48 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
         updateUI();
     }
 
+    @Override
+    public void showTrainSearchList(List<TrainSearchInfo> trainSearchInfoList) {
+
+    }
+
+
+    public void onClickedSearchButton() {
+        String arrivalCode = trainStationInfoList.get(arrivalStation).getStationCode();
+        String departCode = trainStationInfoList.get(departStation).getStationCode();
+        String dateString[] = departDate.split("-");
+        String departDate = String.format(Locale.KOREA, "%04d%02d%02d", Integer.parseInt(dateString[0]), Integer.parseInt(dateString[1]), Integer.parseInt(dateString[2]));
+        String trainCode = trainInfoList.get(trainType).getVehicleId();
+        trainInfoFragmentPresenter.getTrainSearchList(departCode, arrivalCode, departDate, trainCode);
+    }
+
+
+    @Override
+    public void trainItemSelect(int index) {
+        trainType = index;
+        updateUI();
+    }
+
     public boolean isSameStation(int compareStation, boolean isDepart) {
         if (isDepart) {
             return departStation == compareStation;
         } else {
             return arrivalStation == compareStation;
         }
-
     }
+
+    private void openCalendarView() {
+        String[] dateSplitString = departDate.split("-");
+        int year = Integer.parseInt(dateSplitString[0]);
+        int month = Integer.parseInt(dateSplitString[1]);
+        int day = Integer.parseInt(dateSplitString[2]);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), (view, yearSelect, monthSelect, daySelect) -> {
+            departDate = String.format(Locale.KOREA, "%04d-%02d-%02d", yearSelect, monthSelect + 1, daySelect);
+            updateUI();
+        }, year, month - 1, day);
+
+        datePickerDialog.show();
+    }
+
+
 }

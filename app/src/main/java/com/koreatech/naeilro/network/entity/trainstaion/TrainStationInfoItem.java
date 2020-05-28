@@ -20,7 +20,7 @@ public class TrainStationInfoItem {
 
     @Override
     public String toString() {
-        return "TrainStationInfoItem{" +
+        return "TrainSearchInfoItem{" +
                 "trainStationInfoList=" + trainStationInfoList +
                 '}';
     }

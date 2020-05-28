@@ -8,4 +8,6 @@ public interface TrainInteractor {
     void getTrainCityList(ApiCallback apiCallback);
 
     void getTrainStationList(ApiCallback apiCallback);
+
+    void getTrainSearchList(String depPlaceId, String arrPlaceId, String depPlandTime, String trainGradeCode, ApiCallback apiCallback);
 }

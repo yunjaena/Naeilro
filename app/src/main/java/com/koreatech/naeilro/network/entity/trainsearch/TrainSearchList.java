@@ -1,7 +1,6 @@
-package com.koreatech.naeilro.network.entity.traincitycode;
+package com.koreatech.naeilro.network.entity.trainsearch;
 
 import com.koreatech.naeilro.network.entity.Message;
-import com.koreatech.naeilro.network.entity.traininfo.TrainInfoBody;
 
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
@@ -9,13 +8,15 @@ import org.simpleframework.xml.Root;
 import java.util.List;
 
 @Root(name = "response", strict = false)
-public class TrainCityList {
+public class TrainSearchList {
 
     @ElementList(inline = true, required = false)
     private List<Message> messageList;
 
     @ElementList(inline = true, required = false)
-    private List<TrainCityInfoBody> trainCityInfoBodyList;
+    private List<TrainSearchInfoBody> trainSearchInfoBodyList;
+
+    private String cityCode;
 
     public List<Message> getMessageList() {
         return messageList;
@@ -26,19 +27,27 @@ public class TrainCityList {
     }
 
 
-    public List<TrainCityInfoBody> getTrainCityInfoBodyList() {
-        return trainCityInfoBodyList;
+    public List<TrainSearchInfoBody> getTrainSearchInfoBodyList() {
+        return trainSearchInfoBodyList;
     }
 
-    public void setTrainCityInfoBodyList(List<TrainCityInfoBody> trainCityInfoBodyList) {
-        this.trainCityInfoBodyList = trainCityInfoBodyList;
+    public void setTrainSearchInfoBodyList(List<TrainSearchInfoBody> trainSearchInfoBodyList) {
+        this.trainSearchInfoBodyList = trainSearchInfoBodyList;
+    }
+
+    public String getCityCode() {
+        return cityCode;
+    }
+
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
     }
 
     @Override
     public String toString() {
         return "TrainSearchList{" +
                 "messageList=" + messageList +
-                ", trainInfoList=" + trainCityInfoBodyList +
+                ", trainInfoList=" + trainSearchInfoBodyList +
                 '}';
     }
 }

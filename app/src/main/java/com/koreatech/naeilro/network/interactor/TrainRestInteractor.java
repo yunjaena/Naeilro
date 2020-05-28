@@ -5,10 +5,10 @@ import android.util.Log;
 import com.koreatech.core.network.ApiCallback;
 import com.koreatech.core.network.TrainRetrofitManager;
 import com.koreatech.naeilro.NaeilroApplication;
-import com.koreatech.naeilro.network.entity.traincitycode.TrainCityInfo;
-import com.koreatech.naeilro.network.entity.traincitycode.TrainCityInfoBody;
 import com.koreatech.naeilro.network.entity.traincitycode.TrainCityList;
 import com.koreatech.naeilro.network.entity.traininfo.TrainList;
+import com.koreatech.naeilro.network.entity.trainsearch.TrainSearchInfo;
+import com.koreatech.naeilro.network.entity.trainsearch.TrainSearchList;
 import com.koreatech.naeilro.network.entity.trainstaion.TrainStationInfo;
 import com.koreatech.naeilro.network.entity.trainstaion.TrainStationList;
 import com.koreatech.naeilro.network.service.TrainService;
@@ -18,13 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import kotlin.jvm.functions.Function1;
 import retrofit2.HttpException;
 
 public class TrainRestInteractor implements TrainInteractor {
@@ -95,7 +92,7 @@ public class TrainRestInteractor implements TrainInteractor {
                     for (int i = 1; i < totalPage; i++) {
                         trainObservableList.add(TrainRetrofitManager.getInstance().getRetrofit().create(TrainService.class).getTrainStationList(apiKey, 10, i, trainStationList.getCityCode()).subscribeOn(Schedulers.io()));
                     }
-                    return Observable.merge(trainObservableList);
+                    return Observable.concat(trainObservableList);
                 }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<TrainStationList>() {
@@ -158,7 +155,50 @@ public class TrainRestInteractor implements TrainInteractor {
             public void onComplete() {
             }
         });
+    }
+
+    @Override
+    public void getTrainSearchList(String depPlaceId, String arrPlaceId, String depPlandTime, String trainGradeCode, ApiCallback apiCallback) {
+        String apiKey = NaeilroApplication.getDataApiKey();
+        List<TrainSearchInfo> trainSearchInfoList = new ArrayList<>();
+
+        Observable<TrainSearchList> trainSearchListObservable = TrainRetrofitManager.getInstance().getRetrofit().create(TrainService.class).
+                getTrainSearchList(apiKey, 10, 1, depPlaceId, arrPlaceId, depPlandTime, trainGradeCode);
 
 
+        trainSearchListObservable.map(trainSearchList -> trainSearchList.getTrainSearchInfoBodyList().get(0))
+                .flatMap(trainSearchInfoBody -> {
+                    int totalCount = trainSearchInfoBody.getTotalCount();
+                    int numOfRows = trainSearchInfoBody.getNumOfRows();
+                    int totalPage = (int) Math.ceil((double) totalCount / numOfRows) + 1;
+                    List<Observable<TrainSearchList>> trainObservableList = new ArrayList<>();
+                    for (int i = 1; i < totalPage; i++) {
+                        trainObservableList.add(TrainRetrofitManager.getInstance().getRetrofit().create(TrainService.class).
+                                getTrainSearchList(apiKey, 10, i, depPlaceId, arrPlaceId, depPlandTime, trainGradeCode));
+                    }
+                    return Observable.concat(trainObservableList);
+                }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<TrainSearchList>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(TrainSearchList trainSearchList) {
+                        trainSearchInfoList.addAll(trainSearchList.getTrainSearchInfoBodyList().get(0).getTrainSearchInfoItemList().get(0).getTrainSearchInfoList());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        apiCallback.onFailure(new Throwable("Can not get train search info"));
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        apiCallback.onSuccess(trainSearchInfoList);
+                    }
+                });
     }
 }
