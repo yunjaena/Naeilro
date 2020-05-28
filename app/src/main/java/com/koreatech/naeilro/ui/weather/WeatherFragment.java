@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -21,7 +20,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -29,18 +27,15 @@ import com.bumptech.glide.request.transition.Transition;
 import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.NaeilroApplication;
 import com.koreatech.naeilro.R;
-import com.koreatech.naeilro.network.entity.CurrentWeather;
-import com.koreatech.naeilro.network.entity.OneWeekWeather;
+import com.koreatech.naeilro.network.entity.weather.CurrentWeather;
+import com.koreatech.naeilro.network.entity.weather.OneWeekWeather;
 import com.koreatech.naeilro.network.interactor.WeatherRestInteractor;
 import com.koreatech.naeilro.ui.main.MainActivity;
 import com.koreatech.naeilro.ui.weather.presenter.WeatherFragmentContract;
 import com.koreatech.naeilro.ui.weather.presenter.WeatherFragmentPresenter;
 import com.koreatech.naeilro.util.BitmapUtil;
 import com.koreatech.naeilro.util.TemperatureUtil;
-import com.skt.Tmap.TMapLayer;
 import com.skt.Tmap.TMapMarkerItem;
-import com.skt.Tmap.TMapMarkerItem2;
-import com.skt.Tmap.TMapMarkerItemLayer;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
 

@@ -1,5 +1,7 @@
-package com.koreatech.naeilro.network.entity;
+package com.koreatech.naeilro.network.entity.weather;
 
+
+import com.koreatech.naeilro.network.entity.Message;
 
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;

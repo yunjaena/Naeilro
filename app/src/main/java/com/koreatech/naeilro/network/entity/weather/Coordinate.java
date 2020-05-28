@@ -1,4 +1,4 @@
-package com.koreatech.naeilro.network.entity;
+package com.koreatech.naeilro.network.entity.weather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

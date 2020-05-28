@@ -1,10 +1,8 @@
 package com.koreatech.naeilro.network.service;
 
 import com.koreatech.core.network.Json;
-import com.koreatech.core.network.Xml;
-import com.koreatech.naeilro.network.entity.CurrentWeather;
-import com.koreatech.naeilro.network.entity.OneWeekWeather;
-import com.koreatech.naeilro.network.entity.TrainArrivalDepartInfo;
+import com.koreatech.naeilro.network.entity.weather.CurrentWeather;
+import com.koreatech.naeilro.network.entity.weather.OneWeekWeather;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
