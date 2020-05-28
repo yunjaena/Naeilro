@@ -75,7 +75,10 @@ public class TrainInfoFragmentPresenter {
         @Override
         public void onSuccess(Object object) {
             List<TrainSearchInfo> trainStationInfoList = (List<TrainSearchInfo>) object;
-            trainInfoView.showTrainSearchList(trainStationInfoList);
+            if (trainStationInfoList.size() > 0)
+                trainInfoView.showTrainSearchList(trainStationInfoList);
+            else
+                trainInfoView.showMessage(R.string.train_info_empty);
             trainInfoView.hideLoading();
         }
 
@@ -85,7 +88,6 @@ public class TrainInfoFragmentPresenter {
             trainInfoView.hideLoading();
         }
     };
-
 
 
     public void getTrainList() {

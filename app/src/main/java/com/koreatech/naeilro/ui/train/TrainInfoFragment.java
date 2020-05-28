@@ -201,12 +201,26 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
             departStation = index;
         else
             arrivalStation = index;
+
         updateUI();
     }
 
     @Override
     public void showTrainSearchList(List<TrainSearchInfo> trainSearchInfoList) {
+        TrainSearchDialog trainSearchDialog = new TrainSearchDialog(getActivity(), trainSearchInfoList);
+        trainSearchDialog.show();
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
 
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(trainSearchDialog.getWindow().getAttributes());
+        lp.width = (int) (size.x * 0.9f);
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+
+        trainSearchDialog.show();
+        Window window = trainSearchDialog.getWindow();
+        window.setAttributes(lp);
     }
 
 
@@ -228,9 +242,9 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
 
     public boolean isSameStation(int compareStation, boolean isDepart) {
         if (isDepart) {
-            return departStation == compareStation;
-        } else {
             return arrivalStation == compareStation;
+        } else {
+            return departStation == compareStation;
         }
     }
 

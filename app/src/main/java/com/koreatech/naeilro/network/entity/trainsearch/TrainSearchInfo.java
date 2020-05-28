@@ -12,7 +12,7 @@ public class TrainSearchInfo {
     @Element(name = "arrplandtime")
     private String arrivalTime;
     @Element(name = "depplacename")
-    private String departureName;
+    private String departurePlaceName;
     @Element(name = "depplandtime")
     private String departureTime;
     @Element(name = "traingradename")
@@ -44,12 +44,12 @@ public class TrainSearchInfo {
         this.arrivalTime = arrivalTime;
     }
 
-    public String getDepartureName() {
-        return departureName;
+    public String getDeparturePlaceName() {
+        return departurePlaceName;
     }
 
-    public void setDepartureName(String departureName) {
-        this.departureName = departureName;
+    public void setDeparturePlaceName(String departurePlaceName) {
+        this.departurePlaceName = departurePlaceName;
     }
 
     public String getDepartureTime() {
@@ -82,7 +82,7 @@ public class TrainSearchInfo {
                 "adultCharge=" + adultCharge +
                 ", arrivalPlaceName='" + arrivalPlaceName + '\'' +
                 ", arrivalTime='" + arrivalTime + '\'' +
-                ", departureName='" + departureName + '\'' +
+                ", departurePlaceName='" + departurePlaceName + '\'' +
                 ", departureTime='" + departureTime + '\'' +
                 ", trainName='" + trainName + '\'' +
                 ", trainNumber='" + trainNumber + '\'' +

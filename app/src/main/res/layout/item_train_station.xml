@@ -13,8 +13,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:layout_marginStart="10dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textSize="15sp"
             tools:text="서울역" />
 
 </LinearLayout>
