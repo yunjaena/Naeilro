@@ -5,19 +5,30 @@ import android.util.Log;
 import com.koreatech.core.network.ApiCallback;
 import com.koreatech.core.network.TrainRetrofitManager;
 import com.koreatech.naeilro.NaeilroApplication;
+import com.koreatech.naeilro.network.entity.traincitycode.TrainCityInfo;
+import com.koreatech.naeilro.network.entity.traincitycode.TrainCityInfoBody;
 import com.koreatech.naeilro.network.entity.traincitycode.TrainCityList;
 import com.koreatech.naeilro.network.entity.traininfo.TrainList;
+import com.koreatech.naeilro.network.entity.trainstaion.TrainStationInfo;
+import com.koreatech.naeilro.network.entity.trainstaion.TrainStationList;
 import com.koreatech.naeilro.network.service.TrainService;
+import com.koreatech.naeilro.util.DataAPIMessageUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import kotlin.jvm.functions.Function1;
 import retrofit2.HttpException;
 
 public class TrainRestInteractor implements TrainInteractor {
-    public static final String TAG  = "TrainRestInteractor";
+    public static final String TAG = "TrainRestInteractor";
 
     @Override
     public void getTrainList(ApiCallback apiCallback) {
@@ -36,7 +47,10 @@ public class TrainRestInteractor implements TrainInteractor {
             @Override
             public void onNext(final TrainList response) {
                 if (response != null) {
-                    apiCallback.onSuccess(response);
+                    if (DataAPIMessageUtil.isSuccess(response.getMessageList().get(0))) {
+                        apiCallback.onSuccess(response);
+                    } else
+                        apiCallback.onFailure(new Throwable("fail read train list info"));
                 } else {
                     apiCallback.onFailure(new Throwable("fail read train list info"));
                 }
@@ -55,6 +69,57 @@ public class TrainRestInteractor implements TrainInteractor {
             public void onComplete() {
             }
         });
+    }
+
+    @Override
+    public void getTrainStationList(ApiCallback apiCallback) {
+        String apiKey = NaeilroApplication.getDataApiKey();
+        List<TrainStationInfo> stationInfoList = new ArrayList<>();
+        Observable<TrainCityList> trainCityListObservable = TrainRetrofitManager.getInstance().getRetrofit().create(TrainService.class).
+                getTrainCityList(apiKey);
+
+        trainCityListObservable.flatMapIterable(trainCityList -> trainCityList.getTrainCityInfoBodyList().get(0).getTrainCityInfoItemList().get(0).getTrainCityInfoList())
+                .flatMap(trainCityInfo -> TrainRetrofitManager.getInstance().getRetrofit().create(TrainService.class).
+                        getTrainStationList(apiKey, 10, 1, trainCityInfo.getCityCode()).map(trainStationList -> {
+                    trainStationList.setCityCode(trainCityInfo.getCityCode());
+                    if (!DataAPIMessageUtil.isSuccess(trainStationList.getMessageList().get(0))) {
+                        throw new Exception("Can not get trainStation Data");
+                    }
+                    return trainStationList;
+                })).
+                flatMap(trainStationList -> {
+                    int totalCount = trainStationList.getTrainStationInfoBodyList().get(0).getTotalCount();
+                    int numOfRows = trainStationList.getTrainStationInfoBodyList().get(0).getNumOfRows();
+                    int totalPage = (int) Math.ceil((double) totalCount / numOfRows) + 1;
+                    List<Observable<TrainStationList>> trainObservableList = new ArrayList<>();
+                    for (int i = 1; i < totalPage; i++) {
+                        trainObservableList.add(TrainRetrofitManager.getInstance().getRetrofit().create(TrainService.class).getTrainStationList(apiKey, 10, i, trainStationList.getCityCode()).subscribeOn(Schedulers.io()));
+                    }
+                    return Observable.merge(trainObservableList);
+                }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<TrainStationList>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(TrainStationList trainStationList) {
+                        stationInfoList.addAll(trainStationList.getTrainStationInfoBodyList().get(0).getTrainStationInfoItemList().get(0).getTrainStationInfoList());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        apiCallback.onFailure(new Throwable("Can not get station info"));
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        apiCallback.onSuccess(stationInfoList);
+                    }
+                });
+
     }
 
     @Override
@@ -93,5 +158,7 @@ public class TrainRestInteractor implements TrainInteractor {
             public void onComplete() {
             }
         });
+
+
     }
 }

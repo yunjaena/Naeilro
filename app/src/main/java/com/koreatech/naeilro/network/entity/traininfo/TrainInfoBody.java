@@ -22,7 +22,7 @@ public class TrainInfoBody {
 
     @Override
     public String toString() {
-        return "TrainCityInfoBody{" +
+        return "TrainStationInfoBody{" +
                 "trainInfoItemList=" + trainInfoItemList +
                 '}';
     }

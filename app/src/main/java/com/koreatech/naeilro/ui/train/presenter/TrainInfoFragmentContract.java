@@ -5,6 +5,8 @@ import androidx.annotation.StringRes;
 import com.koreatech.core.contract.BaseView;
 import com.koreatech.naeilro.network.entity.traincitycode.TrainCityInfo;
 import com.koreatech.naeilro.network.entity.traininfo.TrainInfo;
+import com.koreatech.naeilro.network.entity.trainstaion.TrainStationInfo;
+import com.koreatech.naeilro.network.entity.trainstaion.TrainStationList;
 
 import java.util.List;
 
@@ -21,5 +23,7 @@ public interface TrainInfoFragmentContract {
         void showTrainList(List<TrainInfo> trainInfo);
 
         void showTrainCityList(List<TrainCityInfo> trainCityInfoList);
+
+        void showTrainStationList(List<TrainStationInfo> trainStationInfoList);
     }
 }

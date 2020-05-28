@@ -28,7 +28,7 @@ public class TrainInfo {
 
     @Override
     public String toString() {
-        return "TrainCityInfo{" +
+        return "TrainStationInfo{" +
                 "vehicleId='" + vehicleId + '\'' +
                 ", vehicleName='" + vehicleName + '\'' +
                 '}';

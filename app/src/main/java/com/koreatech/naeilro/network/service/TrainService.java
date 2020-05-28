@@ -2,6 +2,7 @@ package com.koreatech.naeilro.network.service;
 
 import com.koreatech.core.network.Xml;
 import com.koreatech.naeilro.network.entity.traincitycode.TrainCityList;
+import com.koreatech.naeilro.network.entity.trainstaion.TrainStationList;
 import com.koreatech.naeilro.network.entity.weather.TrainArrivalDepartInfo;
 import com.koreatech.naeilro.network.entity.traininfo.TrainList;
 
@@ -13,6 +14,7 @@ public interface TrainService {
     String TRAIN_ARRIVAL_DEPART_INFO_PATH = "getStrtpntAlocFndTrainInfo";
     String TRAIN_INFO = "getVhcleKndList";
     String TRAIN_CITY_INFO = "getCtyCodeList";
+    String TRAIN_STATION_INFO = "getCtyAcctoTrainSttnList";
     /**
      *
      * @param serviceKey 서비스 키
@@ -43,5 +45,9 @@ public interface TrainService {
     @GET(TRAIN_CITY_INFO)
     @Xml
     Observable<TrainCityList> getTrainCityList(@Query("serviceKey")String serviceKey);
+
+    @GET(TRAIN_STATION_INFO)
+    @Xml
+    Observable<TrainStationList> getTrainStationList(@Query("serviceKey")String serviceKey, @Query("numOfRows")int numOfRows, @Query("pageNo") int pageNo, @Query("cityCode") String cityCode);
 
 }
