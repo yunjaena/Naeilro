@@ -24,8 +24,8 @@ public class KoreanTourRetrofitManager {
 
     private static KoreanTourRetrofitManager instance = null;
 
-    public static final String BASE_URL_PRODUCTION = "http://api.visitkorea.or.kr/openapi/service"; //release server
-    public static final String BASE_URL_STAGE = "http://api.visitkorea.or.kr/openapi/service"; //development server
+    public static final String BASE_URL_PRODUCTION = "http://api.visitkorea.or.kr/openapi/service/"; //release server
+    public static final String BASE_URL_STAGE = "http://api.visitkorea.or.kr/openapi/service/"; //development server
 
     private Retrofit retrofit;
 
