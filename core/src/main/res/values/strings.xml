@@ -6,4 +6,7 @@
     <string name="saving">저장 중</string>
     <string name="error_null">값이 없습니다</string>
     <string name="error_network">네트워크 환경을 확인해주세요</string>
+
+    <!-- 숙박정보 -->
+    <string name="loading_house_info">숙박정보 로딩 중</string>
 </resources>
