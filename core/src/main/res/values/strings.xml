@@ -9,4 +9,7 @@
 
     <!-- 숙박정보 -->
     <string name="loading_house_info">숙박정보 로딩 중</string>
+
+    <!-- 행사정보 -->
+    <string name="loading_festival_info">행사정보 로딩 중</string>
 </resources>
