@@ -67,7 +67,7 @@ public class Festival {
     private String agelimit;
     @Element(name = "discountinfofestival", required = false)
     private String discountinfofestival;
-    @Element(name = "playtime", required = false)
+    @Element(name = "playtime", required = false)   //공연시간
     private String playtime;
     @Element(name = "spendtimefestival", required = false)
     private String spendtimefestival;

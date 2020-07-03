@@ -102,7 +102,24 @@
         android:id="@+id/navigation_festival"
         android:name="com.koreatech.naeilro.ui.festival.FestivalFragment"
         android:label="@string/category_festival"
-        tools:layout="@layout/fragment_festival" />
+        tools:layout="@layout/fragment_festival">
+        <argument
+            android:name="contentTypeId"
+            app:nullable="false"
+            app:argType="integer"/>
+        <argument
+            android:name="contentId"
+            app:nullable="false"
+            app:argType="integer"/>
+        <action
+            android:id="@+id/action_navigation_festival_to_navigation_detail_festival"
+            app:destination="@id/navigation_detail_festival" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_detail_festival"
+        android:name="com.koreatech.naeilro.ui.festival.FestivalDetailFragment"
+        android:label="@string/category_festival"
+        tools:layout="@layout/fragment_festival"/>
     <fragment
         android:id="@+id/navigation_weather"
         android:name="com.koreatech.naeilro.ui.weather.WeatherFragment"

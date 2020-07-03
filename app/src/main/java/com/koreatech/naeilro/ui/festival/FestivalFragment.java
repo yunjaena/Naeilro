@@ -101,7 +101,7 @@ public class FestivalFragment extends Fragment implements FestivalInfoFragmentCo
         eventList = new ArrayList<>();
         festivalInfoRecyclerView = view.findViewById(R.id.festival_info_recycler_view);
         festivalInfoRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        festivalInfoRecyclerViewAdapter = new FestivalInfoRecyclerViewAdapter();
+        festivalInfoRecyclerViewAdapter = new FestivalInfoRecyclerViewAdapter(view.getContext());
         festivalInfoRecyclerView.setAdapter(festivalInfoRecyclerViewAdapter);
         festivalInfoRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
