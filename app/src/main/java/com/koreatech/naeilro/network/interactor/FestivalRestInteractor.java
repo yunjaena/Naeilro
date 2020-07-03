@@ -102,4 +102,72 @@ public class FestivalRestInteractor implements FestivalInteractor {
             }
         });
     }
+
+    @Override
+    public void getFestivalCommonItems(ApiCallback apiCallback, int contentTypeId, int contentId, String mobileApp, String defaultYN, String firstImageYN, String areacodeYN, String mapinfoYN, String overviewYN) {
+        String apiKey = NaeilroApplication.getDataApiKey();
+        Observable<FestivalInfoList> observable = KoreanTourRetrofitManager.getInstance().getRetrofit().create(EventService.class).
+                getFestivalCommonList(apiKey,contentTypeId,contentId, mobileOS, mobileApp,defaultYN,firstImageYN,areacodeYN,mapinfoYN,overviewYN)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        observable.subscribe(new Observer<FestivalInfoList>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(FestivalInfoList festivalInfoList) {
+                if (festivalInfoList != null) {
+                    apiCallback.onSuccess(festivalInfoList.getFestivalBodyList().get(0).getFestivalInfoItems().get(0).getFestivalList().get(0));
+                }else{
+                    apiCallback.onFailure(new Throwable("fail read houseList"));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    @Override
+    public void getFestivalIntroItems(ApiCallback apiCallback, int contentTypeId, int contentId, String mobileApp) {
+        String apiKey = NaeilroApplication.getDataApiKey();
+        Observable<FestivalInfoList> observable = KoreanTourRetrofitManager.getInstance().getRetrofit().create(EventService.class).
+                getFestivalIntroList(apiKey, contentTypeId, contentId, mobileOS, mobileApp)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        observable.subscribe(new Observer<FestivalInfoList>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(FestivalInfoList festivalInfoList) {
+                if (festivalInfoList != null) {
+                    apiCallback.onSuccess(festivalInfoList.getFestivalBodyList().get(0).getFestivalInfoItems().get(0).getFestivalList().get(0));
+                }else{
+                    apiCallback.onFailure(new Throwable("fail read houseList"));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
 }

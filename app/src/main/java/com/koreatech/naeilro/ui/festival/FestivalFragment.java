@@ -115,7 +115,16 @@ public class FestivalFragment extends Fragment implements FestivalInfoFragmentCo
                         festivalFragmentPresenter.getFestivalItems(pageNum);
                     } else {
                         pageNum += 1;
-                        festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode);
+                        if (areaCode == 34 && sigunguCode > 9) {
+                            festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode + 1);
+                        }
+                        else if (areaCode == 36 && sigunguCode > 10) {
+                            festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode + 1);
+                        }else if (areaCode == 38 && sigunguCode > 13) {
+                            festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode + 2);
+                        }
+                        else
+                            festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode);
                     }
                 }
             }
@@ -125,8 +134,18 @@ public class FestivalFragment extends Fragment implements FestivalInfoFragmentCo
     public void getSearchFestival() {
         filterFlag = true;
         pageNum = 1;
-        if (areaCode != 0)
-            festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode);
+        if (areaCode != 0) {
+            if (areaCode == 34 && sigunguCode > 9) {
+                festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode + 1);
+            }
+            else if (areaCode == 36 && sigunguCode > 10) {
+                festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode + 1);
+            }else if (areaCode == 38 && sigunguCode > 13) {
+                festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode + 2);
+            }
+            else
+                festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode);
+        }
         else
             festivalFragmentPresenter.getFestivalItems(pageNum);
     }

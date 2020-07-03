@@ -61,6 +61,20 @@ public class Festival {
 
     @Element(name = "eventenddate", required = false)
     private String eventenddate;
+    @Element(name = "overview", required = false)
+    private String overview;
+    @Element(name = "agelimit", required = false)
+    private String agelimit;
+    @Element(name = "discountinfofestival", required = false)
+    private String discountinfofestival;
+    @Element(name = "playtime", required = false)
+    private String playtime;
+    @Element(name = "spendtimefestival", required = false)
+    private String spendtimefestival;
+    @Element(name = "usetimefestival", required = false)
+    private String usetimefestival;
+    @Element(name = "eventplace", required = false)
+    private String eventplace;
 
 
     public String getAddr1() {
@@ -141,5 +155,33 @@ public class Festival {
 
     public String getEventenddate() {
         return eventenddate;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public String getAgelimit() {
+        return agelimit;
+    }
+
+    public String getDiscountinfofestival() {
+        return discountinfofestival;
+    }
+
+    public String getPlaytime() {
+        return playtime;
+    }
+
+    public String getSpendtimefestival() {
+        return spendtimefestival;
+    }
+
+    public String getUsetimefestival() {
+        return usetimefestival;
+    }
+
+    public String getEventplace() {
+        return eventplace;
     }
 }
