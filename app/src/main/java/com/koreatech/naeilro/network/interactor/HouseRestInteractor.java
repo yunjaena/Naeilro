@@ -143,5 +143,74 @@ public class HouseRestInteractor implements HouseInteractor {
         });
     }
 
+    @Override
+    public void getHouseCommonInfo(ApiCallback apiCallback, int contentTypeId, int contentId, String MobileApp) {
+        List<HouseInfo> houseItems = new ArrayList<>();
+        String apiKey = NaeilroApplication.getDataApiKey();
+        Observable<HouseInfoList> observable = KoreanTourRetrofitManager.getInstance().getRetrofit().create(HouseService.class).
+                getHouseCommonInfo(apiKey, contentTypeId, contentId, mobileOS, MobileApp, "Y", "Y","Y","Y","Y")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        observable.subscribe(new Observer<HouseInfoList>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(HouseInfoList houseInfoList) {
+                if (houseInfoList != null) {
+                    apiCallback.onSuccess(houseInfoList.getHouseBodyList().get(0).getHouseInfoItemList().get(0).getHouseInfoList().get(0));
+                } else
+                    apiCallback.onFailure(new Throwable("fail read houseList"));
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    @Override
+    public void getHouseIntroInfo(ApiCallback apiCallback, int contentTypeId, int contentId, String MobileApp) {
+        Log.e("inteeractor", "getHouseIntroInfo");
+        String apiKey = NaeilroApplication.getDataApiKey();
+        Observable<HouseInfoList> observable = KoreanTourRetrofitManager.getInstance().getRetrofit().create(HouseService.class).
+                getHouseIntroInfo(apiKey, contentTypeId, contentId, mobileOS, MobileApp)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        observable.subscribe(new Observer<HouseInfoList>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(HouseInfoList houseInfoList) {
+                if (houseInfoList != null) {
+                    apiCallback.onSuccess(houseInfoList.getHouseBodyList().get(0).getHouseInfoItemList().get(0).getHouseInfoList().get(0));
+                } else
+                    apiCallback.onFailure(new Throwable("fail read houseList"));
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                    Log.e("fail", e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+    }
+
 
 }

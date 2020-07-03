@@ -1,6 +1,7 @@
 package com.koreatech.naeilro.ui.house.adapter;
 
-import android.text.Layout;
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,21 +9,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.house.HouseInfo;
-import com.koreatech.naeilro.network.entity.traininfo.TrainInfo;
+import com.koreatech.naeilro.ui.house.HouseDetailFragment;
+import com.koreatech.naeilro.ui.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static androidx.core.os.BundleKt.bundleOf;
+
 public class HouseInfoRecyclerViewAdapter extends RecyclerView.Adapter<HouseInfoRecyclerViewAdapter.ViewHolder>{
     private List<HouseInfo> houseInfoList;
+    private Context context;
+    NavController navController;
 
-    public HouseInfoRecyclerViewAdapter() {
+    public HouseInfoRecyclerViewAdapter(Context context) {
+        this.context = context;
         houseInfoList = new ArrayList<>();
+        navController = Navigation.findNavController((MainActivity)context, R.id.nav_host_fragment);
     }
 
     @NonNull
@@ -61,6 +71,18 @@ public class HouseInfoRecyclerViewAdapter extends RecyclerView.Adapter<HouseInfo
                     .load(R.drawable.ic_no_image)
                     .into(holder.houseImageView);
 
+        holder.view.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Bundle bundle = new Bundle();
+                bundle.putInt("contentTypeId", Integer.parseInt(houseInfo.getContenttypeid()));
+                bundle.putInt("contentId", Integer.parseInt(houseInfo.getContentid()));
+                bundle.putString("title", houseInfo.getTitle());
+                bundle.putString("tel", houseInfo.getTel());
+                navController.navigate(R.id.action_navigation_house_to_navigation_house_detail, bundle);
+            }
+        });
+
 
 
     }
@@ -84,15 +106,17 @@ public class HouseInfoRecyclerViewAdapter extends RecyclerView.Adapter<HouseInfo
         public TextView houseTelTextView;
         public TextView houseHanokTextView;
         public ImageView houseImageView;
-
+        public final View view;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            view = itemView;
             houseTitleTextView = itemView.findViewById(R.id.house_title);
             houseAddressTextView = itemView.findViewById(R.id.house_address);
             houseTelTextView = itemView.findViewById(R.id.house_tel);
             houseHanokTextView = itemView.findViewById(R.id.hanok_text);
             houseImageView = itemView.findViewById(R.id.house_image_view);
         }
+
     }
 }
