@@ -10,6 +10,8 @@ import retrofit2.http.Query;
 
 public interface HouseService {
     String HOUSE_LIST_INFO = "rest/KorService/searchStay";
+    String HOUSE_COMMON_INFO = "rest/KorService/detailCommon";
+    String HOUSE_INTRO_INFO = "rest/KorService/detailIntro";
 
     @GET(HOUSE_LIST_INFO)
     @Xml
@@ -21,4 +23,16 @@ public interface HouseService {
     Observable<HouseInfoList> getHouseCategoryList(@Query("serviceKey") String serviceKey, @Query("numOfRows") int numOfRows,
                                            @Query("pageNo") int pageNo, @Query("MobileOS") String mobileOS, @Query("MobileApp") String mobileApp,
                                            @Query("arrange") String arrange, @Query("listYN") String listYN, @Query("areaCode") int areaCode, @Query("sigunguCode") int sigunguCode);
+
+    @GET(HOUSE_COMMON_INFO)
+    @Xml
+    Observable<HouseInfoList> getHouseCommonInfo(@Query("serviceKey") String serviceKey, @Query("contentTypeId") int contentTypeId,
+                                                   @Query("contentId") int contentId, @Query("MobileOS") String mobileOS, @Query("MobileApp") String mobileApp,
+                                                   @Query("firstImageYN") String firstImageYN, @Query("areaCodeYN") String areaCodeYN, @Query("addrinfoYN") String addrinfoYN,
+                                                 @Query("mapinfoYN") String mapinfoYN,@Query("overviewYN") String overviewYN);
+
+    @GET(HOUSE_INTRO_INFO)
+    @Xml
+    Observable<HouseInfoList> getHouseIntroInfo(@Query("serviceKey") String serviceKey, @Query("contentTypeId") int contentTypeId,
+                                                 @Query("contentId") int contentId, @Query("MobileOS") String mobileOS, @Query("MobileApp") String mobileApp);
 }

@@ -43,6 +43,58 @@ public class HouseInfo {
     private String firstimage;
     @Element(name = "hanok", required = false)
     private int hanok;
+    @Element(name = "overview", required = false)
+    private String overview;
+
+    @Element(name = "barbecue", required = false)
+    private String barbecue;
+    @Element(name = "beauty", required = false)
+    private String beauty;
+    @Element(name = "benikia", required = false)
+    private String benikia;
+    @Element(name = "beverage", required = false)
+    private String beverage;
+    @Element(name = "bicycle", required = false)
+    private String bicycle;
+    @Element(name = "campfire", required = false)
+    private String campfire;
+    @Element(name = "checkintime", required = false)
+    private String checkintime;
+    @Element(name = "checkouttime", required = false)
+    private String checkouttime;
+    @Element(name = "chkcooking", required = false)
+    private String chkcooking;
+    @Element(name = "fitness", required = false)
+    private String fitness;
+    @Element(name = "karaoke", required = false)
+    private String karaoke;
+    @Element(name = "parkinglodging", required = false)
+    private String parkinglodging;
+    @Element(name = "pickup", required = false)
+    private String pickup;
+    @Element(name = "publicpc", required = false)
+    private String publicpc;
+    @Element(name = "roomtype", required = false)
+    private String roomtype;
+    @Element(name = "seminar", required = false)
+    private String seminar;
+    @Element(name = "sports", required = false)
+    private String sports;
+    @Element(name = "subfacility", required = false)            //부대시설
+    private String subfacility;
+    @Element(name = "foodplace", required = false)
+    private String foodplace;
+    @Element(name = "reservationlodging", required = false)
+    private String reservationlodging;                      //예약안내
+    @Element(name = "accomcountlodging", required = false)
+    private String accomcountlodging;                       //수용인원
+
+
+
+
+    public String getOverview() {
+        return overview;
+    }
 
     public String getAddr1() {
         return addr1;
@@ -118,5 +170,89 @@ public class HouseInfo {
 
     public int getHanok() {
         return hanok;
+    }
+
+    public String getBarbecue() {
+        return barbecue;
+    }
+
+    public String getBeauty() {
+        return beauty;
+    }
+
+    public String getBenikia() {
+        return benikia;
+    }
+
+    public String getBeverage() {
+        return beverage;
+    }
+
+    public String getBicycle() {
+        return bicycle;
+    }
+
+    public String getCampfire() {
+        return campfire;
+    }
+
+    public String getCheckintime() {
+        return checkintime;
+    }
+
+    public String getCheckouttime() {
+        return checkouttime;
+    }
+
+    public String getChkcooking() {
+        return chkcooking;
+    }
+
+    public String getFitness() {
+        return fitness;
+    }
+
+    public String getKaraoke() {
+        return karaoke;
+    }
+
+    public String getParkinglodging() {
+        return parkinglodging;
+    }
+
+    public String getPickup() {
+        return pickup;
+    }
+
+    public String getPublicpc() {
+        return publicpc;
+    }
+
+    public String getRoomtype() {
+        return roomtype;
+    }
+
+    public String getSeminar() {
+        return seminar;
+    }
+
+    public String getSports() {
+        return sports;
+    }
+
+    public String getSubfacility() {
+        return subfacility;
+    }
+
+    public String getFoodplace() {
+        return foodplace;
+    }
+
+    public String getReservationlodging() {
+        return reservationlodging;
+    }
+
+    public String getAccomcountlodging() {
+        return accomcountlodging;
     }
 }

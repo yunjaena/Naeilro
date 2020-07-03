@@ -1,5 +1,6 @@
 package com.koreatech.naeilro.ui.house;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -74,7 +75,7 @@ public class HouseFragment extends Fragment implements HouseInfoFragmentContract
         houseInfoRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         //houseInfoRecyclerView.setHasFixedSize(false);
         //houseInfoRecyclerView.setNestedScrollingEnabled(false);
-        houseInfoRecyclerViewAdapter = new HouseInfoRecyclerViewAdapter();
+        houseInfoRecyclerViewAdapter = new HouseInfoRecyclerViewAdapter(view.getContext());
         houseInfoRecyclerView.setAdapter(houseInfoRecyclerViewAdapter);
         houseInfoRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -82,7 +83,6 @@ public class HouseFragment extends Fragment implements HouseInfoFragmentContract
                 super.onScrolled(recyclerView, dx, dy);
                 int totalItemCount = recyclerView.getAdapter().getItemCount() - 1;
                 int lastVisible = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
-                Log.e("int", Integer.toString(lastVisible));
                 if (lastVisible >= pageNum * 20 - 1) {
                     if (areaCode == 0) {
                         pageNum += 1;
@@ -207,7 +207,6 @@ public class HouseFragment extends Fragment implements HouseInfoFragmentContract
     @OnItemSelected(R.id.detail_city_spinner)
     public void onCityDetailSpinnerSelet(int position, Spinner spinner) {
         sigunguCode = position + 1;
-        Log.e("position", Integer.toString(position));
     }
 
 
@@ -223,7 +222,6 @@ public class HouseFragment extends Fragment implements HouseInfoFragmentContract
 
     @Override
     public void showHouseList(List<HouseInfo> houseList) {
-        Log.e("fragment", houseList.get(0).getTitle());
         if (filterFlag == true) {
             houseInfoRecyclerViewAdapter.clearItem();
             houseInfoRecyclerViewAdapter.addItem(houseList);
