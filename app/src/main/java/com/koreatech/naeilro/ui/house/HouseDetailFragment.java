@@ -34,7 +34,6 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
     private ViewPager viewPager;
     private HouseCommonInfoFragment houseCommonInfoFragment;
     private HouseIntroFragment houseIntroFragment;
-    private HouseImageFragment houseImageFragment;
     private String tel;
     private String title;
     private int contentTypeId;
