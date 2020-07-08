@@ -70,7 +70,24 @@
         android:id="@+id/navigation_house"
         android:name="com.koreatech.naeilro.ui.house.HouseFragment"
         android:label="@string/category_search_house"
-        tools:layout="@layout/fragment_house" />
+        tools:layout="@layout/fragment_house" >
+        <argument
+            android:name="contentTypeId"
+            app:nullable="false"
+            app:argType="integer"/>
+        <argument
+            android:name="contentId"
+            app:nullable="false"
+            app:argType="integer"/>
+        <action
+            android:id="@+id/action_navigation_house_to_navigation_house_detail"
+            app:destination="@id/navigation_house_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_house_detail"
+        android:name="com.koreatech.naeilro.ui.house.HouseDetailFragment"
+        android:label="@string/category_search_house"
+        tools:layout="@layout/fragment_house_detail" />
     <fragment
         android:id="@+id/navigation_reports"
         android:name="com.koreatech.naeilro.ui.reports.ReportsFragment"
@@ -91,5 +108,6 @@
         android:name="com.koreatech.naeilro.ui.weather.WeatherFragment"
         android:label="@string/category_weather"
         tools:layout="@layout/fragment_weather" />
+
 
 </navigation>

@@ -8,4 +8,8 @@ public interface HouseInteractor {
     void getHouseItems(ApiCallback apiCallback, int numOfRows, int pageNo, String MobileApp, String arrange, String listYN);
 
     void getHouseCategoryItems(ApiCallback apiCallback, int numOfRows, int pageNo, String MobileApp, String arrange, String listYN, int areaCode, int sigunguCode);
+
+    void getHouseCommonInfo(ApiCallback apiCallback, int contentTypeId, int contentId, String MobileApp);
+
+    void getHouseIntroInfo(ApiCallback apiCallback, int contentTypeId, int contentId, String MobileApp);
 }
