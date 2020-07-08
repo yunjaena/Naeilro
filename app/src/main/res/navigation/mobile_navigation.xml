@@ -63,7 +63,7 @@
         tools:layout="@layout/fragment_train_info" />
     <fragment
         android:id="@+id/navigation_restraunt"
-        android:name="com.koreatech.naeilro.ui.restraunt.RestrauntFragment"
+        android:name="com.koreatech.naeilro.ui.restraunt.RestaurantFragment"
         android:label="@string/category_serarch_restraunt"
         tools:layout="@layout/fragment_restraunt" />
     <fragment

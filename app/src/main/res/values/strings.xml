@@ -53,6 +53,10 @@
     <string name="train_select_depart_station">출발역 이름을 선택해주세요.</string>
     <string name="train_depart_arrival_station_same_warning">도착역과 출발역이 같습니다.</string>
 
+
+    <!--restaurant-->
+    <string name="restaurant_name">식당 이름</string>
+
     <!-- 시 이름 -->
     <string-array name="city_name_array">
         <item>지역선택</item>
