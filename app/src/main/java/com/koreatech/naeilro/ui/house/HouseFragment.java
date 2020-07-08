@@ -89,7 +89,16 @@ public class HouseFragment extends Fragment implements HouseInfoFragmentContract
                         houseFragmentPresenter.getHouseItems(pageNum);
                     } else {
                         pageNum += 1;
-                        houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode);
+                        if (areaCode == 34 && sigunguCode > 9) {
+                            houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode + 1);
+                        }
+                        else if (areaCode == 36 && sigunguCode > 10) {
+                            houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode + 1);
+                        }else if (areaCode == 38 && sigunguCode > 13) {
+                            houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode + 2);
+                        }
+                        else
+                            houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode);
                     }
                 }
             }
@@ -101,8 +110,18 @@ public class HouseFragment extends Fragment implements HouseInfoFragmentContract
     public void getSearchHouse() {
         filterFlag = true;
         pageNum = 1;
-        if (areaCode != 0)
-            houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode);
+        if (areaCode != 0) {
+            if (areaCode == 34 && sigunguCode > 9) {
+                houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode + 1);
+            }
+            else if (areaCode == 36 && sigunguCode > 10) {
+                houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode + 1);
+            }else if (areaCode == 38 && sigunguCode > 13) {
+                houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode + 2);
+            }
+            else
+                houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode);
+        }
         else
             houseFragmentPresenter.getHouseItems(pageNum);
     }
