@@ -92,7 +92,22 @@
         android:id="@+id/navigation_reports"
         android:name="com.koreatech.naeilro.ui.reports.ReportsFragment"
         android:label="@string/category_search_reports"
-        tools:layout="@layout/fragment_reports" />
+        tools:layout="@layout/fragment_reports" >
+        <argument
+            android:name="contentTypeId"
+            app:nullable="false"
+            app:argType="integer"/>
+        <action
+            android:id="@+id/action_navigation_reports_to_navigation_detail_reports"
+            app:destination="@id/navigation_detail_reports" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_detail_reports"
+        android:name="com.koreatech.naeilro.ui.reports.ReportsDetailFragment"
+        android:label="@string/category_search_reports"
+        tools:layout="@layout/fragment_reports_detail" >
+
+    </fragment>
     <fragment
         android:id="@+id/navigation_facility"
         android:name="com.koreatech.naeilro.ui.facility.FacilityFragment"

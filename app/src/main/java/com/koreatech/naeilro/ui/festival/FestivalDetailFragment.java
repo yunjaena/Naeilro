@@ -72,10 +72,15 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
         festivalDetailFragmentPresenter.getFestivalIntroInfo(contentTypeId, contentId);
 
     }
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(unbinder != null) unbinder.unbind();
+    }
     @Override
     public void showFestivalCommon(Festival festival) {
-        festivalDetailOverview.setText(festival.getOverview());
+
+        festivalDetailOverview.setText(setFilter(festival.getOverview()));
         String imageUrl = festival.getFirstimage();
         if (imageUrl == null) {
             Glide.with(festivalDetailImage).load(R.drawable.ic_no_image).into(festivalDetailImage);
@@ -115,5 +120,31 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
     @Override
     public void setPresenter(FestivalDetailFragmentPresenter presenter) {
         this.festivalDetailFragmentPresenter = presenter;
+    }
+    public String setFilter(String overview) {
+        String arrStr[] = overview.split("");
+        String filteredString = "";
+        boolean flag = false;
+        String[] filter = {"<", ">", "=", "+", "?", "^", "$", "@", "*", "※", "/", "\\", "&"};
+        for (int i = 0; i < arrStr.length; i++) {
+            if (arrStr[i].equals("<")) {
+                flag = true;
+            }
+            if (arrStr[i].equals(">")) {
+                flag = false;
+                continue;
+            }
+            if(arrStr[i].equals("&")){
+                if (arrStr[i + 1].equals("l") || arrStr[i+1].equals("g")) {
+                    if(arrStr[i+2].equals(("t"))){
+                        i+=3;
+                    }
+                }
+            }
+            if(flag == false){
+                filteredString = filteredString.concat(arrStr[i]);
+            }
+        }
+        return  filteredString;
     }
 }

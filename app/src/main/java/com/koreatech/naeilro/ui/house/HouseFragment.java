@@ -34,7 +34,6 @@ import butterknife.Unbinder;
 
 public class HouseFragment extends Fragment implements HouseInfoFragmentContract.View {
     private HouseFragmentPresenter houseFragmentPresenter;
-    private List<HouseInfo> houseInfoList;
     private RecyclerView houseInfoRecyclerView;
     private HouseInfoRecyclerViewAdapter houseInfoRecyclerViewAdapter;
     private int pageNum;
@@ -70,7 +69,6 @@ public class HouseFragment extends Fragment implements HouseInfoFragmentContract
         totlaCount = 0;
         pageNum = 1;
         houseFragmentPresenter = new HouseFragmentPresenter(new HouseRestInteractor(), this);
-        houseInfoList = new ArrayList<>();
         houseInfoRecyclerView = view.findViewById(R.id.house_info_recycler_view);
         houseInfoRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         //houseInfoRecyclerView.setHasFixedSize(false);
