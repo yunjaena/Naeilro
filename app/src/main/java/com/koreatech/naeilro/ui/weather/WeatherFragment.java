@@ -70,7 +70,6 @@ public class WeatherFragment extends Fragment implements WeatherFragmentContract
         tMapView.setZoomLevel(6);
         tMapView.setUserScrollZoomEnable(true);
         tMapView.setCenterPoint(centerLon, centerLat);
-
         tMapView.setOnCalloutRightButtonClickListener(this);
         weatherFragmentPresenter.getCurrentWeatherInfo(WeatherCityInfo.getWeatherCityInfoList(), "kr");
     }
