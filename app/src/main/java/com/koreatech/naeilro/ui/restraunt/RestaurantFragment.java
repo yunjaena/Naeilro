@@ -1,28 +1,36 @@
 package com.koreatech.naeilro.ui.restraunt;
 
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.NaeilroApplication;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.restaurant.RestaurantInfo;
 import com.koreatech.naeilro.network.interactor.RestaurantRestInteractor;
 import com.koreatech.naeilro.ui.main.MainActivity;
+import com.koreatech.naeilro.ui.restraunt.adapater.RestaurantInfoRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.restraunt.presenter.RestaurantContract;
 import com.koreatech.naeilro.ui.restraunt.presenter.RestaurantPresenter;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,6 +46,9 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     private SearchView restaurantSearchView;
     private RecyclerView restaurantRecyclerView;
     private RestaurantPresenter restaurantPresenter;
+    private List<RestaurantInfo> restaurantInfoList;
+    private RestaurantInfoRecyclerViewAdapter restaurantInfoRecyclerViewAdapter;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,7 +63,28 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         restaurantPresenter = new RestaurantPresenter(this, new RestaurantRestInteractor());
         initTMap(view);
         initSearchView(view);
+        initRecyclerView(view);
     }
+
+    private void initRecyclerView(View view) {
+        restaurantInfoList = new ArrayList<>();
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        restaurantInfoRecyclerViewAdapter = new RestaurantInfoRecyclerViewAdapter(restaurantInfoList, getContext());
+        restaurantInfoRecyclerViewAdapter.setRecyclerClickListener(new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                goToRestaurantDetail(position);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        });
+        restaurantRecyclerView.setLayoutManager(linearLayoutManager);
+        restaurantRecyclerView.setAdapter(restaurantInfoRecyclerViewAdapter);
+    }
+
 
     private void initSearchView(View view) {
         restaurantSearchView = view.findViewById(R.id.restaurant_search_view);
@@ -60,8 +92,10 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         restaurantSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if (!query.isEmpty())
+                if (!query.isEmpty()) {
+                    hideKeyBoard(getActivity());
                     restaurantPresenter.getRestaurantSearchInfo(query);
+                }
                 return true;
             }
 
@@ -72,6 +106,11 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         });
     }
 
+
+    private void goToRestaurantDetail(int position) {
+       // ToastUtil.getInstance().makeShort(String.valueOf(position));
+    }
+
     private void initTMap(View view) {
         tMapLinearLayout = view.findViewById(R.id.restaurant_t_map_linear_layout);
         tMapView = new TMapView(Objects.requireNonNull(getActivity()));
@@ -80,13 +119,15 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         tMapView.setZoomLevel(6);
         tMapView.setCenterPoint(centerLon, centerLat);
         tMapView.setOnCalloutRightButtonClickListener(this);
-        tMapView.setEnableClustering(true);
-
     }
 
-    @Override
-    public void onCalloutRightButton(TMapMarkerItem tMapMarkerItem) {
-        String markerName = tMapMarkerItem.getName();
+    private void hideKeyBoard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = activity.getCurrentFocus();
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     @Override
@@ -111,11 +152,36 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
 
     @Override
     public void showRestaurantInfoList(List<RestaurantInfo> restaurantInfoList) {
+        addMarker(restaurantInfoList);
+        addRecyclerViewItem(restaurantInfoList);
+    }
+
+    @Override
+    public void setPresenter(RestaurantPresenter presenter) {
+        this.restaurantPresenter = presenter;
+    }
+
+    @Override
+    public void onCalloutRightButton(TMapMarkerItem tMapMarkerItem) {
+        String markerName = tMapMarkerItem.getName();
+        goToRestaurantDetail(searchRestaurantPosition(markerName));
+    }
+
+    private int searchRestaurantPosition(String name) {
+        for (int i = 0; i < restaurantInfoList.size(); i++) {
+            if (restaurantInfoList.get(i).getTitle().equals(name))
+                return i;
+        }
+        return 0;
+    }
+
+    private void addMarker(List<RestaurantInfo> restaurantInfoList) {
         Log.d(TAG, "showRestaurantInfoList: " + restaurantInfoList.size());
-        TMapMarkerItem markerItem = new TMapMarkerItem();
         tMapView.removeAllMarkerItem();
+        Bitmap rightClickBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_zoom_in_white_18dp);
         for (RestaurantInfo restaurantInfo : restaurantInfoList) {
-            TMapPoint tMapPoint1 = new TMapPoint(restaurantInfo.getMapX(), restaurantInfo.getMapY());
+            TMapMarkerItem markerItem = new TMapMarkerItem();
+            TMapPoint tMapPoint1 = new TMapPoint(restaurantInfo.getMapY(), restaurantInfo.getMapX());
             markerItem.setVisible(TMapMarkerItem.VISIBLE);
             markerItem.setPosition(0f, 0f);
             markerItem.setTMapPoint(tMapPoint1);
@@ -125,11 +191,11 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
             markerItem.setCalloutSubTitle(restaurantInfo.getAddress());
             tMapView.addMarkerItem(restaurantInfo.getTitle(), markerItem);
         }
-        tMapView.initView();
     }
 
-    @Override
-    public void setPresenter(RestaurantPresenter presenter) {
-        this.restaurantPresenter = presenter;
+    private void addRecyclerViewItem(List<RestaurantInfo> restaurantInfoList) {
+        this.restaurantInfoList.clear();
+        this.restaurantInfoList.addAll(restaurantInfoList);
+        restaurantInfoRecyclerViewAdapter.notifyDataSetChanged();
     }
 }

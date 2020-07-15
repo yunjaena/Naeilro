@@ -8,7 +8,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface RestaurantService {
-    String RESTAURANT_SEARCH = "rest/KorService/searchStay";
+    String RESTAURANT_SEARCH = "rest/KorService/searchKeyword";
 
     @GET(RESTAURANT_SEARCH)
     @Xml
