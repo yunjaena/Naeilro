@@ -14,4 +14,6 @@
     <string name="loading_festival_info">행사정보 로딩 중</string>
     <!-- 레포츠정보 -->
     <string name="loading_reports_info">레포츠정보 로딩 중</string>
+    <!-- 문화시설정보 -->
+    <string name="loading_facility_info">문화시설정보 로딩 중</string>
 </resources>
