@@ -50,7 +50,7 @@ public class RestaurantInfoRecyclerViewAdapter extends RecyclerView.Adapter<Rest
         if (restaurantInfo.getTitle() != null)
             holder.restaurantTitleTextView.setText(restaurantInfo.getTitle());
         else
-            holder.restaurantTitleTextView.setText("숙소명이 등록되지 않았습니다.");
+            holder.restaurantTitleTextView.setText("식당명이 등록되지 않았습니다.");
         if (restaurantInfo.getAddress() != null)
             holder.restaurantAddressTextView.setText(restaurantInfo.getAddress());
         else
