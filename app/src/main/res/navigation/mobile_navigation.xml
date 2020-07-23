@@ -112,7 +112,23 @@
         android:id="@+id/navigation_facility"
         android:name="com.koreatech.naeilro.ui.facility.FacilityFragment"
         android:label="@string/category_search_facility"
-        tools:layout="@layout/fragment_facility" />
+        tools:layout="@layout/fragment_facility">
+        <argument
+            android:name="contentTypeId"
+            app:nullable="false"
+            app:argType="integer"/>
+        <action
+            android:id="@+id/action_navigation_facility_to_navigation_detail_facility"
+            app:destination="@id/navigation_detail_facility" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_detail_facility"
+        android:name="com.koreatech.naeilro.ui.facility.FacilityDetailFragment"
+        android:label="@string/category_search_facility"
+        tools:layout="@layout/fragment_facility_detail" >
+
+    </fragment>
     <fragment
         android:id="@+id/navigation_festival"
         android:name="com.koreatech.naeilro.ui.festival.FestivalFragment"
