@@ -6,207 +6,162 @@ import org.simpleframework.xml.Root;
 @Root(name = "item")
 public class TourInfo {
     @Element(name = "addr1", required = false)
-    private String address;
+    private String addr1;
+    @Element(name = "addr2", required = false)
+    private String addr2;
     @Element(name = "areacode", required = false)
-    private int areaCode;
-    @Element(name = "cat1", required = false)
-    private String categoryOne;
-    @Element(name = "cat2", required = false)
-    private String categoryTwo;
-    @Element(name = "cat3", required = false)
-    private String categoryThree;
+    private String areacode;
     @Element(name = "contentid", required = false)
-    private int contentID;
+    private String contentid;
     @Element(name = "contenttypeid", required = false)
-    private int contentTypeID;
-    @Element(name = "createdtime", required = false)
-    private String createdTime;
-    @Element(name = "firstimage" ,required = false)
-    private String firstImage;
-    @Element(name = "firstimage2", required = false)
-    private String secondImage;
+    private String contenttypeid;
+    @Element(name = "firstimage", required = false)
+    private String firstimage;
     @Element(name = "mapx", required = false)
-    private double mapX;
+    private String mapx;
     @Element(name = "mapy", required = false)
-    private double mapY;
-    @Element(name = "mlevel", required = false)
-    private int level;
-    @Element(name = "modifiedtime", required = false)
-    private String modifiedTime;
-    @Element(name = "readcount", required = false)
-    private int readCount;
+    private String mapy;
     @Element(name = "sigungucode", required = false)
-    private int sigunguCode;
+    private String sigungucode;
     @Element(name = "tel", required = false)
-    private String telephoneNumber;
-    @Element(name = "title")
+    private String tel;
+    @Element(name = "title", required = false)
     private String title;
+    @Element(name = "overview", required = false)
+    private String overview;
 
-    public String getAddress() {
-        return address;
+    @Element(name = "infoname", required = false)
+    private String infoname;
+    @Element(name = "infotext", required = false)
+    private String infotext;
+    @Element(name = "originimgurl", required = false)
+    private String originimgurl;
+    @Element(name = "smallimageurl", required = false)
+    private String smallimageurl;
+
+    @Element(name = "accomcount", required = false)
+    private String personLimitCount;
+    @Element(name = "chkbabycarriage", required = false)
+    private String babyCarriageInvalidate;
+    @Element(name = "chkcreditcard", required = false)
+    private String creditCardInvalidate;
+    @Element(name = "chkpet", required = false)
+    private String petInvaildate;
+    @Element(name = "expagerange", required = false)
+    private String experienceAgeRange;
+    @Element(name = "expguide", required = false)
+    private String experienceGuide;
+    @Element(name = "infocenter", required = false)
+    private String infoCenterPhoneNumber;
+    @Element(name = "parking", required = false)
+    private String parkingInvaildate;
+    @Element(name = "restdate", required = false)
+    private String restDate;
+    @Element(name = "usetime", required = false)
+    private String runningTime;
+
+
+    public String getInfoname() {
+        return infoname;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public String getInfotext() {
+        return infotext;
     }
 
-    public int getAreaCode() {
-        return areaCode;
+    public String getOriginimgurl() {
+        return originimgurl;
     }
 
-    public void setAreaCode(int areaCode) {
-        this.areaCode = areaCode;
+    public String getSmallimageurl() {
+        return smallimageurl;
     }
 
-    public String getCategoryOne() {
-        return categoryOne;
+    public String getOverview() {
+        return overview;
     }
 
-    public void setCategoryOne(String categoryOne) {
-        this.categoryOne = categoryOne;
+    public String getAddr1() {
+        return addr1;
     }
 
-    public String getCategoryTwo() {
-        return categoryTwo;
+    public String getAddr2() {
+        return addr2;
     }
 
-    public void setCategoryTwo(String categoryTwo) {
-        this.categoryTwo = categoryTwo;
+    public String getAreacode() {
+        return areacode;
     }
 
-    public String getCategoryThree() {
-        return categoryThree;
+    public String getContentid() {
+        return contentid;
     }
 
-    public void setCategoryThree(String categoryThree) {
-        this.categoryThree = categoryThree;
+    public String getContenttypeid() {
+        return contenttypeid;
     }
 
-    public int getContentID() {
-        return contentID;
+    public String getFirstimage() {
+        return firstimage;
     }
 
-    public void setContentID(int contentID) {
-        this.contentID = contentID;
+    public String getMapx() {
+        return mapx;
     }
 
-    public int getContentTypeID() {
-        return contentTypeID;
+    public String getMapy() {
+        return mapy;
     }
 
-    public void setContentTypeID(int contentTypeID) {
-        this.contentTypeID = contentTypeID;
+    public String getSigungucode() {
+        return sigungucode;
     }
 
-    public String getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(String createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public String getFirstImage() {
-        return firstImage;
-    }
-
-    public void setFirstImage(String firstImage) {
-        this.firstImage = firstImage;
-    }
-
-    public String getSecondImage() {
-        return secondImage;
-    }
-
-    public void setSecondImage(String secondImage) {
-        this.secondImage = secondImage;
-    }
-
-    public double getMapX() {
-        return mapX;
-    }
-
-    public void setMapX(double mapX) {
-        this.mapX = mapX;
-    }
-
-    public double getMapY() {
-        return mapY;
-    }
-
-    public void setMapY(double mapY) {
-        this.mapY = mapY;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public String getModifiedTime() {
-        return modifiedTime;
-    }
-
-    public void setModifiedTime(String modifiedTime) {
-        this.modifiedTime = modifiedTime;
-    }
-
-    public int getReadCount() {
-        return readCount;
-    }
-
-    public void setReadCount(int readCount) {
-        this.readCount = readCount;
-    }
-
-    public int getSigunguCode() {
-        return sigunguCode;
-    }
-
-    public void setSigunguCode(int sigunguCode) {
-        this.sigunguCode = sigunguCode;
-    }
-
-    public String getTelephoneNumber() {
-        return telephoneNumber;
-    }
-
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
+    public String getTel() {
+        return tel;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getPersonLimitCount() {
+        return personLimitCount;
     }
 
-    @Override
-    public String toString() {
-        return "RestaurantInfo{" +
-                "address='" + address + '\'' +
-                ", areaCode=" + areaCode +
-                ", categoryOne='" + categoryOne + '\'' +
-                ", categoryTwo='" + categoryTwo + '\'' +
-                ", categoryThree='" + categoryThree + '\'' +
-                ", contentID=" + contentID +
-                ", contentTypeID=" + contentTypeID +
-                ", createdTime='" + createdTime + '\'' +
-                ", firstImage='" + firstImage + '\'' +
-                ", secondImage='" + secondImage + '\'' +
-                ", mapX=" + mapX +
-                ", mapY=" + mapY +
-                ", level=" + level +
-                ", modifiedTime='" + modifiedTime + '\'' +
-                ", readCount=" + readCount +
-                ", sigunguCode=" + sigunguCode +
-                ", telephoneNumber='" + telephoneNumber + '\'' +
-                ", title='" + title + '\'' +
-                '}';
+    public String getBabyCarriageInvalidate() {
+        return babyCarriageInvalidate;
+    }
+
+    public String getCreditCardInvalidate() {
+        return creditCardInvalidate;
+    }
+
+    public String getPetInvaildate() {
+        return petInvaildate;
+    }
+
+    public String getExperienceAgeRange() {
+        return experienceAgeRange;
+    }
+
+    public String getExperienceGuide() {
+        return experienceGuide;
+    }
+
+    public String getInfoCenterPhoneNumber() {
+        return infoCenterPhoneNumber;
+    }
+
+    public String getParkingInvaildate() {
+        return parkingInvaildate;
+    }
+
+    public String getRestDate() {
+        return restDate;
+    }
+
+    public String getRunningTime() {
+        return runningTime;
     }
 }

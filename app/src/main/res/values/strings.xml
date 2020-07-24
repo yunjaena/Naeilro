@@ -11,6 +11,7 @@
     <string name="bottom_nav_my_info">내정보</string>
 
     <string name="app_name_korea">내일로 투어</string>
+    <string name="no_info">정보없음</string>
 
     <!-- category-->
     <string name="category_search_tourspot">관광지 찾기</string>

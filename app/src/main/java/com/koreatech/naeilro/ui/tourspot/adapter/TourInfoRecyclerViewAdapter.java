@@ -51,18 +51,18 @@ public class TourInfoRecyclerViewAdapter extends RecyclerView.Adapter<TourInfoRe
             holder.tourTitleTextView.setText(tourInfo.getTitle());
         else
             holder.tourTitleTextView.setText("여행 정보가 등록되지 않았습니다.");
-        if (tourInfo.getAddress() != null)
-            holder.tourAddressTextView.setText(tourInfo.getAddress());
+        if (tourInfo.getAddr1() != null)
+            holder.tourAddressTextView.setText(tourInfo.getAddr1());
         else
             holder.tourAddressTextView.setText("주소가 등록되지 않았습니다.");
-        if (tourInfo.getTelephoneNumber() != null)
-            holder.tourTelTextView.setText(tourInfo.getTelephoneNumber());
+        if (tourInfo.getTel() != null)
+            holder.tourTelTextView.setText(tourInfo.getTel());
         else
             holder.tourTelTextView.setText("전화번호가 등록되지 않았습니다.");
 
-        if (tourInfo.getFirstImage() != null) {
+        if (tourInfo.getFirstimage() != null) {
             Glide.with(holder.tourImageView)
-                    .load(tourInfo.getFirstImage())
+                    .load(tourInfo.getFirstimage())
                     .into(holder.tourImageView);
         } else
             Glide.with(holder.tourImageView)
