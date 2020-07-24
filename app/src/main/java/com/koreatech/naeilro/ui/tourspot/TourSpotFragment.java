@@ -10,9 +10,12 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.tour.TourInfo;
@@ -51,6 +54,7 @@ public class TourSpotFragment extends Fragment implements TourSpotContract.View 
     private Unbinder unbinder;
     private List<TourInfo> tourInfoList;
     private TourSpotPresenter tourSpotPresenter;
+    private NavController navController;
 
 
     @Override
@@ -66,6 +70,7 @@ public class TourSpotFragment extends Fragment implements TourSpotContract.View 
     private void init(View view) {
         tourInfoList = new ArrayList<>();
         pageNumber = 1;
+        navController = Navigation.findNavController((MainActivity)getContext(), R.id.nav_host_fragment);
         tourSpotPresenter = new TourSpotPresenter(this, new TourRestInteractor());
         initRecyclerView(view);
         tourSpotPresenter.getTourInfoList(pageNumber, PAGE_MAX_LOAD_NUMBER);
@@ -76,6 +81,19 @@ public class TourSpotFragment extends Fragment implements TourSpotContract.View 
         linearLayoutManager = new LinearLayoutManager(getContext());
         tourInfoRecyclerView.setLayoutManager(linearLayoutManager);
         tourInfoRecyclerView.setAdapter(tourInfoRecyclerViewAdapter);
+        tourInfoRecyclerViewAdapter.setRecyclerViewClickListener(new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("contentId", Integer.parseInt(tourInfoList.get(position).getContentid()));
+                navController.navigate(R.id.action_navigation_tourspot_to_navigation_tourspot_detail, bundle);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        });
         tourInfoRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
