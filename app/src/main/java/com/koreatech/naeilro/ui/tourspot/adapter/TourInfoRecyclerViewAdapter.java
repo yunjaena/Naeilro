@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.tour.TourInfo;
 import com.koreatech.naeilro.ui.main.MainActivity;
@@ -22,6 +23,7 @@ import java.util.List;
 public class TourInfoRecyclerViewAdapter extends RecyclerView.Adapter<TourInfoRecyclerViewAdapter.ViewHolder> {
     NavController navController;
     private List<TourInfo> tourInfoList;
+    private RecyclerViewClickListener recyclerViewClickListener;
     private Context context;
 
     public TourInfoRecyclerViewAdapter(Context context, List<TourInfo> tourInfoList) {
@@ -35,6 +37,10 @@ public class TourInfoRecyclerViewAdapter extends RecyclerView.Adapter<TourInfoRe
     public TourInfoRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tour_info, parent, false);
         return new ViewHolder(view);
+    }
+
+    public void setRecyclerViewClickListener(RecyclerViewClickListener recyclerViewClickListener) {
+        this.recyclerViewClickListener = recyclerViewClickListener;
     }
 
     @Override
@@ -63,11 +69,9 @@ public class TourInfoRecyclerViewAdapter extends RecyclerView.Adapter<TourInfoRe
                     .load(R.drawable.ic_no_image)
                     .into(holder.tourImageView);
 
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
+        holder.view.setOnClickListener(v -> {
+            if (recyclerViewClickListener != null)
+                recyclerViewClickListener.onClick(v, position);
         });
 
 
