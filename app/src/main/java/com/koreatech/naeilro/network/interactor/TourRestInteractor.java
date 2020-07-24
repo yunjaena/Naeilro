@@ -22,13 +22,14 @@ import io.reactivex.schedulers.Schedulers;
 public class TourRestInteractor implements TourInteractor {
     public static final String TAG = "TourRestInteractor";
     public final String MOBILE_OS = "AND";
+    public final int CONTENT_ID = 12;
 
     @Override
     public void getTourItems(ApiCallback apiCallback, int numOfRows, int pageNo, String MobileApp, String arrange, String listYN) {
         List<TourInfo> tourInfoList = new ArrayList<>();
         String apiKey = NaeilroApplication.getDataApiKey();
         Observable<TourList> observable = KoreanTourRetrofitManager.getInstance().getRetrofit().create(TourService.class).
-                getTourList(apiKey, numOfRows, pageNo, MOBILE_OS, MobileApp, arrange, listYN)
+                getTourList(apiKey, CONTENT_ID, numOfRows, pageNo, MOBILE_OS, MobileApp, arrange, listYN)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
         observable.subscribe(new Observer<TourList>() {
@@ -66,7 +67,7 @@ public class TourRestInteractor implements TourInteractor {
         List<TourInfo> tourInfoList = new ArrayList<>();
         String apiKey = NaeilroApplication.getDataApiKey();
         Observable<TourList> observable = KoreanTourRetrofitManager.getInstance().getRetrofit().create(TourService.class).
-                getTourCategoryList(apiKey, numOfRows, pageNo, MOBILE_OS, MobileApp, arrange, listYN, areaCode, sigunguCode)
+                getTourCategoryList(apiKey, CONTENT_ID, numOfRows, pageNo, MOBILE_OS, MobileApp, arrange, listYN, areaCode, sigunguCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
         observable.subscribe(new Observer<TourList>() {
