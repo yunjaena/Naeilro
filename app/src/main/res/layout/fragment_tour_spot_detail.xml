@@ -4,6 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -21,11 +26,11 @@
                 android:layout_height="300dp" />
 
             <TextView
-                android:layout_marginTop="10dp"
                 android:id="@+id/tour_detail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30sp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/black"
                 android:textSize="25sp"
                 android:textStyle="bold"
@@ -36,6 +41,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="34sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="34sp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:text="소개 : 서울시 강서구 화곡동에 위치한 KORSTAY는 최신식 시설의 쾌적한 공간에 안전한 숙박과 개인의 프라이버시를 보장받을 수 있도록 마련된 숙소이다. 일행이 아닌 다른 사람들과의 분리를 통해 독립적인 공간(침실,화장실)이 마련되어 있는 내 집같은 편안한 휴식을 제공한다. 김포공항은 물론 인천공항 통해 여행을 즐기는 여행객에게 최적의 장소가 될 것이다. 지하철 까치산역에서도 도보로 10분 거리에 있어 교통의 편리함도 더해준다." />
+
+            <TextView
+                android:id="@+id/tour_detail_info_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="34sp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="34sp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -88,7 +105,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/tour_end_date"
+                        android:id="@+id/tour_rest_date"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
@@ -292,21 +309,23 @@
 
 
             <LinearLayout
+                android:id="@+id/tour_image_linear_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:orientation="vertical"
-                >
-            <ImageView
-                android:id="@+id/tour_extra_image"
-                android:layout_width="match_parent"
-                android:layout_height="300dp" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/tour_extra_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp" />
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="100dp"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tour_extra_image_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" />
 
             </LinearLayout>
 
@@ -315,31 +334,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/tour_detail_t_map_linear_layout"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:orientation="horizontal" />
+                <LinearLayout
+                    android:id="@+id/tour_detail_t_map_linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:orientation="horizontal" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                tools:text="address"
-                android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/tour_address_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="7"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    tools:text="address" />
 
 
             </LinearLayout>
 
         </LinearLayout>
-
-
-
 
 
     </androidx.core.widget.NestedScrollView>

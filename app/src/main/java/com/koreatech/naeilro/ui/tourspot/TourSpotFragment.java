@@ -84,8 +84,6 @@ public class TourSpotFragment extends Fragment implements TourSpotContract.View 
         tourInfoRecyclerViewAdapter.setRecyclerViewClickListener(new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                ToastUtil.getInstance().makeShort(String.valueOf(tourInfoList.get(position).getContentid()));
-
                 Bundle bundle = new Bundle();
                 bundle.putInt("contentId", Integer.parseInt(tourInfoList.get(position).getContentid()));
                 navController.navigate(R.id.action_navigation_tourspot_to_navigation_tourspot_detail, bundle);

@@ -99,4 +99,144 @@ public class TourRestInteractor implements TourInteractor {
         });
 
     }
+
+
+    @Override
+    public void getCommonItems(ApiCallback apiCallback, int contentId, String mobileOS, String MobileApp) {
+        String apiKey = NaeilroApplication.getDataApiKey();
+        Observable<TourList> observable = KoreanTourRetrofitManager.getInstance().getRetrofit().create(TourService.class).
+                getTourCommonInfo(apiKey, CONTENT_ID, contentId, mobileOS, "nailro", "Y", "Y", "Y", "Y", "Y", "Y")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        observable.subscribe(new Observer<TourList>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(TourList toursInfoList) {
+                if (toursInfoList != null) {
+                    apiCallback.onSuccess(toursInfoList.getTourInfoBodyList().get(0).getTourInfoItemList().get(0).getTourInfoList().get(0));
+                } else {
+                    apiCallback.onFailure(new Throwable("fail read tourCommonInfo"));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    @Override
+    public void getDetailInfoItems(ApiCallback apiCallback, int contentId, String mobileOS, String MobileApp) {
+        String apiKey = NaeilroApplication.getDataApiKey();
+        Observable<TourList> observable = KoreanTourRetrofitManager.getInstance().getRetrofit().create(TourService.class).
+                getTourDetailInfo(apiKey, CONTENT_ID, contentId, mobileOS, MobileApp, "Y")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        observable.subscribe(new Observer<TourList>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(TourList toursInfo) {
+                if (toursInfo.getTourInfoBodyList().get(0).getTourInfoItemList().get(0).getTourInfoList() != null) {
+                    List<TourInfo> tourInfoList = new ArrayList<>(toursInfo.getTourInfoBodyList().get(0).getTourInfoItemList().get(0).getTourInfoList());
+                    apiCallback.onSuccess(tourInfoList);
+                } else {
+                    apiCallback.onFailure(new Throwable("fail read reportsImage"));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    @Override
+    public void getImageItems(ApiCallback apiCallback, int contentId, String mobileOS, String MobileApp) {
+        String apiKey = NaeilroApplication.getDataApiKey();
+        Observable<TourList> observable = KoreanTourRetrofitManager.getInstance().getRetrofit().create(TourService.class).
+                getTourImageInfo(apiKey, CONTENT_ID, contentId, mobileOS, MobileApp, "Y")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        observable.subscribe(new Observer<TourList>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(TourList toursInfo) {
+                if (toursInfo.getTourInfoBodyList().get(0).getTourInfoItemList().get(0).getTourInfoList() != null) {
+                    List<TourInfo> tourInfoList = new ArrayList<>(toursInfo.getTourInfoBodyList().get(0).getTourInfoItemList().get(0).getTourInfoList());
+                    apiCallback.onSuccess(tourInfoList);
+                } else {
+                    apiCallback.onFailure(new Throwable("fail read reportsImage"));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    @Override
+    public void getDetailIntroduceItems(ApiCallback apiCallback, int contentId, String mobileOS, String MobileApp) {
+        String apiKey = NaeilroApplication.getDataApiKey();
+        Observable<TourList> observable = KoreanTourRetrofitManager.getInstance().getRetrofit().create(TourService.class).
+                getTourDetailIntroduce(apiKey, CONTENT_ID, contentId, mobileOS, MobileApp, "Y")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        observable.subscribe(new Observer<TourList>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(TourList toursInfo) {
+                if (toursInfo.getTourInfoBodyList().get(0).getTourInfoItemList().get(0).getTourInfoList() != null) {
+                    List<TourInfo> tourInfoList = new ArrayList<>(toursInfo.getTourInfoBodyList().get(0).getTourInfoItemList().get(0).getTourInfoList());
+                    apiCallback.onSuccess(tourInfoList);
+                } else {
+                    apiCallback.onFailure(new Throwable("fail read reportsImage"));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
 }
