@@ -88,9 +88,30 @@ public class HouseInfo {
     private String reservationlodging;                      //예약안내
     @Element(name = "accomcountlodging", required = false)
     private String accomcountlodging;                       //수용인원
+    @Element(name = "infoname", required = false)
+    private String infoname;
+    @Element(name = "infotext", required = false)
+    private String infotext;
+    @Element(name = "originimgurl", required = false)
+    private String originimgurl;
+    @Element(name = "smallimageurl", required = false)
+    private String smallimageurl;
 
+    public String getInfoname() {
+        return infoname;
+    }
 
+    public String getInfotext() {
+        return infotext;
+    }
 
+    public String getOriginimgurl() {
+        return originimgurl;
+    }
+
+    public String getSmallimageurl() {
+        return smallimageurl;
+    }
 
     public String getOverview() {
         return overview;

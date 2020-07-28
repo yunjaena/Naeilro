@@ -59,6 +59,7 @@ public class ReportsInfoRecyclerViewAdapter extends RecyclerView.Adapter<Reports
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("contentId", Integer.parseInt(reports.getContentid()));
+                bundle.putString("title", reports.getTitle());
                 navController.navigate(R.id.action_navigation_reports_to_navigation_detail_reports, bundle);
             }
         });

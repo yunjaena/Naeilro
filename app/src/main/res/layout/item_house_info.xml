@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="160dp"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/gray6"
+    android:background="@color/white"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:background="@color/white1"
+        android:background="@color/white4"
         android:layout_margin="6dp">
         <LinearLayout
             android:layout_width="match_parent"

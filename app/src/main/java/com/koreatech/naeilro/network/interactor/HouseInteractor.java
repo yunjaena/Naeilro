@@ -12,4 +12,5 @@ public interface HouseInteractor {
     void getHouseCommonInfo(ApiCallback apiCallback, int contentTypeId, int contentId, String MobileApp);
 
     void getHouseIntroInfo(ApiCallback apiCallback, int contentTypeId, int contentId, String MobileApp);
+    void getImageItems(ApiCallback apiCallback, int contentId, String MobileOs, String MobileApp);
 }

@@ -9,6 +9,8 @@ import com.koreatech.naeilro.network.entity.house.HouseInfo;
 import com.koreatech.naeilro.network.interactor.HouseInteractor;
 import com.koreatech.naeilro.ui.house.HouseDetailFragmentContract;
 
+import java.util.List;
+
 public class HouseDetailFragmentPresenter {
     public static final String TAG = "HouseDetailPresenter";
     private HouseInteractor houseInteractor;
@@ -23,7 +25,7 @@ public class HouseDetailFragmentPresenter {
         @Override
         public void onSuccess(Object object) {
             HouseInfo houseInfo = (HouseInfo) object;
-            houseDetailView.showHouseCommonInfo(houseInfo);
+            houseDetailView.showCommonInfo(houseInfo);
         }
 
         @Override
@@ -43,12 +45,27 @@ public class HouseDetailFragmentPresenter {
 
         }
     };
+    final ApiCallback houseImageInfoApiCallback = new ApiCallback() {
+        @Override
+        public void onSuccess(Object object) {
+            List<HouseInfo> houseItems =(List<HouseInfo>) object;
+            houseDetailView.showImageInfoList(houseItems);
+        }
 
-    public void getHouseCommonInfo(int contentTypeId, int contentId){
-        houseInteractor.getHouseCommonInfo(houseCommonInfoApiCallback, contentTypeId, contentId, "nailro");
+        @Override
+        public void onFailure(Throwable throwable) {
+
+        }
+    };
+
+    public void getCommonInfo(int contentId){
+        houseInteractor.getHouseCommonInfo(houseCommonInfoApiCallback, 32, contentId, "nailro");
     }
-    public void getHouseIntroInfo(int contentTypeId, int contentId){
-        Log.e("presenter", "getHouseIntroInfo");
-        houseInteractor.getHouseIntroInfo(houseIntroInfoApiCallback, contentTypeId, contentId, "nailro");
+    public void getIntroInfo( int contentId){
+        houseInteractor.getHouseIntroInfo(houseIntroInfoApiCallback, 32, contentId, "nailro");
+
+    }
+    public void getImageInfo(int contentId){
+        houseInteractor.getImageItems(houseImageInfoApiCallback, contentId, "AND", "nailro");
     }
 }

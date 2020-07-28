@@ -109,6 +109,10 @@
             android:name="contentTypeId"
             app:argType="integer"
             app:nullable="false" />
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="false" />
         <action
             android:id="@+id/action_navigation_reports_to_navigation_detail_reports"
             app:destination="@id/navigation_detail_reports" />
@@ -128,6 +132,10 @@
         <argument
             android:name="contentTypeId"
             app:argType="integer"
+            app:nullable="false" />
+        <argument
+            android:name="title"
+            app:argType="string"
             app:nullable="false" />
         <action
             android:id="@+id/action_navigation_facility_to_navigation_detail_facility"
@@ -153,6 +161,10 @@
         <argument
             android:name="contentId"
             app:argType="integer"
+            app:nullable="false" />
+        <argument
+            android:name="address"
+            app:argType="string"
             app:nullable="false" />
         <action
             android:id="@+id/action_navigation_festival_to_navigation_detail_festival"
