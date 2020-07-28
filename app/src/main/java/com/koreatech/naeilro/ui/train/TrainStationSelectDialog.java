@@ -61,7 +61,7 @@ public class TrainStationSelectDialog extends Dialog {
         dialogTitleTextView = findViewById(R.id.train_station_select_dialog_text_view);
         dialogSearchEditText = findViewById(R.id.train_station_select_dialog_edit_text);
         if (isDepart) {
-            dialogTitleTextView.setText(R.string.train_select_arrival_station);
+            dialogTitleTextView.setText(R.string.train_select_depart_station);
         } else {
             dialogTitleTextView.setText(R.string.train_select_arrival_station);
         }
