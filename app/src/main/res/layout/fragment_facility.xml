@@ -11,39 +11,69 @@
         android:layout_marginBottom="@dimen/bottom_navigation_height"
         android:orientation="vertical">
 
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/bg_rect_boundary_gray5_4dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="50dp"
+            android:background="@drawable/bg_rect_boundary_gray5_4dp">
+
             <TextView
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="3dp"
+                android:layout_toStartOf="@+id/facility_city_spinner"
                 android:gravity="center"
-                android:background="@color/gray3"
-                android:text="지역"/>
+                android:text="문화"
+                android:textStyle="bold"
+                android:textSize="26sp" />
+
             <Spinner
                 android:id="@+id/facility_city_spinner"
-                android:layout_width="130dp"
-                android:layout_height="match_parent"
+                android:layout_width="110dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toStartOf="@+id/facility_detail_city_spinner"
                 android:dropDownWidth="100dp"
                 android:dropDownHeight="150dp"
                 android:entries="@array/city_name_array"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
+
             <Spinner
                 android:id="@+id/facility_detail_city_spinner"
-                android:layout_width="130dp"
-                android:layout_height="match_parent"
+                android:layout_width="110dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toStartOf="@+id/search_facility"
                 android:dropDownWidth="100dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
+
             <Button
                 android:id="@+id/search_facility"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
-                android:text="검색"/>
-        </LinearLayout>
-
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="5dp"
+                android:padding="1dp"
+                android:text="검색" />
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/facility_info_recycler_view"

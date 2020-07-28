@@ -12,6 +12,7 @@ public interface HouseService {
     String HOUSE_LIST_INFO = "rest/KorService/searchStay";
     String HOUSE_COMMON_INFO = "rest/KorService/detailCommon";
     String HOUSE_INTRO_INFO = "rest/KorService/detailIntro";
+    String HOUSE_DETAILIMAGE_INFO = "rest/KorService/detailImage";
 
     @GET(HOUSE_LIST_INFO)
     @Xml
@@ -35,4 +36,10 @@ public interface HouseService {
     @Xml
     Observable<HouseInfoList> getHouseIntroInfo(@Query("serviceKey") String serviceKey, @Query("contentTypeId") int contentTypeId,
                                                  @Query("contentId") int contentId, @Query("MobileOS") String mobileOS, @Query("MobileApp") String mobileApp);
+
+    @GET(HOUSE_DETAILIMAGE_INFO)
+    @Xml
+    Observable<HouseInfoList> getHouseImageInfo(@Query("serviceKey") String serviceKey, @Query("contentTypeId") int contentTypeId, @Query("contentId") int contentId
+            , @Query("MobileOS") String mobileOS, @Query("MobileApp") String mobileApp);
+
 }

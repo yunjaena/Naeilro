@@ -69,6 +69,7 @@ public class FestivalInfoRecyclerViewAdapter extends RecyclerView.Adapter<Festiv
                 Bundle bundle = new Bundle();
                 bundle.putInt("contentTypeId", Integer.parseInt(festivalInfo.getContenttypeid()));
                 bundle.putInt("contentId", Integer.parseInt(festivalInfo.getContentid()));
+                bundle.putString("address", festivalInfo.getAddr1());
                 bundle.putString("title", festivalInfo.getTitle());
                 bundle.putString("tel", festivalInfo.getTel());
                 navController.navigate(R.id.action_navigation_festival_to_navigation_detail_festival, bundle);

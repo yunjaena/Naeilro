@@ -37,7 +37,6 @@ public class HouseFragment extends Fragment implements HouseInfoFragmentContract
     private RecyclerView houseInfoRecyclerView;
     private HouseInfoRecyclerViewAdapter houseInfoRecyclerViewAdapter;
     private int pageNum;
-    private int totlaCount;
     private View view;
     private Unbinder unbinder;
     private int areaCode;
@@ -59,27 +58,22 @@ public class HouseFragment extends Fragment implements HouseInfoFragmentContract
         view = inflater.inflate(R.layout.fragment_house, container, false);
         this.unbinder = ButterKnife.bind(this, view);
         init(view);
-        houseFragmentPresenter.getHouseTotalCount();
         houseFragmentPresenter.getHouseItems(pageNum);
         return view;
 
     }
 
     public void init(View view) {
-        totlaCount = 0;
         pageNum = 1;
         houseFragmentPresenter = new HouseFragmentPresenter(new HouseRestInteractor(), this);
         houseInfoRecyclerView = view.findViewById(R.id.house_info_recycler_view);
         houseInfoRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        //houseInfoRecyclerView.setHasFixedSize(false);
-        //houseInfoRecyclerView.setNestedScrollingEnabled(false);
         houseInfoRecyclerViewAdapter = new HouseInfoRecyclerViewAdapter(view.getContext());
         houseInfoRecyclerView.setAdapter(houseInfoRecyclerViewAdapter);
         houseInfoRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int totalItemCount = recyclerView.getAdapter().getItemCount() - 1;
                 int lastVisible = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 if (lastVisible >= pageNum * 20 - 1) {
                     if (areaCode == 0) {
@@ -213,10 +207,6 @@ public class HouseFragment extends Fragment implements HouseInfoFragmentContract
         this.houseFragmentPresenter = presenter;
     }
 
-    @Override
-    public void setTotalCount(int count) {
-        totlaCount = count;
-    }
 
     @Override
     public void showHouseList(List<HouseInfo> houseList) {

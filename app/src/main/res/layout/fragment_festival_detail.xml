@@ -15,21 +15,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <TextView
+                android:id="@+id/festival_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14sp"
+                android:layout_marginTop="10dp"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                tools:text="강원랜드" />
 
             <ImageView
                 android:id="@+id/festival_detail_image"
                 android:layout_width="match_parent"
                 android:layout_height="300dp" />
 
-            <TextView
-                android:id="@+id/festival_detail_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30sp"
-                android:textColor="@color/black"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                tools:text="강원랜드" />
+
 
             <TextView
                 android:id="@+id/festival_detail_overview"
@@ -209,6 +210,34 @@
                         android:textSize="16sp" />
                 </LinearLayout>
 
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/festival_detail_map_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/festival_detail_t_map_linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:orientation="horizontal" />
+
+                <TextView
+                    android:id="@+id/festival_address_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="7"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    tools:text="address" />
 
 
             </LinearLayout>

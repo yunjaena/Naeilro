@@ -1,66 +1,75 @@
 package com.koreatech.naeilro.ui.facility;
 
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Spanned;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
+import com.koreatech.core.recyclerview.RecyclerViewClickListener;
+import com.koreatech.naeilro.NaeilroApplication;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.facility.Facility;
 import com.koreatech.naeilro.network.interactor.FacilityRestInteractor;
-import com.koreatech.naeilro.network.interactor.ReportsRestInteractor;
 import com.koreatech.naeilro.ui.facility.adapter.FacilityDetailInfoRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.facility.adapter.FacilityImageRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.facility.presenter.FacilityDetailFragmentPresenter;
 import com.koreatech.naeilro.ui.main.MainActivity;
-import com.koreatech.naeilro.ui.reports.adapter.ReportsDetailInfoRecyclerViewAdapter;
-import com.koreatech.naeilro.ui.reports.adapter.ReportsImageRecyclerViewAdapter;
-import com.koreatech.naeilro.ui.reports.presenter.ReportsDetailFragmentPresenter;
+import com.skt.Tmap.TMapMarkerItem;
+import com.skt.Tmap.TMapPoint;
+import com.skt.Tmap.TMapView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import android.text.Html;
 
 public class FacilityDetailFragment extends Fragment implements FacilityDetailFragmentContract.View {
-
+    private static final double centerLon = 127.48318433761597;
+    private static final double centerLat = 36.41592967015607;
     private View view;
-    private FacilityDetailFragmentPresenter facilityDetailFragmentPresenter;
-    private RecyclerView facilityDetailRecyclerView;
-    private RecyclerView facilityImageRecyclerView;
-    private FacilityDetailInfoRecyclerViewAdapter facilityDetailInfoRecyclerViewAdapter;
-    private FacilityImageRecyclerViewAdapter facilityImageRecyclerViewAdapter;
-    private int contentId;
     private Unbinder unbinder;
-    @BindView(R.id.facility_detail_title)
-    TextView facilityDetailTitle;
-    @BindView(R.id.facility_detail_overview)
-    TextView facilityDetailOverview;
-    @BindView(R.id.facility_detail_image)
-    ImageView facilityImageView;
-    @BindView(R.id.facility_detail_tel)
-    TextView facilityDetailTel;
-    @BindView(R.id.facility_detail_address)
-    TextView facilityDetailAddress;
+    /* View component */
+    private ImageView facilityDetailImage;
+    private TextView facilityDetailTitle;
+    private TextView facilityDetailOverview;
+    private TextView facilityDetailInfoTextView;
+    private LinearLayout facilityImageLinearLayout;
+    private ImageView facilityExtraImageView;
+    private RecyclerView facilityExtraImageRecyclerView;
+    private RecyclerView facilityInfoRecyclerView;
+    private LinearLayout facilityDetailMapLinearLayout;
+    private LinearLayout facilityDetailTMapLinearLayout;
+    private TextView facilityAddressTextView;
+    private TMapView tMapView;
+    private FacilityDetailInfoRecyclerViewAdapter facilityDetailInfoRecyclerViewAdapter;
+    private FacilityDetailFragmentPresenter facilityDetailPresenter;
+    private LinearLayoutManager linearLayoutManager;
+    private List<Facility> imagefacilityInfoList;
+    private FacilityImageRecyclerViewAdapter facilityDetailImageRecyclerViewAdapter;
+    private int contentId;
+    private String detailTitle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_facility_detail, container, false);
         this.unbinder = ButterKnife.bind(this, view);
+        contentId = getArguments().getInt("contentId");
+        detailTitle = getArguments().getString("title");
         init(view);
-        facilityDetailFragmentPresenter.getComonInfo(contentId);
         return view;
     }
     @Override
@@ -69,47 +78,151 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
         if (unbinder != null) unbinder.unbind();
     }
     public void init(View view) {
-        facilityDetailFragmentPresenter = new FacilityDetailFragmentPresenter(new FacilityRestInteractor(), this);
-        contentId = getArguments().getInt("contentId");
-        facilityDetailFragmentPresenter.getComonInfo(contentId);
+        imagefacilityInfoList = new ArrayList<>();
+        initView(view);
+        initTMap(view);
+        initFacilityExtraImageRecyclerView();
+        facilityDetailPresenter = new FacilityDetailFragmentPresenter(new FacilityRestInteractor(), this);
+        facilityDetailPresenter.getCommonInfo(contentId);
+        facilityDetailPresenter.getDetailInfo(contentId);
+        facilityDetailPresenter.getImageInfo(contentId);
 
+
+    }
+    private void initView(View view) {
+        facilityDetailImage = view.findViewById(R.id.facility_detail_image);
+        facilityDetailTitle = view.findViewById(R.id.facility_detail_title);
+        facilityDetailOverview = view.findViewById(R.id.facility_detail_overview);
+        facilityDetailInfoTextView = view.findViewById(R.id.facility_detail_info_text_view);
+        facilityImageLinearLayout = view.findViewById(R.id.facility_image_linear_layout);
+        facilityExtraImageView = view.findViewById(R.id.facility_extra_image_view);
+        facilityExtraImageRecyclerView = view.findViewById(R.id.facility_extra_image_recycler_view);
+        facilityDetailMapLinearLayout = view.findViewById(R.id.facility_detail_map_linear_layout);
+        facilityDetailTMapLinearLayout = view.findViewById(R.id.facility_detail_t_map_linear_layout);
+        facilityAddressTextView = view.findViewById(R.id.facility_address_text_view);
+        facilityDetailMapLinearLayout.setVisibility(View.GONE);
+        facilityImageLinearLayout.setVisibility(View.GONE);
+        facilityInfoRecyclerView = view.findViewById(R.id.facility_info_recycler_view);
+
+    }
+    private void initTMap(View view) {
+        tMapView = new TMapView(Objects.requireNonNull(getActivity()));
+        tMapView.setSKTMapApiKey(NaeilroApplication.getTMapApiKey());
+        tMapView.setCenterPoint(centerLon, centerLat);
+        facilityDetailTMapLinearLayout.addView(tMapView);
+
+    }
+    public void setAddressInfo(double x, double y, String title, String address) {
+        showMapPoint(x, y, title, address);
+        facilityAddressTextView.setText(address);
+    }
+
+    private void showMapPoint(double x, double y, String title, String address) {
+        facilityDetailMapLinearLayout.setVisibility(View.VISIBLE);
+        TMapMarkerItem markerItem = new TMapMarkerItem();
+        TMapPoint tMapPoint1 = new TMapPoint(y, x);
+        markerItem.setVisible(TMapMarkerItem.VISIBLE);
+        markerItem.setPosition(0f, 0f);
+        markerItem.setTMapPoint(tMapPoint1);
+        markerItem.setName(title);
+        markerItem.setCanShowCallout(true);
+        markerItem.setCalloutTitle(title);
+        markerItem.setCalloutSubTitle(address);
+        tMapView.addMarkerItem(title, markerItem);
+        tMapView.setCenterPoint(x, y, true);
+        tMapView.setZoomLevel(15);
+        tMapView.initView();
     }
 
     @Override
     public void showDetailInfoList(List<Facility> facilityList) {
-        facilityDetailRecyclerView = view.findViewById(R.id.facility_detailInfo_recyclerview);
-        facilityDetailRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        facilityInfoRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         facilityDetailInfoRecyclerViewAdapter = new FacilityDetailInfoRecyclerViewAdapter(facilityList);
-        facilityDetailRecyclerView.setAdapter(facilityDetailInfoRecyclerViewAdapter);
-        facilityDetailFragmentPresenter.getImageInfo(contentId);
+        facilityInfoRecyclerView.setAdapter(facilityDetailInfoRecyclerViewAdapter);
+        //setDetailInfo(facilityList);
+        //facilityDetailFragmentPresenter.getImageInfo(contentId);
     }
 
     @Override
     public void showImageInfoList(List<Facility> facilityList) {
+        /*
         facilityImageRecyclerView = view.findViewById(R.id.facility_Image_recyclerview);
         facilityImageRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         facilityImageRecyclerViewAdapter = new FacilityImageRecyclerViewAdapter(facilityList);
         facilityImageRecyclerView.setAdapter(facilityImageRecyclerViewAdapter);
+
+         */
+        setImageExtra(facilityList);
     }
 
     @Override
     public void showCommonInfo(Facility facility) {
-        if (facility.getFirstimage() == null) {
-            Glide.with(facilityImageView).load(R.drawable.ic_no_image).into(facilityImageView);
-        } else {
-            Glide.with(facilityImageView).load(facility.getFirstimage()).into(facilityImageView);
+        setAddressInfo(Double.parseDouble(facility.getMapx()), Double.parseDouble(facility.getMapy()), detailTitle, facility.getAddr1());
+        setFirstImageView(facility.getFirstimage());
+        setTitle(detailTitle);
+        setSummary(facility.getOverview());
+    }
+    private void setImageExtra(List<Facility> facilityItems) {
+        if (facilityItems == null || facilityItems.size() == 0) return;
+        facilityImageLinearLayout.setVisibility(View.VISIBLE);
+        imagefacilityInfoList.addAll(facilityItems);
+        facilityDetailImageRecyclerViewAdapter.notifyDataSetChanged();
+        setFacilityExtraImageView(0);
+    }
+
+    private void initFacilityExtraImageRecyclerView() {
+        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        facilityDetailImageRecyclerViewAdapter = new FacilityImageRecyclerViewAdapter( imagefacilityInfoList,getContext());
+        facilityDetailImageRecyclerViewAdapter.setRecyclerViewClickListener(new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Glide.with(getContext())
+                        .load(imagefacilityInfoList.get(position).getOriginimgurl())
+                        .error(R.drawable.ic_no_image)
+                        .into(facilityExtraImageView);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        });
+        facilityExtraImageRecyclerView.setLayoutManager(linearLayoutManager);
+        facilityExtraImageRecyclerView.setAdapter(facilityDetailImageRecyclerViewAdapter);
+    }
+
+    private void setDetailInfo(List<Facility> facilityItems) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Facility facilityInfo : facilityItems) {
+            stringBuilder.append("<b>").append(" · ").append(facilityInfo.getInfoname()).append("</b>").append(" : ").append(facilityInfo.getInfotext()).append("<br>").append("<br>");
         }
-        facilityDetailTitle.setText(facility.getTitle());
-        facilityDetailOverview.setText("소개 : "+ fromHtml(facility.getOverview()));
-        if (facility.getTel() == null)
-            facilityDetailTel.setVisibility(View.GONE);
-        else
-            facilityDetailTel.setText("전화번호 : " + facility.getTel());
-        if (facility.getAddr1() == null)
-            facilityDetailAddress.setVisibility(View.GONE);
-        else
-            facilityDetailAddress.setText("주소 : " + facility.getAddr1());
-        facilityDetailFragmentPresenter.getDetailInfo(contentId);
+        facilityDetailInfoTextView.setText(fromHtml(stringBuilder.toString()));
+    }
+
+
+
+    private void setFacilityExtraImageView(int position) {
+        if (imagefacilityInfoList.isEmpty() || imagefacilityInfoList.size() < position) return;
+        Glide.with(getContext())
+                .load(imagefacilityInfoList.get(position).getOriginimgurl())
+                .error(R.drawable.ic_no_image)
+                .into(facilityExtraImageView);
+    }
+
+    private void setFirstImageView(String url) {
+        Glide.with(getContext()).load(url)
+                .error(R.drawable.ic_no_image)
+                .into(facilityDetailImage);
+    }
+
+    private void setSummary(String text) {
+        if (text == null) return;
+        facilityDetailOverview.setText(fromHtml(text));
+    }
+
+    private void setTitle(String text) {
+        if (text == null) return;
+        facilityDetailTitle.setText(text);
     }
 
     @Override
@@ -124,7 +237,7 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
 
     @Override
     public void setPresenter(FacilityDetailFragmentPresenter presenter) {
-        this.facilityDetailFragmentPresenter = presenter;
+        this.facilityDetailPresenter = presenter;
     }
     public static Spanned fromHtml(String source) {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {

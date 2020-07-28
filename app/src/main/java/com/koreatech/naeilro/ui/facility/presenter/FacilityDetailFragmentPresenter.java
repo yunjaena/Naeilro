@@ -59,7 +59,7 @@ public class FacilityDetailFragmentPresenter {
         }
     };
 
-    public void getComonInfo(int contentId){
+    public void getCommonInfo(int contentId){
         facilityDetailView.showLoading();
         facilityInteractor.getCommonItems(facilityCommonApiCallback, contentId, "AND", "nailro");
     }

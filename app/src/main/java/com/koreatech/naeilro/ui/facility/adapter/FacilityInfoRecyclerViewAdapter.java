@@ -60,6 +60,7 @@ public class FacilityInfoRecyclerViewAdapter extends RecyclerView.Adapter<Facili
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("contentId", Integer.parseInt(facility.getContentid()));
+                bundle.putString("title", facility.getTitle());
                 navController.navigate(R.id.action_navigation_facility_to_navigation_detail_facility, bundle);
             }
         });

@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface HouseInfoFragmentContract {
     interface View extends BaseView<HouseFragmentPresenter> {
-        void setTotalCount(int count);
         void showHouseList(List<HouseInfo> houseList);
         void showLoading();
         void hideLoading();

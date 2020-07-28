@@ -1,4 +1,4 @@
-package com.koreatech.naeilro.ui.facility.adapter;
+package com.koreatech.naeilro.ui.house.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,53 +7,27 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.facility.Facility;
-import com.koreatech.naeilro.network.entity.reports.Reports;
-import com.koreatech.naeilro.network.entity.tour.TourInfo;
-import com.koreatech.naeilro.ui.main.MainActivity;
-import com.koreatech.naeilro.ui.reports.adapter.ReportsImageRecyclerViewAdapter;
+import com.koreatech.naeilro.network.entity.house.HouseInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class FacilityImageRecyclerViewAdapter extends RecyclerView.Adapter<FacilityImageRecyclerViewAdapter.ViewHolder>{
-    NavController navController;
-    private List<Facility> facilityInfoList;
-    private RecyclerViewClickListener recyclerViewClickListener;
-    private int selectIndex;
-    private Context context;
-
-    public FacilityImageRecyclerViewAdapter(List<Facility> list, Context context) {
-        this.context = context;
-        this.facilityInfoList = list;
-        selectIndex = 0;
-        navController = Navigation.findNavController((MainActivity) context, R.id.nav_host_fragment);
-    }
-    private void selectImage(int index) {
-        selectIndex = index;
-        notifyDataSetChanged();
-    }
-
+public class HouseImageRecyclerViewAdapter extends RecyclerView.Adapter<HouseImageRecyclerViewAdapter.ViewHolder> {
     @NonNull
     @Override
-    public FacilityImageRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HouseImageRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image_list_view, parent, false);
-        return new FacilityImageRecyclerViewAdapter.ViewHolder(view);
-    }
-    public void setRecyclerViewClickListener(RecyclerViewClickListener recyclerViewClickListener) {
-        this.recyclerViewClickListener = recyclerViewClickListener;
+        return new HouseImageRecyclerViewAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Facility facility = facilityInfoList.get(position);
+        HouseInfo houseInfo = houseInfoList.get(position);
         holder.setIsRecyclable(false);
 
         if (selectIndex == position)
@@ -62,7 +36,7 @@ public class FacilityImageRecyclerViewAdapter extends RecyclerView.Adapter<Facil
             holder.selectImageView.setVisibility(View.GONE);
 
         Glide.with(context)
-                .load(facility.getOriginimgurl())
+                .load(houseInfo.getOriginimgurl())
                 .error(R.drawable.ic_no_image)
                 .into(holder.showImageView);
 
@@ -77,7 +51,25 @@ public class FacilityImageRecyclerViewAdapter extends RecyclerView.Adapter<Facil
 
     @Override
     public int getItemCount() {
-        return facilityInfoList.size();
+        return houseInfoList.size();
+    }
+
+    private List<HouseInfo> houseInfoList;
+    private RecyclerViewClickListener recyclerViewClickListener;
+    private int selectIndex;
+    private Context context;
+
+    public HouseImageRecyclerViewAdapter(List<HouseInfo> houseInfoList, Context context) {
+        this.houseInfoList = houseInfoList;
+        selectIndex = 0;
+        this.context = context;
+    }
+    private void selectImage(int index) {
+        selectIndex = index;
+        notifyDataSetChanged();
+    }
+    public void setRecyclerViewClickListener(RecyclerViewClickListener recyclerViewClickListener) {
+        this.recyclerViewClickListener = recyclerViewClickListener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

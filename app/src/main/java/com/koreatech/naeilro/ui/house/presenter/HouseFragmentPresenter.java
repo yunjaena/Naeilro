@@ -20,19 +20,7 @@ public class HouseFragmentPresenter {
         houseView.setPresenter(this);
     }
 
-    final ApiCallback houseTotalCountApiCallback = new ApiCallback() {
-        @Override
-        public void onSuccess(Object object) {
-            int houseTotalCount = (int) object;
-            houseView.setTotalCount(houseTotalCount);
 
-        }
-
-        @Override
-        public void onFailure(Throwable throwable) {
-            Log.e("fail", throwable.getMessage());
-        }
-    };
 
     final ApiCallback houseItemsApiCallback = new ApiCallback() {
         @Override
@@ -63,10 +51,7 @@ public class HouseFragmentPresenter {
         }
     };
 
-    public void getHouseTotalCount() {
 
-        houseInteractor.getHouseTotalCount(houseTotalCountApiCallback, 10, 1, "nailro", "A", "Y");
-    }
 
     public void getHouseItems(int pageNo) {
         houseView.showLoading();
