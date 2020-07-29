@@ -1,31 +1,39 @@
 package com.koreatech.naeilro.network.entity.enroll;
 
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.koreatech.core.network.Json;
+
+import kotlinx.android.parcel.Parcelize;
+
 
 public class EnrollObject {
-    @SerializedName("name")
-    private String name;
-    @SerializedName("email")
-    private String email;
-    @SerializedName("pw")
-    private String pw;
+    @SerializedName("success")
+    @Expose
+    private int success;
+    @SerializedName("status")
+    @Expose
+    private int status;
+    @SerializedName("message")
+    @Expose
+    private String message;
 
-    public EnrollObject(String name, String email, String pw) {
-        this.name = name;
-        this.email = email;
-        this.pw = pw;
+    public EnrollObject(int success, int status, String message) {
+        this.success = success;
+        this.status = status;
+        this.message = message;
     }
 
-    public String getName() {
-        return name;
+    public int getSuccess() {
+        return success;
     }
 
-    public String getEmail() {
-        return email;
+    public int getStatus() {
+        return status;
     }
 
-    public String getPw() {
-        return pw;
+    public String getMessage() {
+        return message;
     }
 }
