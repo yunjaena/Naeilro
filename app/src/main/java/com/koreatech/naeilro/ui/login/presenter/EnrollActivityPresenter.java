@@ -1,14 +1,14 @@
-package com.koreatech.naeilro.ui.login;
+package com.koreatech.naeilro.ui.login.presenter;
 
 import com.koreatech.core.network.ApiCallback;
-import com.koreatech.naeilro.network.entity.enroll.EnrollObject;
-import com.koreatech.naeilro.network.interactor.EnrollInteractor;
+import com.koreatech.naeilro.network.entity.user.EnrollObject;
+import com.koreatech.naeilro.network.interactor.UserInteractor;
 
 public class EnrollActivityPresenter {
-    private EnrollInteractor enrollInteractor;
+    private UserInteractor enrollInteractor;
     private EnrollActivityContract.View enrollView;
 
-    public EnrollActivityPresenter(EnrollInteractor enrollInteractor, EnrollActivityContract.View enrollView) {
+    public EnrollActivityPresenter(UserInteractor enrollInteractor, EnrollActivityContract.View enrollView) {
         this.enrollInteractor = enrollInteractor;
         this.enrollView = enrollView;
         enrollView.setPresenter(this);
@@ -26,6 +26,6 @@ public class EnrollActivityPresenter {
         }
     };
     public void getEnrollResult(String name, String email, String pw){
-        enrollInteractor.getAccept(enrollApiCallback, name, pw, email);
+        enrollInteractor.signUp(enrollApiCallback, name, pw, email);
     }
 }

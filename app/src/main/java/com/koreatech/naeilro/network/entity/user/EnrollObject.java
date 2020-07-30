@@ -1,11 +1,7 @@
-package com.koreatech.naeilro.network.entity.enroll;
+package com.koreatech.naeilro.network.entity.user;
 
-import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.koreatech.core.network.Json;
-
-import kotlinx.android.parcel.Parcelize;
 
 
 public class EnrollObject {

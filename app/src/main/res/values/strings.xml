@@ -13,6 +13,10 @@
     <string name="app_name_korea">내일로 투어</string>
     <string name="no_info">정보없음</string>
 
+    <!-- login -->
+    <string name="email">email</string>
+    <string name="password">password</string>
+
     <!-- category-->
     <string name="category_search_tourspot">관광지 찾기</string>
     <string name="category_train_info">기차 정보</string>

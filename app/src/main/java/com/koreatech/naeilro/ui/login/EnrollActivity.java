@@ -4,16 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.koreatech.core.network.ApiCallback;
 import com.koreatech.naeilro.R;
-import com.koreatech.naeilro.network.entity.enroll.EnrollObject;
-import com.koreatech.naeilro.network.interactor.EnrollRestInteractor;
+import com.koreatech.naeilro.network.entity.user.EnrollObject;
+import com.koreatech.naeilro.network.interactor.UserRestInteractor;
+import com.koreatech.naeilro.ui.login.presenter.EnrollActivityContract;
+import com.koreatech.naeilro.ui.login.presenter.EnrollActivityPresenter;
 
 public class EnrollActivity extends AppCompatActivity implements View.OnClickListener, EnrollActivityContract.View {
     private EditText idEditText;
@@ -33,7 +33,7 @@ public class EnrollActivity extends AppCompatActivity implements View.OnClickLis
         passwordEditText = (EditText) findViewById(R.id.password_edit);
         emailEditText = (EditText) findViewById(R.id.email_edit);
         completeButton = (Button) findViewById(R.id.complete_button);
-        enrollActivityPresenter = new EnrollActivityPresenter(new EnrollRestInteractor(), this);
+        enrollActivityPresenter = new EnrollActivityPresenter(new UserRestInteractor(), this);
         completeButton.setOnClickListener(this);
     }
 
