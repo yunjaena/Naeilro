@@ -60,6 +60,7 @@ public class EnrollActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
+            finish();
         }
         else {
             Toast.makeText(this, "양식을 다시한번 확인해주세요.", Toast.LENGTH_SHORT).show();
