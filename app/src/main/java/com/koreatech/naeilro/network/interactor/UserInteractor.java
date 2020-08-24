@@ -6,4 +6,10 @@ public interface UserInteractor {
     void signUp(ApiCallback apiCallback, String name, String pw, String email);
 
     void signIn(ApiCallback apiCallback, String email, String password);
+
+    void getUserInfo(ApiCallback apiCallback);
+
+    void getRefreshToken(ApiCallback apiCallback, String email, String password);
+
+    void getNewAccessToken(ApiCallback apiCallback);
 }

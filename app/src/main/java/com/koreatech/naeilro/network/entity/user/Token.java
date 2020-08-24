@@ -4,13 +4,16 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class SignIn {
+public class Token {
     @SerializedName("success")
     @Expose
     private int success;
-    @SerializedName("token")
+    @SerializedName("access")
     @Expose
-    private String token;
+    private String accessToken;
+    @SerializedName("refresh")
+    @Expose
+    private String refreshToken;
     @SerializedName("message")
     @Expose
     private String message;
@@ -19,8 +22,12 @@ public class SignIn {
         return success;
     }
 
-    public String getToken() {
-        return token;
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
     }
 
     public String getMessage() {

@@ -5,8 +5,9 @@ import android.util.Log;
 
 import com.koreatech.core.network.ApiCallback;
 import com.koreatech.core.network.UserRetrofitManager;
+import com.koreatech.naeilro.auth.JWTTokenManager;
 import com.koreatech.naeilro.network.entity.user.EnrollObject;
-import com.koreatech.naeilro.network.entity.user.SignIn;
+import com.koreatech.naeilro.network.entity.user.Token;
 import com.koreatech.naeilro.network.service.UserService;
 
 import org.json.JSONObject;
@@ -79,17 +80,19 @@ public class UserRestInteractor implements UserInteractor {
         UserRetrofitManager.getInstance().getRetrofit().create(UserService.class).postSignIn(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<SignIn>() {
+                .subscribe(new Observer<Token>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(SignIn signIn) {
-                        if (signIn != null)
-                            apiCallback.onSuccess(signIn);
-                        else
+                    public void onNext(Token token) {
+                        if (token != null && token.getAccessToken() != null && token.getRefreshToken() != null) {
+                            JWTTokenManager.getInstance().saveAccessToken(token.getAccessToken());
+                            JWTTokenManager.getInstance().saveRefreshToken(token.getRefreshToken());
+                            apiCallback.onSuccess(token);
+                        } else
                             apiCallback.onFailure(new Throwable("fail login"));
                     }
 
@@ -107,5 +110,20 @@ public class UserRestInteractor implements UserInteractor {
 
                     }
                 });
+    }
+
+    @Override
+    public void getUserInfo(ApiCallback apiCallback) {
+
+    }
+
+    @Override
+    public void getRefreshToken(ApiCallback apiCallback, String email, String password) {
+
+    }
+
+    @Override
+    public void getNewAccessToken(ApiCallback apiCallback) {
+
     }
 }

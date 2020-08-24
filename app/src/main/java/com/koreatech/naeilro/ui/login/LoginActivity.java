@@ -94,7 +94,7 @@ public class LoginActivity extends ActivityBase implements View.OnClickListener,
 
     @Override
     public void showLoading() {
-        showProgressDialog(R.string.loading_station_info);
+        showProgressDialog(R.string.loading);
     }
 
     @Override
