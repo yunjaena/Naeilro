@@ -3,6 +3,7 @@ package com.koreatech.naeilro.network.service;
 import com.koreatech.core.network.Json;
 import com.koreatech.naeilro.network.entity.user.EnrollObject;
 import com.koreatech.naeilro.network.entity.user.Token;
+import com.koreatech.naeilro.network.entity.user.UserInfo;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -16,6 +17,8 @@ public interface UserService {
     String SIGN_IN_USER = "/nailo/member/login.php";
     String REFRESH_ALL_TOKEN = "/nailo/member/refresh-Atoken.php";
     String REFRESH_TOKEN = "/nailo/member/get-Rtoken.php";
+    String USER_INFO = "/nailo/member/member-info.php";
+    String USER_LOGOUT = "/nailo/member/logout.php";
 
     @POST(ENROLL_USER)
     @Json
@@ -32,5 +35,13 @@ public interface UserService {
     @POST(REFRESH_TOKEN)
     @Json
     Observable<Token> getRefreshToken(@Body RequestBody requestBody);
+
+    @POST(USER_INFO)
+    @Json
+    Observable<UserInfo> getUserInfo(@Header("Authorization") String auth);
+
+    @POST(USER_LOGOUT)
+    @Json
+    Observable<UserInfo> logOut(@Header("Authorization") String auth);
 
 }
