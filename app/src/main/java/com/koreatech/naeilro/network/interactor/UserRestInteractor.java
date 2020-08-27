@@ -26,12 +26,13 @@ public class UserRestInteractor implements UserInteractor {
     public static final String TAG = "UserRestInteractor";
 
     @Override
-    public void signUp(ApiCallback apiCallback, String name, String pw, String email) {
+    public void signUp(ApiCallback apiCallback, String name, String pw, String email, String phoneNumber) {
 
         Map<String, Object> jsonObject = new ArrayMap<>();
         jsonObject.put("name", name);
         jsonObject.put("email", email);
         jsonObject.put("pw", pw);
+        jsonObject.put("phone", phoneNumber);
 
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), (new JSONObject(jsonObject)).toString());
@@ -46,8 +47,10 @@ public class UserRestInteractor implements UserInteractor {
 
                     @Override
                     public void onNext(EnrollObject enrollObject) {
-                        if (enrollObject != null)
+                        if (enrollObject != null) {
+                            Log.e("presenter", Integer.toString(enrollObject.getSuccess()));
                             apiCallback.onSuccess(enrollObject);
+                        }
                         else
                             apiCallback.onFailure(new Throwable("fail registeration"));
                     }

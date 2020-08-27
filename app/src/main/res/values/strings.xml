@@ -14,8 +14,10 @@
     <string name="no_info">정보없음</string>
 
     <!-- login -->
+    <string name="name">name</string>
     <string name="email">email</string>
     <string name="password">password</string>
+    <string name="phone_number">phone number(예시 01012345678)</string>
 
     <!-- category-->
     <string name="category_search_tourspot">관광지 찾기</string>
