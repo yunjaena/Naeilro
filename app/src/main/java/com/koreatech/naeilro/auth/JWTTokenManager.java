@@ -2,6 +2,8 @@ package com.koreatech.naeilro.auth;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Base64;
 import android.util.Log;
 
@@ -22,6 +24,7 @@ import java.util.Date;
 public class JWTTokenManager implements JWTToken {
     public static final String TAG = "JWTTokenManager";
     private Context applicationContext;
+    private Thread loginThread;
 
     private JWTTokenManager() {
     }
@@ -34,7 +37,7 @@ public class JWTTokenManager implements JWTToken {
         if (applicationContext == null) {
             applicationContext = context.getApplicationContext();
             TokenSharedPreference.getInstance().init(applicationContext);
-            if (getRefreshToken() != null && isRefreshTokenExpiredInOneWeek()) {
+            if ((getRefreshToken() != null && isRefreshTokenExpiredInOneWeek()) || (!isRefreshTokenExpired() && isAccessTokenExpired())) {
                 updateToken();
             }
         }
@@ -84,12 +87,15 @@ public class JWTTokenManager implements JWTToken {
 
     @Override
     public void refreshTokenExpiredAction() {
-        Intent intent = new Intent(applicationContext, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        ToastUtil.getInstance().makeShort(R.string.session_expired);
-        applicationContext.startActivity(intent);
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(() -> {
+            Intent intent = new Intent(applicationContext, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            ToastUtil.getInstance().makeShort(R.string.session_expired);
+            applicationContext.startActivity(intent);
 
+        });
     }
 
     private boolean isRefreshTokenExpiredInOneWeek() {
@@ -172,7 +178,10 @@ public class JWTTokenManager implements JWTToken {
         if (token == null) {
             refreshTokenExpiredAction();
         }
-        Thread loginThread = new Thread() {
+        if (loginThread != null)
+            return;
+
+        loginThread = new Thread() {
             @Override
             public void run() {
                 try {
@@ -188,9 +197,11 @@ public class JWTTokenManager implements JWTToken {
                 }
             }
         };
+
         loginThread.start();
         try {
             loginThread.join();
+            loginThread = null;
         } catch (Exception e) {
             refreshTokenExpiredAction();
         }

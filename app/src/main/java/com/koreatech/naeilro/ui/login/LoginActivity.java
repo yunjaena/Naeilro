@@ -64,8 +64,7 @@ public class LoginActivity extends ActivityBase implements View.OnClickListener,
         }
         String email = emailTextInputEditText.getText().toString();
         String password = passwordTextInputEditText.getText().toString();
-         loginPresenter.login(email, password);
-       // JWTTokenManager.getInstance().updateToken();
+        loginPresenter.login(email, password);
     }
 
     private boolean isLoginFormatCorrect() {
