@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.koreatech.core.activity.ActivityBase;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.user.EnrollObject;
 import com.koreatech.naeilro.network.interactor.UserRestInteractor;
@@ -17,7 +18,7 @@ import com.koreatech.naeilro.ui.login.presenter.SignInActivityContract;
 import com.koreatech.naeilro.ui.login.presenter.SignInPresenter;
 import com.koreatech.naeilro.util.FilterUtil;
 
-public class SignInActivity extends AppCompatActivity implements View.OnClickListener, SignInActivityContract.View {
+public class SignInActivity extends ActivityBase implements View.OnClickListener, SignInActivityContract.View {
     private Button signInButton;
     private TextInputEditText nameTextInputEditText;
     private TextInputEditText emailTextInputEditText;
@@ -134,13 +135,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void showLoading() {
-
+    public void showLoading() {showProgressDialog(R.string.loading);
     }
 
     @Override
     public void hideLoading() {
-
+        hideProgressDialog();
     }
 
     @Override
