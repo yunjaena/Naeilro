@@ -4,15 +4,16 @@ import com.koreatech.core.network.ApiCallback;
 import com.koreatech.naeilro.network.entity.user.EnrollObject;
 import com.koreatech.naeilro.network.interactor.UserInteractor;
 
-public class EnrollActivityPresenter {
+public class SignInPresenter {
     private UserInteractor enrollInteractor;
-    private EnrollActivityContract.View enrollView;
+    private SignInActivityContract.View enrollView;
 
-    public EnrollActivityPresenter(UserInteractor enrollInteractor, EnrollActivityContract.View enrollView) {
+    public SignInPresenter(UserInteractor enrollInteractor, SignInActivityContract.View enrollView) {
         this.enrollInteractor = enrollInteractor;
         this.enrollView = enrollView;
         enrollView.setPresenter(this);
     }
+
     final ApiCallback enrollApiCallback = new ApiCallback() {
         @Override
         public void onSuccess(Object object) {
@@ -25,7 +26,8 @@ public class EnrollActivityPresenter {
 
         }
     };
-    public void getEnrollResult(String name, String email, String pw){
-        enrollInteractor.signUp(enrollApiCallback, name, pw, email);
+
+    public void getSignInResult(String name, String email, String pw, String phoneNumber) {
+        enrollInteractor.signUp(enrollApiCallback, name, pw, email, phoneNumber);
     }
 }

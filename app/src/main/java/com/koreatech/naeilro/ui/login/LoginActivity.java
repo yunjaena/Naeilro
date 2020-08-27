@@ -10,7 +10,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.koreatech.core.activity.ActivityBase;
 import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.R;
-import com.koreatech.naeilro.auth.JWTTokenManager;
 import com.koreatech.naeilro.network.interactor.UserRestInteractor;
 import com.koreatech.naeilro.ui.login.presenter.LoginContract;
 import com.koreatech.naeilro.ui.login.presenter.LoginPresenter;
@@ -49,7 +48,7 @@ public class LoginActivity extends ActivityBase implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.enroll_button:
-                Intent intent = new Intent(getApplicationContext(), EnrollActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
                 startActivity(intent);
                 break;
             case R.id.logint_button:

@@ -1,6 +1,7 @@
 package com.koreatech.naeilro.ui.tourspot;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,7 @@ public class TourSpotFragment extends Fragment implements TourSpotContract.View 
         View view = inflater.inflate(R.layout.fragment_tour_spot, container, false);
         unbinder = ButterKnife.bind(this, view);
         init(view);
+        Log.e("sdfg", "onCreateView");
         return view;
     }
 
