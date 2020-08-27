@@ -51,6 +51,7 @@ public class SplashActivity extends ActivityBase implements SplashContract.View 
     public void goToMain() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        ToastUtil.getInstance().makeShort(R.string.auto_login);
         finish();
     }
 
