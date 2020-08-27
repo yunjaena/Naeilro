@@ -15,6 +15,7 @@ public class LoginPresenter {
 
         @Override
         public void onFailure(Throwable throwable) {
+            loginView.showMessage(throwable.getMessage());
             loginView.hideLoading();
         }
     };

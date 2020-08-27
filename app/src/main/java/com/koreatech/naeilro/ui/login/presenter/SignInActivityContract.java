@@ -8,5 +8,6 @@ public interface SignInActivityContract {
         void showEnrollResult(EnrollObject enrollObject);
         void showLoading();
         void hideLoading();
+        void showFailure();
     }
 }
