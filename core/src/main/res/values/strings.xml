@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">core</string>
     <string name="loading">로딩 중</string>
+    <string name="session_expired">세션이 만료되었습니다. 재로그인 바랍니다.</string>
     <string name="loading_station_info">열차정보 로딩 중</string>
     <string name="saving">저장 중</string>
     <string name="error_null">값이 없습니다</string>

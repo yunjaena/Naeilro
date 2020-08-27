@@ -21,5 +21,7 @@ public interface JWTToken {
 
     boolean isRefreshTokenExpired();
 
+    void refreshTokenExpiredAction();
+
     void deleteAuth();
 }

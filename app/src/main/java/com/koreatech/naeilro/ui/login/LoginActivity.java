@@ -10,6 +10,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.koreatech.core.activity.ActivityBase;
 import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.R;
+import com.koreatech.naeilro.auth.JWTTokenManager;
 import com.koreatech.naeilro.network.interactor.UserRestInteractor;
 import com.koreatech.naeilro.ui.login.presenter.LoginContract;
 import com.koreatech.naeilro.ui.login.presenter.LoginPresenter;
@@ -63,7 +64,8 @@ public class LoginActivity extends ActivityBase implements View.OnClickListener,
         }
         String email = emailTextInputEditText.getText().toString();
         String password = passwordTextInputEditText.getText().toString();
-        loginPresenter.login(email, password);
+         loginPresenter.login(email, password);
+       // JWTTokenManager.getInstance().updateToken();
     }
 
     private boolean isLoginFormatCorrect() {

@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -74,11 +75,20 @@ public class UserRestInteractor implements UserInteractor {
         Map<String, Object> jsonObject = new ArrayMap<>();
         jsonObject.put("email", email);
         jsonObject.put("pw", password);
-
-
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), (new JSONObject(jsonObject)).toString());
-        UserRetrofitManager.getInstance().getRetrofit().create(UserService.class).postSignIn(body)
-                .subscribeOn(Schedulers.io())
+
+        Observable<Token> loginObservable = UserRetrofitManager.getInstance().getRetrofit().create(UserService.class).postSignIn(body);
+        Observable<Token> refreshObservable = UserRetrofitManager.getInstance().getRetrofit().create(UserService.class).getRefreshToken(body);
+
+        loginObservable.flatMap(token -> {
+            if (token != null && token.getAccessToken() != null) {
+                Log.d(TAG, "signIn: " + token.getAccessToken());
+                JWTTokenManager.getInstance().saveAccessToken(token.getAccessToken());
+                return refreshObservable;
+            } else {
+                throw new Exception("login failed");
+            }
+        }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Token>() {
                     @Override
@@ -88,8 +98,7 @@ public class UserRestInteractor implements UserInteractor {
 
                     @Override
                     public void onNext(Token token) {
-                        if (token != null && token.getAccessToken() != null && token.getRefreshToken() != null) {
-                            JWTTokenManager.getInstance().saveAccessToken(token.getAccessToken());
+                        if (token != null && token.getRefreshToken() != null) {
                             JWTTokenManager.getInstance().saveRefreshToken(token.getRefreshToken());
                             apiCallback.onSuccess(token);
                         } else
@@ -102,7 +111,6 @@ public class UserRestInteractor implements UserInteractor {
                             Log.d(TAG, ((HttpException) e).code() + " ");
                         }
                         apiCallback.onFailure(e);
-                        Log.e("sdf", e.toString());
                     }
 
                     @Override

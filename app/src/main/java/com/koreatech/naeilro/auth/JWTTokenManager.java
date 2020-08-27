@@ -1,13 +1,16 @@
 package com.koreatech.naeilro.auth;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Base64;
 import android.util.Log;
 
-import com.koreatech.core.network.ApiCallback;
 import com.koreatech.core.network.UserRetrofitManager;
+import com.koreatech.core.toast.ToastUtil;
+import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.user.Token;
 import com.koreatech.naeilro.network.service.UserService;
+import com.koreatech.naeilro.ui.login.LoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,14 +18,6 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.HttpException;
 
 public class JWTTokenManager implements JWTToken {
     public static final String TAG = "JWTTokenManager";
@@ -47,17 +42,18 @@ public class JWTTokenManager implements JWTToken {
 
     @Override
     public String getRefreshToken() {
-        if (isRefreshTokenExpired())
-            return "";
         return TokenSharedPreference.getInstance().getRefreshToken();
     }
 
     @Override
     public String getAccessToken() {
-        if (isRefreshTokenExpired() && isAccessTokenExpired())
-            return "";
-        if (!isRefreshTokenExpired())
+        if (getRefreshToken() != null && !isRefreshTokenExpired() && isAccessTokenExpired()) {
             updateToken();
+        } else if (isRefreshTokenExpired()) {
+            refreshTokenExpiredAction();
+            return "";
+        }
+
         return TokenSharedPreference.getInstance().getAccessToken();
     }
 
@@ -73,23 +69,7 @@ public class JWTTokenManager implements JWTToken {
 
     @Override
     public void updateToken() {
-        Lock lock = new ReentrantLock();
-        lock.lock();
-        try {
-            refreshToken(new ApiCallback() {
-                @Override
-                public void onSuccess(Object object) {
-                    lock.unlock();
-                }
-
-                @Override
-                public void onFailure(Throwable throwable) {
-                    lock.unlock();
-                }
-            });
-        } finally {
-            lock.unlock();
-        }
+        refreshToken();
     }
 
     @Override
@@ -100,6 +80,16 @@ public class JWTTokenManager implements JWTToken {
     @Override
     public boolean isRefreshTokenExpired() {
         return isExpired(getRefreshTokenExpiredDate());
+    }
+
+    @Override
+    public void refreshTokenExpiredAction() {
+        Intent intent = new Intent(applicationContext, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        ToastUtil.getInstance().makeShort(R.string.session_expired);
+        applicationContext.startActivity(intent);
+
     }
 
     private boolean isRefreshTokenExpiredInOneWeek() {
@@ -177,46 +167,34 @@ public class JWTTokenManager implements JWTToken {
         return jsonObject.getInt(key);
     }
 
-    private void refreshToken(ApiCallback apiCallback) {
+    private void refreshToken() {
         String token = getRefreshToken();
         if (token == null) {
-            apiCallback.onFailure(new Exception("Token Empty"));
-            return;
+            refreshTokenExpiredAction();
+        }
+        Thread loginThread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Token updatedToken = UserRetrofitManager.getInstance().getRetrofit().create(UserService.class).refreshToken(UserRetrofitManager.addAuthorizationBearer(token))
+                            .execute().body();
+                    if (updatedToken != null && updatedToken.getAccessToken() != null && updatedToken.getRefreshToken() != null) {
+                        JWTTokenManager.getInstance().saveAccessToken(updatedToken.getAccessToken());
+                        JWTTokenManager.getInstance().saveRefreshToken(updatedToken.getRefreshToken());
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                    refreshTokenExpiredAction();
+                }
+            }
+        };
+        loginThread.start();
+        try {
+            loginThread.join();
+        } catch (Exception e) {
+            refreshTokenExpiredAction();
         }
 
-        UserRetrofitManager.getInstance().getRetrofit().create(UserService.class).refreshToken(token)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Token>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Token token) {
-                        if (token != null && token.getAccessToken() != null && token.getRefreshToken() != null) {
-                            JWTTokenManager.getInstance().saveAccessToken(token.getAccessToken());
-                            JWTTokenManager.getInstance().saveRefreshToken(token.getRefreshToken());
-                            apiCallback.onSuccess(token);
-                        } else
-                            apiCallback.onFailure(new Throwable("fail update token"));
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        if (e instanceof HttpException) {
-                            Log.d(TAG, ((HttpException) e).code() + " ");
-                        }
-                        apiCallback.onFailure(e);
-                        Log.e("sdf", e.toString());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
     }
 
     private static class Holder {

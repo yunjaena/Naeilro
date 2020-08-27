@@ -21,8 +21,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 public class UserRetrofitManager {
     private static UserRetrofitManager instance = null;
 
-    public static final String BASE_URL_PRODUCTION = "http://54.180.124.169/nailo/member/"; //release server
-    public static final String BASE_URL_STAGE = "http://54.180.124.169/nailo/member/"; //development server
+    public static final String BASE_URL_PRODUCTION = "http://13.124.205.66:8001"; //release server
+    public static final String BASE_URL_STAGE = "http://13.124.205.66:8001"; //development server
 
     private Retrofit retrofit;
 
