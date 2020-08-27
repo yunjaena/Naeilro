@@ -89,7 +89,7 @@ public class UserRestInteractor implements UserInteractor {
                 JWTTokenManager.getInstance().saveAccessToken(token.getAccessToken());
                 return refreshObservable;
             } else {
-                throw new Exception("login failed");
+                throw new Exception(token.getMessage());
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -105,7 +105,7 @@ public class UserRestInteractor implements UserInteractor {
                             JWTTokenManager.getInstance().saveRefreshToken(token.getRefreshToken());
                             apiCallback.onSuccess(token);
                         } else
-                            apiCallback.onFailure(new Throwable("fail login"));
+                            apiCallback.onFailure(new Throwable(token.getMessage()));
                     }
 
                     @Override

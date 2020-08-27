@@ -124,7 +124,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     public void setMessage(EnrollObject result) {
         if (result.getSuccess() == 1) {
-            Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "회원가입이 완료되었습니다. 등록된 이메일로 발송된 메일을 통해 인증을 진행해주세요.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();
@@ -141,6 +141,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void hideLoading() {
 
+    }
+
+    @Override
+    public void showFailure() {
+        Toast.makeText(this, "회원가입에 실패하였습니다.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

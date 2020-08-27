@@ -23,7 +23,7 @@ public class SignInPresenter {
 
         @Override
         public void onFailure(Throwable throwable) {
-
+            enrollView.showFailure();
         }
     };
 
