@@ -11,6 +11,7 @@ import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.ui.login.LoginActivity;
 import com.koreatech.naeilro.ui.main.MainActivity;
+import com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity;
 import com.koreatech.naeilro.ui.splash.presenter.SplashContract;
 import com.koreatech.naeilro.ui.splash.presenter.SplashPresenter;
 

@@ -61,6 +61,12 @@
     <string name="train_select_depart_station">출발역 이름을 선택해주세요.</string>
     <string name="train_depart_arrival_station_same_warning">도착역과 출발역이 같습니다.</string>
 
+    <!--my plan-->
+    <string name="save_path">저장 위치</string>
+    <string name="add_my_plan_collection">마이플랜 컬랙션 추가하기</string>
+    <string name="my_plan_collection_empty_string_warning">텍스트를 입력해주세요.</string>
+    <string name="my_plan_collection_dialog_title">마이플랜 컬랙션 추가</string>
+    <string name="my_plan_collection_dialog_detail">추가할 컬랙션 이름을 입력하세요.</string>
 
     <!--restaurant-->
     <string name="restaurant_name">식당 이름</string>
