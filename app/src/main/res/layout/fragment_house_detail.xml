@@ -371,6 +371,14 @@
 
 
             </LinearLayout>
+            <Button
+                android:layout_width="280dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/bg_rect_peach_gradient"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/white"
+                android:text="여행계획에 담기"/>
 
         </LinearLayout>
 
