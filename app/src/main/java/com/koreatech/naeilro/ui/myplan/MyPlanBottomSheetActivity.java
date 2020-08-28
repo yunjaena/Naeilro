@@ -17,9 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.koreatech.core.activity.ActivityBase;
+import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.myplan.MyPlan;
+import com.koreatech.naeilro.network.entity.myplan.MyPlanNode;
 import com.koreatech.naeilro.network.interactor.MyPlanRestInteractor;
 import com.koreatech.naeilro.ui.myplan.adapter.MyPlanCollectionAdapter;
 import com.koreatech.naeilro.ui.myplan.presenter.MyPlanBottomSheetContract;
@@ -34,6 +36,8 @@ import static com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_
 
 public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBottomSheetContract.View {
     public static final String TAG = "MyPlanBottomSheetActivity";
+    public static final String CONTENT_ID = "CONTENT_ID";
+    public static final String CONTENT_TYPE = "CONTENT_TYPE";
     public final double BOTTOM_SHEET_SIZE_SHOW_PERCENT = 0.5;
     public final double BOTTOM_SHEET_SIZE_EXPENDED_PERCENT = 0.95;
     private LinearLayout myPlanSaveCardView;
@@ -45,11 +49,15 @@ public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBot
     private List<MyPlan> myPlanList;
     private LinearLayoutManager linearLayoutManager;
     private MyPlanBottomSheetPresenter myPlanBottomSheetPresenter;
+    private MyPlanNode selectedPlanNode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_plan_bottom_sheet);
+        String contentID = getIntent().getStringExtra(CONTENT_ID);
+        String contentType = getIntent().getStringExtra(CONTENT_TYPE);
+        selectedPlanNode = new MyPlanNode(contentType, contentID);
         init();
     }
 
@@ -63,15 +71,41 @@ public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBot
         myPlanCollectionAddLinearLayout.setOnClickListener(view -> myPlanCollectionAddButtonClicked());
         setBottomSheet();
         setBottomSheetRecyclerView();
-        // myPlanBottomSheetPresenter.getMyPlanCollectionList(new MyPlanNode());
+        myPlanBottomSheetPresenter.getMyPlanCollectionList(selectedPlanNode);
     }
 
     private void setBottomSheetRecyclerView() {
         linearLayoutManager = new LinearLayoutManager(this);
         myPlanCollectionAdapter = new MyPlanCollectionAdapter(myPlanList);
+        myPlanCollectionAdapter.setRecyclerViewClickListener(new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                if (myPlanList.get(position).isContainPlan()) {
+                    if (!getSelectedPlanNodeId(myPlanList.get(position)).isEmpty())
+                        myPlanBottomSheetPresenter.removeNode(getSelectedPlanNodeId(myPlanList.get(position)));
+                }
+                else {
+                        myPlanBottomSheetPresenter.createNode(myPlanList.get(position).getPlanNumber(), selectedPlanNode);
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        });
         myPlanCollectionRecyclerView.setLayoutManager(linearLayoutManager);
         myPlanCollectionRecyclerView.setAdapter(myPlanCollectionAdapter);
         myPlanCollectionAdapter.notifyDataSetChanged();
+    }
+
+    public String getSelectedPlanNodeId(MyPlan myPlan) {
+        for (MyPlanNode myPlanNode : myPlan.getMyPlanNodeList()) {
+            if (myPlanNode.getContentType().equals(selectedPlanNode.getContentType()) && myPlanNode.getContendID().equals(selectedPlanNode.getContendID())) {
+                return myPlanNode.getNodeNumber();
+            }
+        }
+        return "";
     }
 
     private void setBottomSheet() {
@@ -161,6 +195,11 @@ public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBot
     @Override
     public void hideLoading() {
         hideProgressDialog();
+    }
+
+    @Override
+    public void showSuccessCreatePlan() {
+        myPlanBottomSheetPresenter.getMyPlanCollectionList(selectedPlanNode);
     }
 
     @Override

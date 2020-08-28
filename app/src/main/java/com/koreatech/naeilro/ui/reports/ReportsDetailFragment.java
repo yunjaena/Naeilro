@@ -1,5 +1,6 @@
 package com.koreatech.naeilro.ui.reports;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -20,6 +21,7 @@ import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.reports.Reports;
 import com.koreatech.naeilro.network.interactor.ReportsRestInteractor;
 import com.koreatech.naeilro.ui.main.MainActivity;
+import com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity;
 import com.koreatech.naeilro.ui.reports.adapter.ReportsDetailInfoRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.reports.adapter.ReportsImageRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.reports.presenter.ReportsDetailFragmentPresenter;
@@ -35,6 +37,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TYPE;
 import static com.koreatech.naeilro.ui.tourspot.TourSpotDetailFragment.fromHtml;
 
 public class ReportsDetailFragment extends Fragment implements ReportsDetailFragmentContract.View {
@@ -48,6 +52,7 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
     private ReportsDetailInfoRecyclerViewAdapter reportsDetailInfoRecyclerViewAdapter;
     private ReportsImageRecyclerViewAdapter reportsImageRecyclerViewAdapter;
     private int contentId;
+    private String contentTypeId;
     private Unbinder unbinder;
     private String title;
     @BindView(R.id.reports_detail_title)
@@ -79,7 +84,10 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
 
     @OnClick(R.id.add_my_plan_reports)
     public void clickReportsMyPlanButton(){
-
+        Intent intent = new Intent(getActivity(), MyPlanBottomSheetActivity.class);
+        intent.putExtra(CONTENT_ID, String.valueOf(contentId));
+        intent.putExtra(CONTENT_TYPE, contentTypeId);
+        startActivity(intent);
     }
 
     @Override
@@ -125,6 +133,7 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
 
     @Override
     public void showCommonInfo(Reports reports) {
+        contentTypeId = reports.getContenttypeid();
         setAddressInfo(Double.parseDouble(reports.getMapx()), Double.parseDouble(reports.getMapy()), title, reports.getAddr1());
         setFirstImageView(reports.getFirstimage());
         setTitle(title);

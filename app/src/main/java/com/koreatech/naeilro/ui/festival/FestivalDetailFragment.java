@@ -1,5 +1,6 @@
 package com.koreatech.naeilro.ui.festival;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,6 +21,7 @@ import com.koreatech.naeilro.network.entity.event.Festival;
 import com.koreatech.naeilro.network.entity.facility.Facility;
 import com.koreatech.naeilro.network.interactor.FestivalRestInteractor;
 import com.koreatech.naeilro.ui.festival.presenter.FestivalDetailFragmentPresenter;
+import com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
@@ -32,6 +34,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TYPE;
 import static com.koreatech.naeilro.ui.tourspot.TourSpotDetailFragment.fromHtml;
 
 
@@ -86,7 +90,10 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
 
     @OnClick(R.id.add_my_plan_festival)
     public void clickFestivalMyPlanButton(){
-
+        Intent intent = new Intent(getActivity(), MyPlanBottomSheetActivity.class);
+        intent.putExtra(CONTENT_ID, String.valueOf(contentId));
+        intent.putExtra(CONTENT_TYPE, contentTypeId);
+        startActivity(intent);
     }
 
     public void init(View view) {

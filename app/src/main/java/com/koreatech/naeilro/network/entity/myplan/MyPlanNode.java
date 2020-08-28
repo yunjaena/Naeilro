@@ -10,6 +10,9 @@ public class MyPlanNode {
     @SerializedName("content_id")
     @Expose
     private String contendID;
+    @SerializedName("node_no")
+    @Expose
+    private String nodeNumber;
 
 
     public MyPlanNode(String contentType, String contendID) {
@@ -23,5 +26,9 @@ public class MyPlanNode {
 
     public String getContendID() {
         return contendID;
+    }
+
+    public String getNodeNumber() {
+        return nodeNumber;
     }
 }

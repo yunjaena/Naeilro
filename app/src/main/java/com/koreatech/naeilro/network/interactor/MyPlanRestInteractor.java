@@ -305,10 +305,11 @@ public class MyPlanRestInteractor implements MyPlanInteractor {
         Observable<MyPlanResponse> myPlanResponseObservable = MyPlanRetrofitManager.getInstance().getRetrofit().create(MyPlanService.class).getPlan(MyPlanRetrofitManager.addAuthorizationBearer(token));
         myPlanResponseObservable.flatMapIterable(MyPlanResponse::getMyPlanList)
                 .flatMap(myPlan -> getPlanNode(myPlan.getPlanNumber()), ((myPlan, myPlanNodeResponse) -> {
-                    if(isContainSameNode(myPlanNodeResponse.getMyPlanNodeList() ,myPlanNode))
+                    if (isContainSameNode(myPlanNodeResponse.getMyPlanNodeList(), myPlanNode))
                         myPlan.setContainPlan(true);
                     else
                         myPlan.setContainPlan(false);
+                    myPlan.setMyPlanNodeList(myPlanNodeResponse.getMyPlanNodeList());
                     myPlanList.add(myPlan);
                     return myPlan;
                 })).subscribeOn(Schedulers.io())
@@ -334,15 +335,15 @@ public class MyPlanRestInteractor implements MyPlanInteractor {
 
                     @Override
                     public void onComplete() {
-                            apiCallback.onSuccess(myPlanList);
+                        apiCallback.onSuccess(myPlanList);
                     }
                 });
 
     }
 
     private boolean isContainSameNode(List<MyPlanNode> myPlanNodeList, MyPlanNode selectMyPlan) {
-        for(MyPlanNode myPlanNode : myPlanNodeList){
-            if(myPlanNode.getContendID().equals(selectMyPlan.getContendID()) && myPlanNode.getContentType().equals(selectMyPlan.getContentType()))
+        for (MyPlanNode myPlanNode : myPlanNodeList) {
+            if (myPlanNode.getContendID().equals(selectMyPlan.getContendID()) && myPlanNode.getContentType().equals(selectMyPlan.getContentType()))
                 return true;
         }
         return false;

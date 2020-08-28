@@ -3,6 +3,8 @@ package com.koreatech.naeilro.network.entity.myplan;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class MyPlan {
     @SerializedName("plan_title")
     @Expose
@@ -10,6 +12,9 @@ public class MyPlan {
     @SerializedName("plan_no")
     @Expose
     private String planNumber;
+
+    private List<MyPlanNode> myPlanNodeList;
+
     private boolean isContainPlan;
 
     public MyPlan(String planTitle, String planNumber) {
@@ -31,5 +36,13 @@ public class MyPlan {
 
     public void setContainPlan(boolean containPlan) {
         isContainPlan = containPlan;
+    }
+
+    public void setMyPlanNodeList(List<MyPlanNode> myPlanNodeList) {
+        this.myPlanNodeList = myPlanNodeList;
+    }
+
+    public List<MyPlanNode> getMyPlanNodeList() {
+        return myPlanNodeList;
     }
 }

@@ -1,5 +1,6 @@
 package com.koreatech.naeilro.ui.facility;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -25,6 +26,7 @@ import com.koreatech.naeilro.ui.facility.adapter.FacilityDetailInfoRecyclerViewA
 import com.koreatech.naeilro.ui.facility.adapter.FacilityImageRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.facility.presenter.FacilityDetailFragmentPresenter;
 import com.koreatech.naeilro.ui.main.MainActivity;
+import com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
@@ -36,6 +38,9 @@ import java.util.Objects;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TYPE;
 
 public class FacilityDetailFragment extends Fragment implements FacilityDetailFragmentContract.View {
     private static final double centerLon = 127.48318433761597;
@@ -61,6 +66,7 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
     private List<Facility> imagefacilityInfoList;
     private FacilityImageRecyclerViewAdapter facilityDetailImageRecyclerViewAdapter;
     private int contentId;
+    private String contentTypeID;
     private String detailTitle;
 
     @Override
@@ -75,7 +81,10 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
     }
     @OnClick(R.id.add_my_plan_facility)
     public void clickFacilityMyPlanButton(){
-
+        Intent intent = new Intent(getActivity(), MyPlanBottomSheetActivity.class);
+        intent.putExtra(CONTENT_ID, String.valueOf(contentId));
+        intent.putExtra(CONTENT_TYPE, contentTypeID);
+        startActivity(intent);
     }
     @Override
     public void onDestroy() {
@@ -162,6 +171,7 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
 
     @Override
     public void showCommonInfo(Facility facility) {
+        contentTypeID = facility.getContenttypeid();
         setAddressInfo(Double.parseDouble(facility.getMapx()), Double.parseDouble(facility.getMapy()), detailTitle, facility.getAddr1());
         setFirstImageView(facility.getFirstimage());
         setTitle(detailTitle);
