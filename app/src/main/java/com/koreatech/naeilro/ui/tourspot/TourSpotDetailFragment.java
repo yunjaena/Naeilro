@@ -36,6 +36,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
 public class TourSpotDetailFragment extends Fragment implements TourSpotDetailContract.View {
     private static final double centerLon = 127.48318433761597;
     private static final double centerLat = 36.41592967015607;
@@ -68,7 +72,7 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
     private List<TourInfo> imageTourInfoList;
     private TourDetailImageRecyclerViewAdapter tourDetailImageRecyclerViewAdapter;
     private int contentId;
-
+    private Unbinder unbinder;
     @SuppressWarnings("deprecation")
     public static Spanned fromHtml(String source) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -83,8 +87,19 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tour_spot_detail, container, false);
         contentId = requireArguments().getInt("contentId");
+        this.unbinder = ButterKnife.bind(this, view);
         init(view);
         return view;
+    }
+
+    @OnClick(R.id.add_my_plan_tour_spot)
+    public void clickTourSpotMyPlanButton(){
+        
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (unbinder != null) unbinder.unbind();
     }
 
     private void init(View view) {

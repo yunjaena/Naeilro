@@ -16,9 +16,9 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@mipmap/ic_launcher" />
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:background="@mipmap/logo_blue" />
 
     </LinearLayout>
 
@@ -32,6 +32,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/login_email_text_input_layout"
+            android:background="@color/gray2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -46,6 +47,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/login_password_text_input_layout"
+            android:background="@color/gray2"
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -72,6 +75,9 @@
             android:id="@+id/logint_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/blue6"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             android:text="로그인" />
 
         <Button
@@ -79,6 +85,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@color/blue6"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             android:text="회원가입" />
 
     </LinearLayout>

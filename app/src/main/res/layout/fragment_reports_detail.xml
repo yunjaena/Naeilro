@@ -98,6 +98,7 @@
 
             </LinearLayout>
             <Button
+                android:id="@+id/add_my_plan_reports"
                 android:layout_width="280dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
