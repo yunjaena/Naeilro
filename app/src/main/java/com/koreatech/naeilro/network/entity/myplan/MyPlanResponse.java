@@ -8,7 +8,7 @@ import java.util.List;
 public class MyPlanResponse {
     @SerializedName("success")
     @Expose
-    private boolean isSuccess;
+    private int isSuccess;
     @SerializedName("message")
     @Expose
     private String message;
@@ -16,8 +16,12 @@ public class MyPlanResponse {
     @Expose
     private List<MyPlan> myPlanList;
 
-    public boolean isSuccess() {
+    public int getIsSuccess() {
         return isSuccess;
+    }
+
+    public boolean isSuccess() {
+        return isSuccess == 1;
     }
 
     public String getMessage() {

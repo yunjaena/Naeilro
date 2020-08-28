@@ -10,19 +10,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.R;
+import com.koreatech.naeilro.network.entity.myplan.MyPlan;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class MyPlanCollectionAdapter extends RecyclerView.Adapter<MyPlanCollectionAdapter.ViewHolder> {
-    private List<String> collectionList;
+    private List<MyPlan> myPlanList;
     private Set<Integer> selectedPosition;
 
-    public MyPlanCollectionAdapter(List<String> collectionList) {
-        this.collectionList = collectionList;
+    public MyPlanCollectionAdapter(List<MyPlan> myPlanList) {
+        this.myPlanList = myPlanList;
         selectedPosition = new HashSet<>();
     }
 
@@ -35,8 +35,8 @@ public class MyPlanCollectionAdapter extends RecyclerView.Adapter<MyPlanCollecti
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.collectionTextView.setText(collectionList.get(position));
-        if (selectedPosition.contains(position)) {
+        holder.collectionTextView.setText(myPlanList.get(position).getPlanTitle());
+        if (myPlanList.get(position).isContainPlan()) {
             holder.collectionRadioButton.setChecked(true);
         } else {
             holder.collectionRadioButton.setChecked(false);
@@ -46,7 +46,7 @@ public class MyPlanCollectionAdapter extends RecyclerView.Adapter<MyPlanCollecti
 
     @Override
     public int getItemCount() {
-        return collectionList.size();
+        return myPlanList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -66,7 +66,7 @@ public class MyPlanCollectionAdapter extends RecyclerView.Adapter<MyPlanCollecti
 
 
         private void inverseRadioButtonChecked(RadioButton radioButton, int position) {
-            if (selectedPosition.contains(position)) {
+            if (myPlanList.get(position).isContainPlan()) {
                 radioButton.setChecked(false);
                 selectedPosition.remove(position);
             } else {

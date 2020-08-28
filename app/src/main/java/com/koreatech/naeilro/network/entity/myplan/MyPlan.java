@@ -10,6 +10,12 @@ public class MyPlan {
     @SerializedName("plan_no")
     @Expose
     private String planNumber;
+    private boolean isContainPlan;
+
+    public MyPlan(String planTitle, String planNumber) {
+        this.planTitle = planTitle;
+        this.planNumber = planNumber;
+    }
 
     public String getPlanTitle() {
         return planTitle;
@@ -17,5 +23,13 @@ public class MyPlan {
 
     public String getPlanNumber() {
         return planNumber;
+    }
+
+    public boolean isContainPlan() {
+        return isContainPlan;
+    }
+
+    public void setContainPlan(boolean containPlan) {
+        isContainPlan = containPlan;
     }
 }

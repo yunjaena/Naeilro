@@ -11,6 +11,12 @@ public class MyPlanNode {
     @Expose
     private String contendID;
 
+
+    public MyPlanNode(String contentType, String contendID) {
+        this.contentType = contentType;
+        this.contendID = contendID;
+    }
+
     public String getContentType() {
         return contentType;
     }

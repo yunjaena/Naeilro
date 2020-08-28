@@ -6,12 +6,16 @@ import com.google.gson.annotations.SerializedName;
 public class DefaultMessage {
     @SerializedName("success")
     @Expose
-    private boolean isSuccess;
+    private int isSuccess;
     @SerializedName("message")
     @Expose
     private String message;
 
     public boolean isSuccess() {
+        return isSuccess == 1;
+    }
+
+    public int getIsSuccess() {
         return isSuccess;
     }
 
