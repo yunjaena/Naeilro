@@ -1,5 +1,6 @@
 package com.koreatech.naeilro.ui.house;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.koreatech.naeilro.network.interactor.HouseRestInteractor;
 import com.koreatech.naeilro.ui.house.adapter.HouseImageRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.house.presenter.HouseDetailFragmentPresenter;
 import com.koreatech.naeilro.ui.main.MainActivity;
+import com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
@@ -34,6 +36,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TYPE;
 import static com.koreatech.naeilro.ui.tourspot.TourSpotDetailFragment.fromHtml;
 
 
@@ -60,6 +64,7 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
     private List<HouseInfo> imagehouseInfoList;
     private HouseImageRecyclerViewAdapter houseDetailImageRecyclerViewAdapter;
     private int contentId;
+    private String contentTypeId;
     private String detailTitle;
     @BindView(R.id.accomtaion_number)
     TextView accomdationTextView;
@@ -100,7 +105,10 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
 
     @OnClick(R.id.add_my_plan_house)
     public void clickHouseMyPlanButton(){
-
+        Intent intent = new Intent(getActivity(), MyPlanBottomSheetActivity.class);
+        intent.putExtra(CONTENT_ID, String.valueOf(contentId));
+        intent.putExtra(CONTENT_TYPE, contentTypeId);
+        startActivity(intent);
     }
 
 
@@ -180,6 +188,7 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
 
     @Override
     public void showCommonInfo(HouseInfo houseInfo) {
+        contentTypeId = houseInfo.getContenttypeid();
         setAddressInfo(Double.parseDouble(houseInfo.getMapx()), Double.parseDouble(houseInfo.getMapy()), detailTitle, houseInfo.getAddr1());
         setFirstImageView(houseInfo.getFirstimage());
         setSummary(houseInfo.getOverview());
