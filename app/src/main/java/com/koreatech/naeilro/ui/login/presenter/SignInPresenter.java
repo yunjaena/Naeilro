@@ -19,6 +19,7 @@ public class SignInPresenter {
         public void onSuccess(Object object) {
             EnrollObject enrollObject = (EnrollObject) object;
             enrollView.showEnrollResult(enrollObject);
+            enrollView.hideLoading();
         }
 
         @Override
@@ -28,6 +29,7 @@ public class SignInPresenter {
     };
 
     public void getSignInResult(String name, String email, String pw, String phoneNumber) {
+        enrollView.showLoading();
         enrollInteractor.signUp(enrollApiCallback, name, pw, email, phoneNumber);
     }
 }

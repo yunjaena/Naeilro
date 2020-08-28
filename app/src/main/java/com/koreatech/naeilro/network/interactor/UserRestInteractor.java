@@ -8,6 +8,7 @@ import com.koreatech.core.network.UserRetrofitManager;
 import com.koreatech.naeilro.auth.JWTTokenManager;
 import com.koreatech.naeilro.network.entity.user.EnrollObject;
 import com.koreatech.naeilro.network.entity.user.Token;
+import com.koreatech.naeilro.network.entity.user.UserInfo;
 import com.koreatech.naeilro.network.service.UserService;
 
 import org.json.JSONObject;
@@ -124,7 +125,73 @@ public class UserRestInteractor implements UserInteractor {
     }
 
     @Override
-    public void getUserInfo(ApiCallback apiCallback) {
+    public void logOut(ApiCallback apiCallback, String token) {
+        UserRetrofitManager.getInstance().getRetrofit().create(UserService.class).logOut(UserRetrofitManager.addAuthorizationBearer(token))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<UserInfo>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(UserInfo userInfo) {
+                        if (userInfo != null ) {
+                            apiCallback.onSuccess(userInfo);
+                        } else
+                            apiCallback.onFailure(new Throwable("fail get userInfo"));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (e instanceof HttpException) {
+                            Log.d(TAG, ((HttpException) e).code() + " ");
+                        }
+                        apiCallback.onFailure(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
+    public void getUserInfo(ApiCallback apiCallback, String token) {
+
+            UserRetrofitManager.getInstance().getRetrofit().create(UserService.class).getUserInfo(UserRetrofitManager.addAuthorizationBearer(token))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<UserInfo>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(UserInfo userInfo) {
+                            if (userInfo != null ) {
+                                apiCallback.onSuccess(userInfo);
+                            } else
+                                apiCallback.onFailure(new Throwable("fail get userInfo"));
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            if (e instanceof HttpException) {
+                                Log.d(TAG, ((HttpException) e).code() + " ");
+                            }
+                            apiCallback.onFailure(e);
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
 
     }
 

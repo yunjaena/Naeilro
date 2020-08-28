@@ -89,6 +89,9 @@
     <color name="colorTableCenterItem">#f6f6f6</color>
 
     <color name="peach">#ffb489</color>
+    <color name="deep_peach">#F8A170</color>
+    <color name="light_peach">#FFCD61</color>
+
     <string-array name="default_sticker_color">
         <item>#fdbcf5</item>
         <item>#fedb8f</item>

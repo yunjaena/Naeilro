@@ -7,7 +7,9 @@ public interface UserInteractor {
 
     void signIn(ApiCallback apiCallback, String email, String password);
 
-    void getUserInfo(ApiCallback apiCallback);
+    void getUserInfo(ApiCallback apiCallback, String token);
+
+    void logOut(ApiCallback apiCallback, String token);
 
     void getRefreshToken(ApiCallback apiCallback, String email, String password);
 

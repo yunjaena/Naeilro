@@ -48,7 +48,7 @@
         tools:layout="@layout/fragment_my_plan" />
     <fragment
         android:id="@+id/navigation_my_info"
-        android:name="com.koreatech.naeilro.ui.main.MyInfoFragment"
+        android:name="com.koreatech.naeilro.ui.myinfo.MyInfoFragment"
         android:label="@string/bottom_nav_my_info"
         tools:layout="@layout/fragment_my_info" />
     <fragment
