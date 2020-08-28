@@ -50,7 +50,7 @@ public class SplashActivity extends ActivityBase implements SplashContract.View 
 
     @Override
     public void goToMain() {
-        Intent intent = new Intent(this, MyPlanBottomSheetActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         ToastUtil.getInstance().makeShort(R.string.auto_login);
         finish();
