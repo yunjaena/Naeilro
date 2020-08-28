@@ -31,6 +31,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.koreatech.naeilro.ui.tourspot.TourSpotDetailFragment.fromHtml;
@@ -95,6 +96,11 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
         detailTitle = getArguments().getString("title");
         init(view);
         return view;
+    }
+
+    @OnClick(R.id.add_my_plan_house)
+    public void clickHouseMyPlanButton(){
+
     }
 
 

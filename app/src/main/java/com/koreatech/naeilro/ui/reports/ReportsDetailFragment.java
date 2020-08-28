@@ -32,6 +32,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.koreatech.naeilro.ui.tourspot.TourSpotDetailFragment.fromHtml;
@@ -74,6 +75,11 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
         init(view);
 
         return view;
+    }
+
+    @OnClick(R.id.add_my_plan_reports)
+    public void clickReportsMyPlanButton(){
+
     }
 
     @Override
