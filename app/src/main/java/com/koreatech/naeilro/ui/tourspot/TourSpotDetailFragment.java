@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,6 +110,7 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
         intent.putExtra(CONTENT_ID, String.valueOf(contentId));
         intent.putExtra(CONTENT_TYPE, contentTypeId);
         intent.putExtra(CONTENT_TITLE, contentTitle);
+        Log.e("detail", contentThumbnail);
         intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
         startActivity(intent);
     }
@@ -224,6 +226,8 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
 
     @Override
     public void showCommonInfo(TourInfo tour) {
+        contentThumbnail = tour.getFirstimage();
+        contentTitle = tour.getTitle();
         setAddressInfo(Double.parseDouble(tour.getMapx()), Double.parseDouble(tour.getMapy()), tour.getTitle(), tour.getAddr1());
         setFirstImageView(tour.getFirstimage());
         setTitle(tour.getTitle());
@@ -269,8 +273,6 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
 
     private void setDetailIntroduce(TourInfo tourInfo) {
         contentTypeId = tourInfo.getContenttypeid();
-        contentThumbnail = tourInfo.getFirstimage();
-        contentTitle = tourInfo.getTitle();
         if (tourInfo.getPersonLimitCount() != null)
             tourPersonLimitTextView.setText(fromHtml(tourInfo.getPersonLimitCount()));
         if (tourInfo.getBabyCarriageInvalidate() != null)

@@ -103,6 +103,7 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
         this.unbinder = ButterKnife.bind(this, view);
         contentId = getArguments().getInt("contentId");
         detailTitle = getArguments().getString("title");
+        contentTitle = detailTitle;
         init(view);
         return view;
     }
@@ -196,7 +197,6 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
     public void showCommonInfo(HouseInfo houseInfo) {
         contentTypeId = houseInfo.getContenttypeid();
         contentThumbnail = houseInfo.getFirstimage();
-        contentTitle = houseInfo.getTitle();
         setAddressInfo(Double.parseDouble(houseInfo.getMapx()), Double.parseDouble(houseInfo.getMapy()), detailTitle, houseInfo.getAddr1());
         setFirstImageView(houseInfo.getFirstimage());
         setSummary(houseInfo.getOverview());

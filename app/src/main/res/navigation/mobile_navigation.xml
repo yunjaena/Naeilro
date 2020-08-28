@@ -43,9 +43,18 @@
 
     <fragment
         android:id="@+id/navigation_my_plan"
-        android:name="com.koreatech.naeilro.ui.main.MyPlanFragment"
+        android:name="com.koreatech.naeilro.ui.myplan.MyPlanFragment"
         android:label="@string/bottom_nav_my_plan"
-        tools:layout="@layout/fragment_my_plan" />
+        tools:layout="@layout/fragment_my_plan" >
+        <action
+            android:id="@+id/action_navigation_my_plan_to_navigation_my_plan_detail"
+            app:destination="@id/navigation_my_plan_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_my_plan_detail"
+        android:name="com.koreatech.naeilro.ui.myplan.MyPlanDetailFragment"
+        android:label="@string/bottom_nav_my_plan"
+        tools:layout="@layout/fragment_my_plan_detail" />
     <fragment
         android:id="@+id/navigation_my_info"
         android:name="com.koreatech.naeilro.ui.myinfo.MyInfoFragment"
