@@ -59,6 +59,7 @@ public class MyInfoFragment extends Fragment implements MyInfoContract.View {
     @OnClick(R.id.log_out)
     public void clickLogOutButton(){
         myInfoPresenter.logOut(token);
+
     }
 
     @Override
@@ -77,6 +78,7 @@ public class MyInfoFragment extends Fragment implements MyInfoContract.View {
             Toast.makeText(getActivity(), userInfo.getMessage(), Toast.LENGTH_LONG).show();
             JWTTokenManager.getInstance().deleteAuth();
             startActivity(new Intent(getActivity(), LoginActivity.class));
+            getActivity().finish();
         }
         else{
             Toast.makeText(getActivity(), R.string.logout_fail_message, Toast.LENGTH_LONG).show();
