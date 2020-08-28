@@ -20,5 +20,7 @@ public interface MyPlanBottomSheetContract {
         void showMyPlanCollection(List<MyPlan> myPlanList);
 
         void failGetPlanInfo();
+
+        void showSuccessCreatePlan();
     }
 }

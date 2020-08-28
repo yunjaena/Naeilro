@@ -30,9 +30,7 @@ public class MyPlanBottomSheetPresenter {
         public void onSuccess(Object object) {
             DefaultMessage defaultMessage = (DefaultMessage) object;
             myPlanBottomSheetView.hideLoading();
-            if(defaultMessage.isSuccess()){
-                getMyPlanCollectionList();
-            }
+            myPlanBottomSheetView.showSuccessCreatePlan();
         }
 
         @Override
@@ -58,8 +56,18 @@ public class MyPlanBottomSheetPresenter {
         myPlanInteractor.getPlanWithSelectNode(getMyPlanApiCallback, myPlanNode);
     }
 
-    public void createPlan(String name){
+    public void createPlan(String name) {
         myPlanBottomSheetView.showLoading();
         myPlanInteractor.createPlan(createPlanApiCallback, name);
+    }
+
+    public void createNode(String planNumber, MyPlanNode myPlanNode) {
+        myPlanBottomSheetView.showLoading();
+        myPlanInteractor.createNode(createPlanApiCallback, planNumber, myPlanNode.getContendID(), myPlanNode.getContentType());
+    }
+
+    public void removeNode(String myPlanNodeNumber) {
+        myPlanBottomSheetView.showLoading();
+        myPlanInteractor.deleteNode(createPlanApiCallback, myPlanNodeNumber);
     }
 }

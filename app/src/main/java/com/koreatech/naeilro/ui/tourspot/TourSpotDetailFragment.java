@@ -1,5 +1,6 @@
 package com.koreatech.naeilro.ui.tourspot;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -25,6 +26,7 @@ import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.tour.TourInfo;
 import com.koreatech.naeilro.network.interactor.TourRestInteractor;
 import com.koreatech.naeilro.ui.main.MainActivity;
+import com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity;
 import com.koreatech.naeilro.ui.tourspot.adapter.TourDetailImageRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.tourspot.presenter.TourSpotDetailContract;
 import com.koreatech.naeilro.ui.tourspot.presenter.TourSpotDetailPresenter;
@@ -39,6 +41,9 @@ import java.util.Objects;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TYPE;
 
 public class TourSpotDetailFragment extends Fragment implements TourSpotDetailContract.View {
     private static final double centerLon = 127.48318433761597;
@@ -72,7 +77,9 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
     private List<TourInfo> imageTourInfoList;
     private TourDetailImageRecyclerViewAdapter tourDetailImageRecyclerViewAdapter;
     private int contentId;
+    private String contentTypeId;
     private Unbinder unbinder;
+
     @SuppressWarnings("deprecation")
     public static Spanned fromHtml(String source) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -93,9 +100,13 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
     }
 
     @OnClick(R.id.add_my_plan_tour_spot)
-    public void clickTourSpotMyPlanButton(){
-        
+    public void clickTourSpotMyPlanButton() {
+        Intent intent = new Intent(getActivity(), MyPlanBottomSheetActivity.class);
+        intent.putExtra(CONTENT_ID, String.valueOf(contentId));
+        intent.putExtra(CONTENT_TYPE, contentTypeId);
+        startActivity(intent);
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -251,6 +262,7 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
     }
 
     private void setDetailIntroduce(TourInfo tourInfo) {
+        contentTypeId = tourInfo.getContenttypeid();
         if (tourInfo.getPersonLimitCount() != null)
             tourPersonLimitTextView.setText(fromHtml(tourInfo.getPersonLimitCount()));
         if (tourInfo.getBabyCarriageInvalidate() != null)
