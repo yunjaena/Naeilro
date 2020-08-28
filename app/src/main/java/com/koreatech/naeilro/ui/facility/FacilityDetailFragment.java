@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Objects;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class FacilityDetailFragment extends Fragment implements FacilityDetailFragmentContract.View {
@@ -71,6 +72,10 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
         detailTitle = getArguments().getString("title");
         init(view);
         return view;
+    }
+    @OnClick(R.id.add_my_plan_facility)
+    public void clickFacilityMyPlanButton(){
+
     }
     @Override
     public void onDestroy() {
