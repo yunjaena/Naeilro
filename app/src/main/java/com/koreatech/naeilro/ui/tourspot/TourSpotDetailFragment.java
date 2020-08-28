@@ -43,6 +43,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_THUMBNAIL;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TITLE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TYPE;
 
 public class TourSpotDetailFragment extends Fragment implements TourSpotDetailContract.View {
@@ -78,6 +80,8 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
     private TourDetailImageRecyclerViewAdapter tourDetailImageRecyclerViewAdapter;
     private int contentId;
     private String contentTypeId;
+    private String contentTitle;
+    private String contentThumbnail;
     private Unbinder unbinder;
 
     @SuppressWarnings("deprecation")
@@ -104,6 +108,8 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
         Intent intent = new Intent(getActivity(), MyPlanBottomSheetActivity.class);
         intent.putExtra(CONTENT_ID, String.valueOf(contentId));
         intent.putExtra(CONTENT_TYPE, contentTypeId);
+        intent.putExtra(CONTENT_TITLE, contentTitle);
+        intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
         startActivity(intent);
     }
 
@@ -263,6 +269,8 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
 
     private void setDetailIntroduce(TourInfo tourInfo) {
         contentTypeId = tourInfo.getContenttypeid();
+        contentThumbnail = tourInfo.getFirstimage();
+        contentTitle = tourInfo.getTitle();
         if (tourInfo.getPersonLimitCount() != null)
             tourPersonLimitTextView.setText(fromHtml(tourInfo.getPersonLimitCount()));
         if (tourInfo.getBabyCarriageInvalidate() != null)

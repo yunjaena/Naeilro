@@ -2,11 +2,6 @@ package com.koreatech.naeilro.ui.festival;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+
 import com.bumptech.glide.Glide;
 import com.koreatech.naeilro.NaeilroApplication;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.event.Festival;
-import com.koreatech.naeilro.network.entity.facility.Facility;
 import com.koreatech.naeilro.network.interactor.FestivalRestInteractor;
 import com.koreatech.naeilro.ui.festival.presenter.FestivalDetailFragmentPresenter;
 import com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity;
@@ -26,7 +23,6 @@ import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
 
-import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -35,6 +31,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_THUMBNAIL;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TITLE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TYPE;
 import static com.koreatech.naeilro.ui.tourspot.TourSpotDetailFragment.fromHtml;
 
@@ -42,15 +40,6 @@ import static com.koreatech.naeilro.ui.tourspot.TourSpotDetailFragment.fromHtml;
 public class FestivalDetailFragment extends Fragment implements FestivalDetailFragmentContract.View {
     private static final double centerLon = 127.48318433761597;
     private static final double centerLat = 36.41592967015607;
-
-    private View view;
-    private FestivalDetailFragmentPresenter festivalDetailFragmentPresenter;
-    private Unbinder unbinder;
-    private NavController navController;
-    private int contentTypeId;
-    private int contentId;
-    private String tel;
-    private String title;
     @BindView(R.id.festival_detail_image)
     ImageView festivalDetailImage;
     @BindView(R.id.festival_detail_title)
@@ -75,10 +64,21 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
     LinearLayout festivalDetailMapLinearLayout;
     @BindView(R.id.festival_detail_t_map_linear_layout)
     LinearLayout festivalDetailTMapLinearLayout;
-    private TMapView tMapView;
     @BindView(R.id.festival_address_text_view)
     TextView festivalAddressTextView;
+    private View view;
+    private FestivalDetailFragmentPresenter festivalDetailFragmentPresenter;
+    private Unbinder unbinder;
+    private NavController navController;
+    private int contentTypeId;
+    private int contentId;
+    private String contentTitle;
+    private String contentThumbnail;
+    private String tel;
+    private String title;
+    private TMapView tMapView;
     private String addr;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,10 +89,13 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
     }
 
     @OnClick(R.id.add_my_plan_festival)
-    public void clickFestivalMyPlanButton(){
+    public void clickFestivalMyPlanButton() {
         Intent intent = new Intent(getActivity(), MyPlanBottomSheetActivity.class);
         intent.putExtra(CONTENT_ID, String.valueOf(contentId));
         intent.putExtra(CONTENT_TYPE, contentTypeId);
+        ;
+        intent.putExtra(CONTENT_TITLE, contentTitle);
+        intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
         startActivity(intent);
     }
 
@@ -109,6 +112,7 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
         festivalDetailFragmentPresenter.getFestivalIntroInfo(contentTypeId, contentId);
 
     }
+
     private void initTMap(View view) {
         tMapView = new TMapView(Objects.requireNonNull(getActivity()));
         tMapView.setSKTMapApiKey(NaeilroApplication.getTMapApiKey());
@@ -116,33 +120,41 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
         festivalDetailTMapLinearLayout.addView(tMapView);
 
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(unbinder != null) unbinder.unbind();
+        if (unbinder != null) unbinder.unbind();
     }
+
     @Override
     public void showFestivalCommon(Festival festival) {
 
         //festivalDetailOverview.setText(setFilter(festival.getOverview()));
+        contentTitle = festival.getTitle();
+        contentThumbnail = festival.getFirstimage();
         setAddressInfo(Double.parseDouble(festival.getMapx()), Double.parseDouble(festival.getMapy()), festival.getTitle(), addr);
         setFirstImageView(festival.getFirstimage());
         setTitle(festival.getTitle());
         setSummary(festival.getOverview());
     }
+
     public void setAddressInfo(double x, double y, String title, String address) {
         showMapPoint(x, y, title, address);
         festivalAddressTextView.setText(address);
     }
+
     private void setFirstImageView(String url) {
         Glide.with(getContext()).load(url)
                 .error(R.drawable.ic_no_image)
                 .into(festivalDetailImage);
     }
+
     private void setTitle(String text) {
         if (text == null) return;
         festivalDetailTitle.setText(text);
     }
+
     private void setSummary(String text) {
         if (text == null) return;
         festivalDetailOverview.setText(fromHtml(text));
@@ -176,6 +188,7 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
             discountInfoFestival.setText("   " + festival.getDiscountinfofestival());
 
     }
+
     private void showMapPoint(double x, double y, String title, String address) {
         festivalDetailMapLinearLayout.setVisibility(View.VISIBLE);
         TMapMarkerItem markerItem = new TMapMarkerItem();
@@ -198,6 +211,7 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
     public void setPresenter(FestivalDetailFragmentPresenter presenter) {
         this.festivalDetailFragmentPresenter = presenter;
     }
+
     public String setFilter(String overview) {
         String arrStr[] = overview.split("");
         String filteredString = "";
@@ -211,17 +225,17 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
                 flag = false;
                 continue;
             }
-            if(arrStr[i].equals("&")){
-                if (arrStr[i + 1].equals("l") || arrStr[i+1].equals("g")) {
-                    if(arrStr[i+2].equals(("t"))){
-                        i+=3;
+            if (arrStr[i].equals("&")) {
+                if (arrStr[i + 1].equals("l") || arrStr[i + 1].equals("g")) {
+                    if (arrStr[i + 2].equals(("t"))) {
+                        i += 3;
                     }
                 }
             }
-            if(flag == false){
+            if (flag == false) {
                 filteredString = filteredString.concat(arrStr[i]);
             }
         }
-        return  filteredString;
+        return filteredString;
     }
 }

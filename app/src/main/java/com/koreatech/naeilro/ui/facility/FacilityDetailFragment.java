@@ -40,6 +40,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_THUMBNAIL;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TITLE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TYPE;
 
 public class FacilityDetailFragment extends Fragment implements FacilityDetailFragmentContract.View {
@@ -67,6 +69,8 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
     private FacilityImageRecyclerViewAdapter facilityDetailImageRecyclerViewAdapter;
     private int contentId;
     private String contentTypeID;
+    private String contentTitle;
+    private String contentThumbnail;
     private String detailTitle;
 
     @Override
@@ -84,6 +88,8 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
         Intent intent = new Intent(getActivity(), MyPlanBottomSheetActivity.class);
         intent.putExtra(CONTENT_ID, String.valueOf(contentId));
         intent.putExtra(CONTENT_TYPE, contentTypeID);
+        intent.putExtra(CONTENT_TITLE, contentTitle);
+        intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
         startActivity(intent);
     }
     @Override
@@ -172,6 +178,8 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
     @Override
     public void showCommonInfo(Facility facility) {
         contentTypeID = facility.getContenttypeid();
+        contentTitle = facility.getTitle();
+        contentThumbnail = facility.getFirstimage();
         setAddressInfo(Double.parseDouble(facility.getMapx()), Double.parseDouble(facility.getMapy()), detailTitle, facility.getAddr1());
         setFirstImageView(facility.getFirstimage());
         setTitle(detailTitle);

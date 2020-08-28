@@ -37,6 +37,8 @@ import static com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_
 public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBottomSheetContract.View {
     public static final String TAG = "MyPlanBottomSheetActivity";
     public static final String CONTENT_ID = "CONTENT_ID";
+    public static final String CONTENT_TITLE = "CONTENT_TILE";
+    public static final String CONTENT_THUMBNAIL = "CONTENT_THUMBNAIL";
     public static final String CONTENT_TYPE = "CONTENT_TYPE";
     public final double BOTTOM_SHEET_SIZE_SHOW_PERCENT = 0.5;
     public final double BOTTOM_SHEET_SIZE_EXPENDED_PERCENT = 0.95;
@@ -57,7 +59,9 @@ public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBot
         setContentView(R.layout.activity_my_plan_bottom_sheet);
         String contentID = getIntent().getStringExtra(CONTENT_ID);
         String contentType = getIntent().getStringExtra(CONTENT_TYPE);
-        selectedPlanNode = new MyPlanNode(contentType, contentID);
+        String contentTitle = getIntent().getStringExtra(CONTENT_TITLE);
+        String contentThumbnail = getIntent().getStringExtra(CONTENT_THUMBNAIL);
+        selectedPlanNode = new MyPlanNode(contentType, contentID, contentTitle, contentThumbnail);
         init();
     }
 
@@ -83,9 +87,8 @@ public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBot
                 if (myPlanList.get(position).isContainPlan()) {
                     if (!getSelectedPlanNodeId(myPlanList.get(position)).isEmpty())
                         myPlanBottomSheetPresenter.removeNode(getSelectedPlanNodeId(myPlanList.get(position)));
-                }
-                else {
-                        myPlanBottomSheetPresenter.createNode(myPlanList.get(position).getPlanNumber(), selectedPlanNode);
+                } else {
+                    myPlanBottomSheetPresenter.createNode(myPlanList.get(position).getPlanNumber(), selectedPlanNode);
                 }
             }
 
