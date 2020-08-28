@@ -37,6 +37,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_THUMBNAIL;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TITLE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TYPE;
 import static com.koreatech.naeilro.ui.tourspot.TourSpotDetailFragment.fromHtml;
 
@@ -65,6 +67,8 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
     private HouseImageRecyclerViewAdapter houseDetailImageRecyclerViewAdapter;
     private int contentId;
     private String contentTypeId;
+    private String contentTitle;
+    private String contentThumbnail;
     private String detailTitle;
     @BindView(R.id.accomtaion_number)
     TextView accomdationTextView;
@@ -108,6 +112,8 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
         Intent intent = new Intent(getActivity(), MyPlanBottomSheetActivity.class);
         intent.putExtra(CONTENT_ID, String.valueOf(contentId));
         intent.putExtra(CONTENT_TYPE, contentTypeId);
+        intent.putExtra(CONTENT_TITLE, contentTitle);
+        intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
         startActivity(intent);
     }
 
@@ -189,6 +195,8 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
     @Override
     public void showCommonInfo(HouseInfo houseInfo) {
         contentTypeId = houseInfo.getContenttypeid();
+        contentThumbnail = houseInfo.getFirstimage();
+        contentTitle = houseInfo.getTitle();
         setAddressInfo(Double.parseDouble(houseInfo.getMapx()), Double.parseDouble(houseInfo.getMapy()), detailTitle, houseInfo.getAddr1());
         setFirstImageView(houseInfo.getFirstimage());
         setSummary(houseInfo.getOverview());

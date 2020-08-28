@@ -38,23 +38,13 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_THUMBNAIL;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TITLE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TYPE;
-import static com.koreatech.naeilro.ui.tourspot.TourSpotDetailFragment.fromHtml;
 
 public class ReportsDetailFragment extends Fragment implements ReportsDetailFragmentContract.View {
-    private View view;
     private static final double centerLon = 127.48318433761597;
     private static final double centerLat = 36.41592967015607;
-
-    private ReportsDetailFragmentPresenter reportsDetailFragmentPresenter;
-    private RecyclerView reportsDetailRecyclerView;
-    private RecyclerView reportsImageRecyclerView;
-    private ReportsDetailInfoRecyclerViewAdapter reportsDetailInfoRecyclerViewAdapter;
-    private ReportsImageRecyclerViewAdapter reportsImageRecyclerViewAdapter;
-    private int contentId;
-    private String contentTypeId;
-    private Unbinder unbinder;
-    private String title;
     @BindView(R.id.reports_detail_title)
     TextView reportsDetailTitle;
     @BindView(R.id.reports_detail_overview)
@@ -69,9 +59,28 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
     LinearLayout reportsDetailMapLinearLayout;
     @BindView(R.id.reports_detail_t_map_linear_layout)
     LinearLayout reportsDetailTMapLinearLayout;
-    private TMapView tMapView;
     @BindView(R.id.reports_address_text_view)
     TextView reportsAddressTextView;
+    private View view;
+    private ReportsDetailFragmentPresenter reportsDetailFragmentPresenter;
+    private RecyclerView reportsDetailRecyclerView;
+    private RecyclerView reportsImageRecyclerView;
+    private ReportsDetailInfoRecyclerViewAdapter reportsDetailInfoRecyclerViewAdapter;
+    private ReportsImageRecyclerViewAdapter reportsImageRecyclerViewAdapter;
+    private int contentId;
+    private String contentTypeId;
+    private String contentTitle;
+    private String contentThumbnail;
+    private Unbinder unbinder;
+    private String title;
+    private TMapView tMapView;
+
+    public static Spanned fromHtml(String source) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
+            return Html.fromHtml(source);
+        }
+        return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,10 +92,12 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
     }
 
     @OnClick(R.id.add_my_plan_reports)
-    public void clickReportsMyPlanButton(){
+    public void clickReportsMyPlanButton() {
         Intent intent = new Intent(getActivity(), MyPlanBottomSheetActivity.class);
         intent.putExtra(CONTENT_ID, String.valueOf(contentId));
         intent.putExtra(CONTENT_TYPE, contentTypeId);
+        intent.putExtra(CONTENT_TITLE, contentTitle);
+        intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
         startActivity(intent);
     }
 
@@ -105,6 +116,7 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
         reportsDetailFragmentPresenter.getDetailInfo(contentId);
 
     }
+
     private void initTMap(View view) {
         tMapView = new TMapView(Objects.requireNonNull(getActivity()));
         tMapView.setSKTMapApiKey(NaeilroApplication.getTMapApiKey());
@@ -134,14 +146,16 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
     @Override
     public void showCommonInfo(Reports reports) {
         contentTypeId = reports.getContenttypeid();
+        contentThumbnail = reports.getFirstimage();
+        contentTitle = reports.getTitle();
         setAddressInfo(Double.parseDouble(reports.getMapx()), Double.parseDouble(reports.getMapy()), title, reports.getAddr1());
         setFirstImageView(reports.getFirstimage());
         setTitle(title);
         setSummary(reports.getOverview());
 
 
-
     }
+
     private void showMapPoint(double x, double y, String title, String address) {
         reportsDetailMapLinearLayout.setVisibility(View.VISIBLE);
         TMapMarkerItem markerItem = new TMapMarkerItem();
@@ -158,29 +172,26 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
         tMapView.setZoomLevel(15);
         tMapView.initView();
     }
+
     public void setAddressInfo(double x, double y, String title, String address) {
         showMapPoint(x, y, title, address);
         reportsAddressTextView.setText(address);
     }
+
     private void setFirstImageView(String url) {
         Glide.with(getContext()).load(url)
                 .error(R.drawable.ic_no_image)
                 .into(reportsImageView);
     }
+
     private void setTitle(String text) {
         if (text == null) return;
         reportsDetailTitle.setText(text);
     }
+
     private void setSummary(String text) {
         if (text == null) return;
         reportsDetailOverview.setText(fromHtml(text));
-    }
-
-    public static Spanned fromHtml(String source) {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
-            return Html.fromHtml(source);
-        }
-        return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
     }
 
     @Override

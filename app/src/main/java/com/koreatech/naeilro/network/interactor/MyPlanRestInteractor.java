@@ -31,11 +31,13 @@ public class MyPlanRestInteractor implements MyPlanInteractor {
     public static final String TAG = "MyPlanRestInteractor";
 
     @Override
-    public void createNode(ApiCallback apiCallback, String planNumber, String contentID, String contentType) {
+    public void createNode(ApiCallback apiCallback, String planNumber, String contentID, String contentType, String contentTitle, String contentThumbnail) {
         Map<String, Object> jsonObject = new ArrayMap<>();
         jsonObject.put("plan_no", planNumber);
         jsonObject.put("content_id", contentID);
         jsonObject.put("content_type", contentType);
+        jsonObject.put("thumbnail", contentThumbnail);
+        jsonObject.put("title", contentTitle);
 
         String token = JWTTokenManager.getInstance().getAccessToken();
         if (token == null) {

@@ -13,11 +13,18 @@ public class MyPlanNode {
     @SerializedName("node_no")
     @Expose
     private String nodeNumber;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("thumbnail")
+    @Expose
+    private String thumbnail;
 
-
-    public MyPlanNode(String contentType, String contendID) {
+    public MyPlanNode(String contentType, String contendID, String title, String thumbnail) {
         this.contentType = contentType;
         this.contendID = contendID;
+        this.title = title;
+        this.thumbnail = thumbnail;
     }
 
     public String getContentType() {
@@ -30,5 +37,13 @@ public class MyPlanNode {
 
     public String getNodeNumber() {
         return nodeNumber;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }
