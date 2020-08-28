@@ -111,6 +111,7 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
         reportsDetailFragmentPresenter = new ReportsDetailFragmentPresenter(new ReportsRestInteractor(), this);
         contentId = getArguments().getInt("contentId");
         title = getArguments().getString("title");
+        contentTitle = title;
         initTMap(view);
         reportsDetailFragmentPresenter.getComonInfo(contentId);
         reportsDetailFragmentPresenter.getDetailInfo(contentId);
@@ -147,7 +148,6 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
     public void showCommonInfo(Reports reports) {
         contentTypeId = reports.getContenttypeid();
         contentThumbnail = reports.getFirstimage();
-        contentTitle = reports.getTitle();
         setAddressInfo(Double.parseDouble(reports.getMapx()), Double.parseDouble(reports.getMapy()), title, reports.getAddr1());
         setFirstImageView(reports.getFirstimage());
         setTitle(title);

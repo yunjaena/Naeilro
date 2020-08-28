@@ -233,7 +233,7 @@ public class MyPlanRestInteractor implements MyPlanInteractor {
                     @Override
                     public void onNext(MyPlanNodeResponse myPlanNodeResponse) {
                         if (myPlanNodeResponse != null && myPlanNodeResponse.isSuccess()) {
-                            apiCallback.onSuccess(myPlanNodeResponse);
+                            apiCallback.onSuccess(myPlanNodeResponse.getMyPlanNodeList());
                         } else
                             apiCallback.onFailure(new Throwable(myPlanNodeResponse.getMessage()));
                     }

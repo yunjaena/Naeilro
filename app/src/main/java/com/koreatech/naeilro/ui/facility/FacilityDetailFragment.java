@@ -80,6 +80,7 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
         this.unbinder = ButterKnife.bind(this, view);
         contentId = getArguments().getInt("contentId");
         detailTitle = getArguments().getString("title");
+        contentTitle = detailTitle;
         init(view);
         return view;
     }
@@ -178,7 +179,6 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
     @Override
     public void showCommonInfo(Facility facility) {
         contentTypeID = facility.getContenttypeid();
-        contentTitle = facility.getTitle();
         contentThumbnail = facility.getFirstimage();
         setAddressInfo(Double.parseDouble(facility.getMapx()), Double.parseDouble(facility.getMapy()), detailTitle, facility.getAddr1());
         setFirstImageView(facility.getFirstimage());

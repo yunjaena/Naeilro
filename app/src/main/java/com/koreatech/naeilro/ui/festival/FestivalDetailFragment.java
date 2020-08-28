@@ -71,6 +71,7 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
     private Unbinder unbinder;
     private NavController navController;
     private int contentTypeId;
+    private String contentTypeIdString;
     private int contentId;
     private String contentTitle;
     private String contentThumbnail;
@@ -92,8 +93,7 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
     public void clickFestivalMyPlanButton() {
         Intent intent = new Intent(getActivity(), MyPlanBottomSheetActivity.class);
         intent.putExtra(CONTENT_ID, String.valueOf(contentId));
-        intent.putExtra(CONTENT_TYPE, contentTypeId);
-        ;
+        intent.putExtra(CONTENT_TYPE, contentTypeIdString);
         intent.putExtra(CONTENT_TITLE, contentTitle);
         intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
         startActivity(intent);
@@ -102,6 +102,7 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
     public void init(View view) {
         festivalDetailFragmentPresenter = new FestivalDetailFragmentPresenter(new FestivalRestInteractor(), this);
         contentTypeId = getArguments().getInt("contentTypeId");
+        contentTypeIdString = Integer.toString(contentTypeId);
         contentId = getArguments().getInt("contentId");
         addr = getArguments().getString("address");
         title = getArguments().getString("title");
