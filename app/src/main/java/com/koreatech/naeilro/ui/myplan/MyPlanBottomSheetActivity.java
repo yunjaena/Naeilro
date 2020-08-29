@@ -221,4 +221,9 @@ public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBot
     public void setPresenter(MyPlanBottomSheetPresenter presenter) {
         this.myPlanBottomSheetPresenter = presenter;
     }
+
+    @Override
+    public void onBackPressed() {
+        behavior.setState(STATE_HIDDEN);
+    }
 }
