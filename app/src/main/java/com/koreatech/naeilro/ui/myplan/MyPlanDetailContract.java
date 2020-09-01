@@ -23,5 +23,6 @@ public interface MyPlanDetailContract {
         void showMyPlanNode(List<MyPlanNode> myPlanList);
 
         void failGetPlanInfo();
+        void failDeleteNode();
     }
 }

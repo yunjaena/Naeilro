@@ -3,6 +3,7 @@ package com.koreatech.naeilro.ui.myplan.presenter;
 import android.util.Log;
 
 import com.koreatech.core.network.ApiCallback;
+import com.koreatech.naeilro.network.entity.DefaultMessage;
 import com.koreatech.naeilro.network.entity.myplan.MyPlan;
 import com.koreatech.naeilro.network.interactor.MyPlanInteractor;
 import com.koreatech.naeilro.ui.myplan.MyPlanContract;
@@ -32,9 +33,25 @@ public class MyPlanPresenter {
             myPlanView.failGetPlanInfo();
         }
     };
+    final ApiCallback deletePlanApiCallback = new ApiCallback() {
+        @Override
+        public void onSuccess(Object object) {
+            DefaultMessage message = (DefaultMessage) object;
+            myPlanView.showMessage(message.getMessage());
+        }
+
+        @Override
+        public void onFailure(Throwable throwable) {
+
+        }
+    };
     public void getMyPlanCollectionList() {
         myPlanView.showLoading();
         myPlanInteractor.getPlan(getMyPlanApiCallback);
+    }
+    public void deleteMyPlan(String planNumber){
+        myPlanView.showLoading();
+        myPlanInteractor.deletePlan(deletePlanApiCallback, planNumber);
     }
 
 }
