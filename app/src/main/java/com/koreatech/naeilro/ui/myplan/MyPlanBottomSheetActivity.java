@@ -40,6 +40,8 @@ public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBot
     public static final String CONTENT_TITLE = "CONTENT_TILE";
     public static final String CONTENT_THUMBNAIL = "CONTENT_THUMBNAIL";
     public static final String CONTENT_TYPE = "CONTENT_TYPE";
+    public static final String CONTENT_MAP_X = "CONTENT_MAP_X";
+    public static final String CONTENT_MAP_Y = "CONTENT_MAP_Y";
     public final double BOTTOM_SHEET_SIZE_SHOW_PERCENT = 0.5;
     public final double BOTTOM_SHEET_SIZE_EXPENDED_PERCENT = 0.95;
     private LinearLayout myPlanSaveCardView;
@@ -61,7 +63,12 @@ public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBot
         String contentType = getIntent().getStringExtra(CONTENT_TYPE);
         String contentTitle = getIntent().getStringExtra(CONTENT_TITLE);
         String contentThumbnail = getIntent().getStringExtra(CONTENT_THUMBNAIL);
-        selectedPlanNode = new MyPlanNode(contentType, contentID, contentTitle, contentThumbnail);
+        String mapX = getIntent().getStringExtra(CONTENT_MAP_X);
+        String mapY = getIntent().getStringExtra(CONTENT_MAP_Y);
+        if (mapX != null && mapY != null)
+            selectedPlanNode = new MyPlanNode(contentType, contentID, contentTitle, contentThumbnail, Float.parseFloat(mapX), Float.parseFloat(mapY));
+        else
+            selectedPlanNode = new MyPlanNode(contentType, contentID, contentTitle, contentThumbnail, null, null);
         init();
     }
 
@@ -85,8 +92,9 @@ public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBot
             @Override
             public void onClick(View view, int position) {
                 if (myPlanList.get(position).isContainPlan()) {
-                    if (!getSelectedPlanNodeId(myPlanList.get(position)).isEmpty())
-                        myPlanBottomSheetPresenter.removeNode(getSelectedPlanNodeId(myPlanList.get(position)));
+                    MyPlanNode myPlanNode = getSelectedPlan(myPlanList.get(position));
+                    if (myPlanNode != null)
+                        myPlanBottomSheetPresenter.removeNode(myPlanNode.getNodeNumber(),myPlanNode.getContentType(),myPlanNode.getContendID());
                 } else {
                     myPlanBottomSheetPresenter.createNode(myPlanList.get(position).getPlanNumber(), selectedPlanNode);
                 }
@@ -102,13 +110,13 @@ public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBot
         myPlanCollectionAdapter.notifyDataSetChanged();
     }
 
-    public String getSelectedPlanNodeId(MyPlan myPlan) {
+    public MyPlanNode getSelectedPlan(MyPlan myPlan) {
         for (MyPlanNode myPlanNode : myPlan.getMyPlanNodeList()) {
             if (myPlanNode.getContentType().equals(selectedPlanNode.getContentType()) && myPlanNode.getContendID().equals(selectedPlanNode.getContendID())) {
-                return myPlanNode.getNodeNumber();
+                return myPlanNode;
             }
         }
-        return "";
+        return null;
     }
 
     private void setBottomSheet() {

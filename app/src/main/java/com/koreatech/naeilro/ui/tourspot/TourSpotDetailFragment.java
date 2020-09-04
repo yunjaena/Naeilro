@@ -44,6 +44,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_X;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_Y;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_THUMBNAIL;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TITLE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TYPE;
@@ -83,6 +85,8 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
     private String contentTypeId;
     private String contentTitle;
     private String contentThumbnail;
+    private String mapX;
+    private String mapY;
     private Unbinder unbinder;
 
     @SuppressWarnings("deprecation")
@@ -110,6 +114,8 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
         intent.putExtra(CONTENT_ID, String.valueOf(contentId));
         intent.putExtra(CONTENT_TYPE, contentTypeId);
         intent.putExtra(CONTENT_TITLE, contentTitle);
+        intent.putExtra(CONTENT_MAP_X, mapX);
+        intent.putExtra(CONTENT_MAP_Y, mapY);
         Log.e("detail", contentThumbnail);
         intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
         startActivity(intent);
@@ -228,6 +234,8 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
     public void showCommonInfo(TourInfo tour) {
         contentThumbnail = tour.getFirstimage();
         contentTitle = tour.getTitle();
+        mapX = tour.getMapx();
+        mapY = tour.getMapy();
         setAddressInfo(Double.parseDouble(tour.getMapx()), Double.parseDouble(tour.getMapy()), tour.getTitle(), tour.getAddr1());
         setFirstImageView(tour.getFirstimage());
         setTitle(tour.getTitle());

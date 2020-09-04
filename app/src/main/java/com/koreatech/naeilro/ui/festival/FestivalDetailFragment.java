@@ -31,6 +31,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_X;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_Y;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_THUMBNAIL;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TITLE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TYPE;
@@ -79,6 +81,8 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
     private String title;
     private TMapView tMapView;
     private String addr;
+    private String mapX;
+    private String mapY;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,6 +100,8 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
         intent.putExtra(CONTENT_TYPE, contentTypeIdString);
         intent.putExtra(CONTENT_TITLE, contentTitle);
         intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
+        intent.putExtra(CONTENT_MAP_X, mapX);
+        intent.putExtra(CONTENT_MAP_Y, mapY);
         startActivity(intent);
     }
 
@@ -134,6 +140,8 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
         //festivalDetailOverview.setText(setFilter(festival.getOverview()));
         contentTitle = festival.getTitle();
         contentThumbnail = festival.getFirstimage();
+        mapX = festival.getMapx();
+        mapY = festival.getMapy();
         setAddressInfo(Double.parseDouble(festival.getMapx()), Double.parseDouble(festival.getMapy()), festival.getTitle(), addr);
         setFirstImageView(festival.getFirstimage());
         setTitle(festival.getTitle());

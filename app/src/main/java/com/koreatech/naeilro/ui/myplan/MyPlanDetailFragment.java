@@ -59,7 +59,7 @@ public class MyPlanDetailFragment extends Fragment implements MyPlanDetailContra
             public void onClick(View view, int position) {
                 if(view.getId() == R.id.node_cancel_button){
                     removeIndex = position;
-                    myPlanDetailPresenter.deleteNode(nodeList.get(position).getNodeNumber());
+                    myPlanDetailPresenter.deleteNode(nodeList.get(position).getNodeNumber(), nodeList.get(position).getContentType(), nodeList.get(position).getContendID());
                 }
             }
 
