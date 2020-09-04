@@ -38,6 +38,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_X;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_Y;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_THUMBNAIL;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TITLE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TYPE;
@@ -71,6 +73,8 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
     private String contentTypeId;
     private String contentTitle;
     private String contentThumbnail;
+    private String mapX;
+    private String mapY;
     private Unbinder unbinder;
     private String title;
     private TMapView tMapView;
@@ -98,6 +102,8 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
         intent.putExtra(CONTENT_TYPE, contentTypeId);
         intent.putExtra(CONTENT_TITLE, contentTitle);
         intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
+        intent.putExtra(CONTENT_MAP_X, mapX);
+        intent.putExtra(CONTENT_MAP_Y, mapY);
         startActivity(intent);
     }
 
@@ -148,6 +154,8 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
     public void showCommonInfo(Reports reports) {
         contentTypeId = reports.getContenttypeid();
         contentThumbnail = reports.getFirstimage();
+        mapX = reports.getMapx();
+        mapY = reports.getMapy();
         setAddressInfo(Double.parseDouble(reports.getMapx()), Double.parseDouble(reports.getMapy()), title, reports.getAddr1());
         setFirstImageView(reports.getFirstimage());
         setTitle(title);

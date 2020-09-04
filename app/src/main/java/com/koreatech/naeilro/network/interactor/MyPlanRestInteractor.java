@@ -30,14 +30,19 @@ import retrofit2.HttpException;
 public class MyPlanRestInteractor implements MyPlanInteractor {
     public static final String TAG = "MyPlanRestInteractor";
 
+
     @Override
-    public void createNode(ApiCallback apiCallback, String planNumber, String contentID, String contentType, String contentTitle, String contentThumbnail) {
+    public void createNode(ApiCallback apiCallback, String planNumber, String contentID, String contentType, String contentTitle, String contentThumbnail, Float mapX, Float mapY) {
         Map<String, Object> jsonObject = new ArrayMap<>();
         jsonObject.put("plan_no", planNumber);
         jsonObject.put("content_id", contentID);
         jsonObject.put("content_type", contentType);
         jsonObject.put("thumbnail", contentThumbnail);
         jsonObject.put("title", contentTitle);
+        if(mapX != null && mapY != null){
+            jsonObject.put("mapX", mapX);
+            jsonObject.put("title", mapY);
+        }
 
         String token = JWTTokenManager.getInstance().getAccessToken();
         if (token == null) {
@@ -78,9 +83,11 @@ public class MyPlanRestInteractor implements MyPlanInteractor {
     }
 
     @Override
-    public void createPlan(ApiCallback apiCallback, String planTitle) {
+    public void deleteNode(ApiCallback apiCallback, String nodeNumber, String contentType, String contentId) {
         Map<String, Object> jsonObject = new ArrayMap<>();
-        jsonObject.put("plantitle", planTitle);
+        jsonObject.put("node_no", nodeNumber);
+        jsonObject.put("content_type", contentType);
+        jsonObject.put("content_id", contentId);
 
 
         String token = JWTTokenManager.getInstance().getAccessToken();
@@ -89,7 +96,7 @@ public class MyPlanRestInteractor implements MyPlanInteractor {
             return;
         }
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), (new JSONObject(jsonObject)).toString());
-        MyPlanRetrofitManager.getInstance().getRetrofit().create(MyPlanService.class).createPlan(MyPlanRetrofitManager.addAuthorizationBearer(token), body)
+        MyPlanRetrofitManager.getInstance().getRetrofit().create(MyPlanService.class).dropNode(MyPlanRetrofitManager.addAuthorizationBearer(token), body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<DefaultMessage>() {
@@ -121,10 +128,11 @@ public class MyPlanRestInteractor implements MyPlanInteractor {
                 });
     }
 
+
     @Override
-    public void deleteNode(ApiCallback apiCallback, String nodeNumber) {
+    public void createPlan(ApiCallback apiCallback, String planTitle) {
         Map<String, Object> jsonObject = new ArrayMap<>();
-        jsonObject.put("node_no", nodeNumber);
+        jsonObject.put("plantitle", planTitle);
 
 
         String token = JWTTokenManager.getInstance().getAccessToken();
@@ -133,7 +141,7 @@ public class MyPlanRestInteractor implements MyPlanInteractor {
             return;
         }
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), (new JSONObject(jsonObject)).toString());
-        MyPlanRetrofitManager.getInstance().getRetrofit().create(MyPlanService.class).dropNode(MyPlanRetrofitManager.addAuthorizationBearer(token), body)
+        MyPlanRetrofitManager.getInstance().getRetrofit().create(MyPlanService.class).createPlan(MyPlanRetrofitManager.addAuthorizationBearer(token), body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<DefaultMessage>() {
