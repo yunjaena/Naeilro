@@ -11,14 +11,23 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.R;
+import com.koreatech.naeilro.network.entity.recommend.MyRecommendItem;
+import com.koreatech.naeilro.network.interactor.RecommendRestInteractor;
+import com.koreatech.naeilro.ui.main.adapter.RecommendRecyclerViewAdapter;
+import com.koreatech.naeilro.ui.main.presenter.HomePresenter;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeFragmentContract.View {
     @BindView(R.id.category_tourspot)
     LinearLayout categoryTourspotLayout;
     @BindView(R.id.category_facility)
@@ -35,14 +44,20 @@ public class HomeFragment extends Fragment {
     LinearLayout categoryTrainLayout;
     @BindView(R.id.category_weather)
     LinearLayout categoryWeatherLayout;
+    @BindView(R.id.recommend_recyclerview)
+    RecyclerView recommendRecyclerView;
+    private RecommendRecyclerViewAdapter recommendRecyclerViewAdapter;
+    private HomePresenter homePresenter;
 
     View root;
     NavController navController;
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        root = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, root);
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        homePresenter = new HomePresenter(new RecommendRestInteractor(), this);
+        homePresenter.getRecommendList();
         return root;
     }
     @OnClick(R.id.category_tourspot)
@@ -77,5 +92,38 @@ public class HomeFragment extends Fragment {
     @OnClick(R.id.category_weather)
     void goToWeatherFragment(){
         navController.navigate(R.id.action_navigation_home_to_navigation_weather);
+    }
+
+    public void initRecyclerView(List<MyRecommendItem> list){
+        recommendRecyclerViewAdapter = new RecommendRecyclerViewAdapter(list,getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recommendRecyclerView.setLayoutManager(linearLayoutManager);
+        recommendRecyclerView.setAdapter(recommendRecyclerViewAdapter);
+    }
+
+    @Override
+    public void showRecommendList(List<MyRecommendItem> recommendList) {
+        initRecyclerView(recommendList);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showFailure(String s) {
+        ToastUtil.getInstance().makeShort(s);
+    }
+
+    @Override
+    public void setPresenter(HomePresenter presenter) {
+
     }
 }
