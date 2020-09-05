@@ -8,7 +8,7 @@
         android:title="@string/bottom_nav_home" />
 
     <item
-        android:id="@+id/navigation_shared_info"
+        android:id="@+id/navigation_search"
         android:icon="@drawable/ic_search"
         app:showAsAction="always|withText"
         android:title="@string/bottom_nav_search" />

@@ -37,7 +37,7 @@ public class SearchRestInteractor implements SearchInteractor {
 
                     @Override
                     public void onNext(SearchList searchList) {
-                        if (searchList != null) {
+                        if (searchList != null && searchList.getSearchInfoInfoBodyList().get(0).getSearchInfoItemList().get(0).getSearchInfoList() != null) {
                             searchInfoList.addAll(searchList.getSearchInfoInfoBodyList().get(0).getSearchInfoItemList().get(0).getSearchInfoList());
                             apiCallback.onSuccess(searchInfoList);
                         } else {

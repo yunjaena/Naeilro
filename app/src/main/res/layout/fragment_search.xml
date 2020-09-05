@@ -19,6 +19,7 @@
             android:layout_height="match_parent"
             android:entries="@array/search_category" />
 
+
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_search_view"
             android:layout_width="match_parent"
@@ -27,13 +28,39 @@
 
     </LinearLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_recycler_view"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="56dp"
-        android:orientation="horizontal" />
+        android:layout_height="match_parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="56dp"
+            android:orientation="horizontal" />
+
+        <LinearLayout
+            android:id="@+id/search_no_result_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/ic_no_search" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:text="@string/no_match_result"
+                />
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>
