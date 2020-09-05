@@ -141,6 +141,7 @@ public class HomeFragment extends Fragment implements HomeFragmentContract.View 
 
     @Override
     public void showRecommendList(List<MyRecommendItem> recommendList) {
+        recommendItemList.clear();
         recommendItemList.addAll(recommendList);
         initRecyclerView(recommendItemList);
 
