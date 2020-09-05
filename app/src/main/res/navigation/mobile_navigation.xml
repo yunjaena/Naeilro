@@ -54,16 +54,32 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_shared_info"
-        android:name="com.koreatech.naeilro.ui.main.SharedInfoFragment"
-        android:label="@string/bottom_nav_shared_info"
-        tools:layout="@layout/fragment_shared_info" />
+        android:id="@+id/navigation_search"
+        android:name="com.koreatech.naeilro.ui.search.SearchFragment"
+        android:label="@string/bottom_nav_search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_tourspot_detail"
+            app:destination="@id/navigation_tourspot_detail" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_house_detail"
+            app:destination="@id/navigation_house_detail" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detail_festival"
+            app:destination="@id/navigation_detail_festival" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detail_facility"
+            app:destination="@id/navigation_detail_facility" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detail_reports"
+            app:destination="@id/navigation_detail_reports" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_my_plan"
         android:name="com.koreatech.naeilro.ui.myplan.MyPlanFragment"
         android:label="@string/bottom_nav_my_plan"
-        tools:layout="@layout/fragment_my_plan" >
+        tools:layout="@layout/fragment_my_plan">
         <action
             android:id="@+id/action_navigation_my_plan_to_navigation_my_plan_detail"
             app:destination="@id/navigation_my_plan_detail" />
@@ -92,8 +108,7 @@
         android:id="@+id/navigation_tourspot_detail"
         android:name="com.koreatech.naeilro.ui.tourspot.TourSpotDetailFragment"
         android:label="@string/category_search_tourspot"
-        tools:layout="@layout/fragment_tour_spot_detail">
-    </fragment>
+        tools:layout="@layout/fragment_tour_spot_detail"></fragment>
 
     <fragment
         android:id="@+id/navigation_train"

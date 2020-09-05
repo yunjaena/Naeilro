@@ -40,10 +40,8 @@ public class FestivalRestInteractor implements FestivalInteractor {
            @Override
            public void onNext(FestivalInfoList festivalInfoList) {
                 if(festivalInfoList != null){
-
                     festivalItems.addAll(festivalInfoList.getFestivalBodyList().get(0).getFestivalInfoItems().get(0).getFestivalList());
                     apiCallback.onSuccess(festivalItems);
-                    Log.e("sdf","dfg");
                 }else
                     apiCallback.onFailure(new Throwable("fail read houseList"));
            }

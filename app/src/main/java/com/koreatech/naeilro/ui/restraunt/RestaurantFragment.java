@@ -20,6 +20,7 @@ import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.NaeilroApplication;
 import com.koreatech.naeilro.R;
+
 import com.koreatech.naeilro.network.entity.restaurant.RestaurantInfo;
 import com.koreatech.naeilro.network.interactor.RestaurantRestInteractor;
 import com.koreatech.naeilro.ui.main.MainActivity;
@@ -108,7 +109,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
 
 
     private void goToRestaurantDetail(int position) {
-       // ToastUtil.getInstance().makeShort(String.valueOf(position));
+        // ToastUtil.getInstance().makeShort(String.valueOf(position));
     }
 
     private void initTMap(View view) {

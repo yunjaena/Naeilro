@@ -6,7 +6,7 @@
     <string name="title_notifications">Notifications</string>
 
     <string name="bottom_nav_home">홈</string>
-    <string name="bottom_nav_shared_info">정보공유</string>
+    <string name="bottom_nav_search">통합검색</string>
     <string name="bottom_nav_my_plan">마이플랜</string>
     <string name="bottom_nav_my_info">내정보</string>
 
@@ -72,6 +72,22 @@
 
     <!--restaurant-->
     <string name="restaurant_name">식당 이름</string>
+
+    <!--search-->
+    <string name="search_name">통합 검색</string>
+    <string name="input_more_than_two_letters_warning">최소 두글자 이상 입력해주세요!</string>
+    <string name="no_match_result">일치하는 검색 결과가 없습니다.</string>
+    <string name="phone_number_no_info">전화번호 정보가 없습니다.</string>
+    <string name="address_no_info">주소 정보가 없습니다.</string>
+
+    <!-- 시 이름 -->
+    <string-array name="search_category">
+        <item>관광지</item>
+        <item>문화시설</item>
+        <item>레포츠</item>
+        <item>문화시설</item>
+        <item>축제/행사</item>
+    </string-array>
 
     <!-- 시 이름 -->
     <string-array name="city_name_array">
