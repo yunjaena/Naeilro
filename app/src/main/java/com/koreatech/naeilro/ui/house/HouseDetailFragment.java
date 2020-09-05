@@ -37,6 +37,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_X;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_Y;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_THUMBNAIL;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TITLE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TYPE;
@@ -44,32 +46,8 @@ import static com.koreatech.naeilro.ui.tourspot.TourSpotDetailFragment.fromHtml;
 
 
 public class HouseDetailFragment extends Fragment implements HouseDetailFragmentContract.View {
-    private View view;
-    private Unbinder unbinder;
     private static final double centerLon = 127.48318433761597;
     private static final double centerLat = 36.41592967015607;
-
-    private ImageView houseDetailImage;
-    private TextView houseDetailTitle;
-    private TextView houseDetailOverview;
-    private TextView houseDetailInfoTextView;
-    private LinearLayout houseImageLinearLayout;
-    private ImageView houseExtraImageView;
-    private RecyclerView houseExtraImageRecyclerView;
-    private LinearLayout houseDetailMapLinearLayout;
-    private LinearLayout houseDetailTMapLinearLayout;
-    private TextView houseAddressTextView;
-    private TMapView tMapView;
-    //private HouseDetailInfoRecyclerViewAdapter houseDetailInfoRecyclerViewAdapter;
-    private HouseDetailFragmentPresenter houseDetailPresenter;
-    private LinearLayoutManager linearLayoutManager;
-    private List<HouseInfo> imagehouseInfoList;
-    private HouseImageRecyclerViewAdapter houseDetailImageRecyclerViewAdapter;
-    private int contentId;
-    private String contentTypeId;
-    private String contentTitle;
-    private String contentThumbnail;
-    private String detailTitle;
     @BindView(R.id.accomtaion_number)
     TextView accomdationTextView;
     @BindView(R.id.room_type)
@@ -94,7 +72,31 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
     TextView camfireTextView;
     @BindView(R.id.pick_up)
     TextView pickUpTextView;
-
+    private View view;
+    private Unbinder unbinder;
+    private ImageView houseDetailImage;
+    private TextView houseDetailTitle;
+    private TextView houseDetailOverview;
+    private TextView houseDetailInfoTextView;
+    private LinearLayout houseImageLinearLayout;
+    private ImageView houseExtraImageView;
+    private RecyclerView houseExtraImageRecyclerView;
+    private LinearLayout houseDetailMapLinearLayout;
+    private LinearLayout houseDetailTMapLinearLayout;
+    private TextView houseAddressTextView;
+    private TMapView tMapView;
+    //private HouseDetailInfoRecyclerViewAdapter houseDetailInfoRecyclerViewAdapter;
+    private HouseDetailFragmentPresenter houseDetailPresenter;
+    private LinearLayoutManager linearLayoutManager;
+    private List<HouseInfo> imagehouseInfoList;
+    private HouseImageRecyclerViewAdapter houseDetailImageRecyclerViewAdapter;
+    private int contentId;
+    private String contentTypeId;
+    private String contentTitle;
+    private String contentThumbnail;
+    private String detailTitle;
+    private String mapX;
+    private String mapY;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,12 +111,14 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
     }
 
     @OnClick(R.id.add_my_plan_house)
-    public void clickHouseMyPlanButton(){
+    public void clickHouseMyPlanButton() {
         Intent intent = new Intent(getActivity(), MyPlanBottomSheetActivity.class);
         intent.putExtra(CONTENT_ID, String.valueOf(contentId));
         intent.putExtra(CONTENT_TYPE, contentTypeId);
         intent.putExtra(CONTENT_TITLE, contentTitle);
         intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
+        intent.putExtra(CONTENT_MAP_X, mapX);
+        intent.putExtra(CONTENT_MAP_Y, mapY);
         startActivity(intent);
     }
 
@@ -197,6 +201,8 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
     public void showCommonInfo(HouseInfo houseInfo) {
         contentTypeId = houseInfo.getContenttypeid();
         contentThumbnail = houseInfo.getFirstimage();
+        mapX = houseInfo.getMapx();
+        mapY = houseInfo.getMapy();
         setAddressInfo(Double.parseDouble(houseInfo.getMapx()), Double.parseDouble(houseInfo.getMapy()), detailTitle, houseInfo.getAddr1());
         setFirstImageView(houseInfo.getFirstimage());
         setSummary(houseInfo.getOverview());
@@ -241,51 +247,51 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
     @Override
     public void showHouseIntroInfo(HouseInfo houseInfo) {
         if (houseInfo.getAccomcountlodging() != null)
-            accomdationTextView.setText("  "+houseInfo.getAccomcountlodging());
+            accomdationTextView.setText("  " + houseInfo.getAccomcountlodging());
         else
             accomdationTextView.setText("");
         if (houseInfo.getRoomtype() != null)
-            roomTypeTextView.setText("  "+houseInfo.getRoomtype());
+            roomTypeTextView.setText("  " + houseInfo.getRoomtype());
         else
             roomTypeTextView.setText("");
         if (houseInfo.getCheckintime() != null)
-            checkInTextView.setText("  "+houseInfo.getCheckintime());
+            checkInTextView.setText("  " + houseInfo.getCheckintime());
         else
             checkInTextView.setText("");
         if (houseInfo.getCheckouttime() != null)
-            checkOutTextView.setText("  "+houseInfo.getCheckouttime());
+            checkOutTextView.setText("  " + houseInfo.getCheckouttime());
         else
             checkOutTextView.setText("");
         if (houseInfo.getReservationlodging() != null)
-            reservationTextView.setText("  "+houseInfo.getReservationlodging());
+            reservationTextView.setText("  " + houseInfo.getReservationlodging());
         else
             reservationTextView.setText("");
         if (houseInfo.getChkcooking() != null)
-            checkCookTextView.setText("  "+houseInfo.getChkcooking());
+            checkCookTextView.setText("  " + houseInfo.getChkcooking());
         else
             checkCookTextView.setText("");
         if (houseInfo.getParkinglodging() != null)
-            parkinglotTextView.setText("  "+houseInfo.getParkinglodging());
+            parkinglotTextView.setText("  " + houseInfo.getParkinglodging());
         else
             parkinglotTextView.setText("");
         if (houseInfo.getFoodplace() != null)
-            foodPlaceTextView.setText("  "+houseInfo.getFoodplace());
+            foodPlaceTextView.setText("  " + houseInfo.getFoodplace());
         else
             foodPlaceTextView.setText("");
         if (houseInfo.getSubfacility() != null)
-            subFacilityTextView.setText("  "+houseInfo.getSubfacility());
+            subFacilityTextView.setText("  " + houseInfo.getSubfacility());
         else
             subFacilityTextView.setText("");
         if (houseInfo.getBarbecue() != null)
-            barbecueTextView.setText("  "+houseInfo.getBarbecue());
+            barbecueTextView.setText("  " + houseInfo.getBarbecue());
         else
             barbecueTextView.setText("");
         if (houseInfo.getCampfire() != null)
-            camfireTextView.setText("  "+houseInfo.getCampfire());
+            camfireTextView.setText("  " + houseInfo.getCampfire());
         else
-            camfireTextView.setText("  "+houseInfo.getCampfire());
+            camfireTextView.setText("  " + houseInfo.getCampfire());
         if (houseInfo.getPickup() != null)
-            pickUpTextView.setText("  "+houseInfo.getPickup());
+            pickUpTextView.setText("  " + houseInfo.getPickup());
         else
             pickUpTextView.setText("");
     }

@@ -4,11 +4,11 @@ import com.koreatech.core.network.ApiCallback;
 import com.koreatech.naeilro.network.entity.myplan.MyPlanNode;
 
 public interface MyPlanInteractor {
-    void createNode(ApiCallback apiCallback, String planNumber, String contentID, String contentType, String contentTitle, String contentThumbnail);
+    void createNode(ApiCallback apiCallback, String planNumber, String contentID, String contentType, String contentTitle, String contentThumbnail, Float mapX, Float mapY);
 
     void createPlan(ApiCallback apiCallback, String planTitle);
 
-    void deleteNode(ApiCallback apiCallback, String nodeNumber);
+    void deleteNode(ApiCallback apiCallback, String nodeNumber, String contentType, String contentId);
 
     void deletePlan(ApiCallback apiCallback, String planNumber);
 
