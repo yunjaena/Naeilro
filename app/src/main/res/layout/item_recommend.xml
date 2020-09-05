@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+    <ImageView
+        android:id="@+id/recommend_thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        tools:srcCompat="@tools:sample/avatars" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+            <TextView
+                android:layout_marginTop="8dp"
+                android:id="@+id/recommend_title"
+                android:layout_width="wrap_content"
+                android:textSize="18sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                tools:text="경복궁첨성대와다다">
+
+            </TextView>
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

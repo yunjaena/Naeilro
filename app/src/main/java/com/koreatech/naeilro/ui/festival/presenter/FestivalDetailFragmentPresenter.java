@@ -41,11 +41,11 @@ public class FestivalDetailFragmentPresenter {
         }
     };
 
-    public void getFestivalCommonInfo(int contentTypeId, int contentId){
-        festivalInteractor.getFestivalCommonItems(festivalCommonApiCallback, contentTypeId, contentId, "nailro", "Y","Y","Y","Y","Y");
+    public void getFestivalCommonInfo(int contentId){
+        festivalInteractor.getFestivalCommonItems(festivalCommonApiCallback, 15, contentId, "nailro", "Y","Y","Y","Y","Y");
     }
-    public void getFestivalIntroInfo(int contetnTypeId, int contentId){
-        festivalInteractor.getFestivalIntroItems(festivalIntroApiCallback, contetnTypeId, contentId, "nailro");
+    public void getFestivalIntroInfo(int contentId){
+        festivalInteractor.getFestivalIntroItems(festivalIntroApiCallback, 15, contentId, "nailro");
     }
 
 }

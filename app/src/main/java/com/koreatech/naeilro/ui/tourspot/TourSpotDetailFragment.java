@@ -116,7 +116,6 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
         intent.putExtra(CONTENT_TITLE, contentTitle);
         intent.putExtra(CONTENT_MAP_X, mapX);
         intent.putExtra(CONTENT_MAP_Y, mapY);
-        Log.e("detail", contentThumbnail);
         intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
         startActivity(intent);
     }
