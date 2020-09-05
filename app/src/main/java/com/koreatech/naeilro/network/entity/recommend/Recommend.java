@@ -16,7 +16,7 @@ public class Recommend {
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("items")
+    @SerializedName("recommend")
     @Expose
     private List<MyRecommendItem> myRecommendItemList;
 

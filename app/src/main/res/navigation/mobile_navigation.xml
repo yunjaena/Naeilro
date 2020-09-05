@@ -33,6 +33,24 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_weather"
             app:destination="@id/navigation_weather" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_tourspot_detail"
+            app:destination="@id/navigation_tourspot_detail" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_house_detail"
+            app:destination="@id/navigation_house_detail" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detail_festival"
+            app:destination="@id/navigation_detail_festival" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_restraunt2"
+            app:destination="@id/navigation_restraunt" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detail_facility"
+            app:destination="@id/navigation_detail_facility" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detail_reports"
+            app:destination="@id/navigation_detail_reports" />
     </fragment>
 
     <fragment

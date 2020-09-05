@@ -41,7 +41,7 @@ public class MyPlanRestInteractor implements MyPlanInteractor {
         jsonObject.put("title", contentTitle);
         if(mapX != null && mapY != null){
             jsonObject.put("mapX", mapX);
-            jsonObject.put("title", mapY);
+            jsonObject.put("mapY", mapY);
         }
 
         String token = JWTTokenManager.getInstance().getAccessToken();

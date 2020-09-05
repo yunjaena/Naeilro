@@ -115,8 +115,8 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
         tel = getArguments().getString("tel");
         festivalDetailTitle.setText(title);
         initTMap(view);
-        festivalDetailFragmentPresenter.getFestivalCommonInfo(contentTypeId, contentId);
-        festivalDetailFragmentPresenter.getFestivalIntroInfo(contentTypeId, contentId);
+        festivalDetailFragmentPresenter.getFestivalCommonInfo(contentId);
+        festivalDetailFragmentPresenter.getFestivalIntroInfo(contentId);
 
     }
 

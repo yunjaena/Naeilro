@@ -44,12 +44,19 @@ public class RecommendRecyclerViewAdapter extends RecyclerView.Adapter<Recommend
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MyRecommendItem myRecommendItem = myRecommendItemList.get(position);
         Glide.with(context).load(myRecommendItem.getThumbnail()).error(R.drawable.ic_no_image).into(holder.recommendThumbnail);
+        String s = myRecommendItem.getTitle();
+        holder.recommendTitle.setText(s);
+        holder.itemView.setOnClickListener(v->{
+            if(recyclerViewClickListener != null){
+                recyclerViewClickListener.onClick(v,position);
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return myRecommendItemList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
