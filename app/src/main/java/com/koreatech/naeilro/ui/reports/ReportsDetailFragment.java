@@ -37,6 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_AREA_CODE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_X;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_Y;
@@ -78,6 +79,7 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
     private Unbinder unbinder;
     private String title;
     private TMapView tMapView;
+    private String areaCode;
 
     public static Spanned fromHtml(String source) {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
@@ -104,6 +106,7 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
         intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
         intent.putExtra(CONTENT_MAP_X, mapX);
         intent.putExtra(CONTENT_MAP_Y, mapY);
+        intent.putExtra(CONTENT_AREA_CODE, areaCode);
         startActivity(intent);
     }
 
@@ -154,6 +157,7 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
     public void showCommonInfo(Reports reports) {
         contentTypeId = reports.getContenttypeid();
         contentThumbnail = reports.getFirstimage();
+        areaCode = reports.getAreacode();
         mapX = reports.getMapx();
         mapY = reports.getMapy();
         setAddressInfo(Double.parseDouble(reports.getMapx()), Double.parseDouble(reports.getMapy()), title, reports.getAddr1());

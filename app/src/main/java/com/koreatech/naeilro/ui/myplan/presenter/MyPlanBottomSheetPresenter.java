@@ -63,7 +63,7 @@ public class MyPlanBottomSheetPresenter {
 
     public void createNode(String planNumber, MyPlanNode myPlanNode) {
         myPlanBottomSheetView.showLoading();
-        myPlanInteractor.createNode(createPlanApiCallback, planNumber, myPlanNode.getContendID(), myPlanNode.getContentType(), myPlanNode.getTitle(), myPlanNode.getThumbnail(), myPlanNode.getMapX(), myPlanNode.getMapY());
+        myPlanInteractor.createNode(createPlanApiCallback, planNumber, myPlanNode.getContendID(), myPlanNode.getContentType(), myPlanNode.getTitle(), myPlanNode.getThumbnail(), myPlanNode.getMapX(), myPlanNode.getMapY(), myPlanNode.getAreaCode());
     }
 
     public void removeNode(String myPlanNodeNumber, String contentType, String contentID) {

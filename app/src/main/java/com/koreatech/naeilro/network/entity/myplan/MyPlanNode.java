@@ -25,15 +25,18 @@ public class MyPlanNode {
     @SerializedName("mapY")
     @Expose
     private Float mapY;
+    @SerializedName("areacode")
+    @Expose
+    private String areaCode;
 
-    public MyPlanNode(String contentType, String contendID, String title, String thumbnail, Float mapX, Float mapY) {
+    public MyPlanNode(String contentType, String contendID, String title, String thumbnail, Float mapX, Float mapY, String areaCode) {
         this.contentType = contentType;
         this.contendID = contendID;
-        this.nodeNumber = nodeNumber;
         this.title = title;
         this.thumbnail = thumbnail;
         this.mapX = mapX;
         this.mapY = mapY;
+        this.areaCode = areaCode;
     }
 
     public String getContentType() {
@@ -62,5 +65,9 @@ public class MyPlanNode {
 
     public Float getMapY() {
         return mapY;
+    }
+
+    public String getAreaCode() {
+        return areaCode;
     }
 }
