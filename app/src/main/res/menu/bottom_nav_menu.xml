@@ -9,9 +9,9 @@
 
     <item
         android:id="@+id/navigation_shared_info"
-        android:icon="@drawable/ic_sharedinfo"
+        android:icon="@drawable/ic_search"
         app:showAsAction="always|withText"
-        android:title="@string/bottom_nav_shared_info" />
+        android:title="@string/bottom_nav_search" />
 
     <item
         android:id="@+id/navigation_my_plan"

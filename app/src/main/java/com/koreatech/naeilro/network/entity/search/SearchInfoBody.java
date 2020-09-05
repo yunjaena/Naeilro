@@ -1,4 +1,4 @@
-package com.koreatech.naeilro.network.entity.tour;
+package com.koreatech.naeilro.network.entity.search;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -7,10 +7,10 @@ import org.simpleframework.xml.Root;
 import java.util.List;
 
 @Root(name = "body")
-public class TourInfoBody {
+public class SearchInfoBody {
 
     @ElementList(inline = true, required = false)
-    private List<TourInfoItem> tourInfoItemList;
+    private List<SearchInfoItem> searchInfoItemList;
     @Element(name = "numOfRows")
     private int numOfRows;
     @Element(name = "pageNo")
@@ -18,12 +18,12 @@ public class TourInfoBody {
     @Element(name = "totalCount")
     private int totalCount;
 
-    public List<TourInfoItem> getTourInfoItemList() {
-        return tourInfoItemList;
+    public List<SearchInfoItem> getSearchInfoItemList() {
+        return searchInfoItemList;
     }
 
-    public void setTourInfoItemList(List<TourInfoItem> tourInfoItemList) {
-        this.tourInfoItemList = tourInfoItemList;
+    public void setSearchInfoItemList(List<SearchInfoItem> searchInfoItemList) {
+        this.searchInfoItemList = searchInfoItemList;
     }
 
     public int getNumOfRows() {

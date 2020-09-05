@@ -55,9 +55,9 @@
 
     <fragment
         android:id="@+id/navigation_shared_info"
-        android:name="com.koreatech.naeilro.ui.main.SharedInfoFragment"
-        android:label="@string/bottom_nav_shared_info"
-        tools:layout="@layout/fragment_shared_info" />
+        android:name="com.koreatech.naeilro.ui.search.SearchFragment"
+        android:label="@string/bottom_nav_search"
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_my_plan"
