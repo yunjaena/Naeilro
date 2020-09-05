@@ -1,12 +1,8 @@
 package com.koreatech.naeilro.network.entity.event;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-import java.util.ArrayList;
 @Root(name = "item", strict = false)
 public class Festival {
 
@@ -15,7 +11,7 @@ public class Festival {
     private String addr1;
 
     @Element(name = "areacode", required = false)
-    private int areacode;
+    private String areacode;
 
     @Element(name = "cat1", required = false)
     private String cat1;
@@ -81,7 +77,7 @@ public class Festival {
         return addr1;
     }
 
-    public int getAreacode() {
+    public String getAreacode() {
         return areacode;
     }
 

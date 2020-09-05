@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_AREA_CODE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_X;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_Y;
@@ -83,6 +84,7 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
     private String addr;
     private String mapX;
     private String mapY;
+    private String areaCode;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,6 +104,7 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
         intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
         intent.putExtra(CONTENT_MAP_X, mapX);
         intent.putExtra(CONTENT_MAP_Y, mapY);
+        intent.putExtra(CONTENT_AREA_CODE, areaCode);
         startActivity(intent);
     }
 
@@ -140,6 +143,7 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
         //festivalDetailOverview.setText(setFilter(festival.getOverview()));
         contentTitle = festival.getTitle();
         contentThumbnail = festival.getFirstimage();
+        areaCode = festival.getAreacode();
         mapX = festival.getMapx();
         mapY = festival.getMapy();
         setAddressInfo(Double.parseDouble(festival.getMapx()), Double.parseDouble(festival.getMapy()), festival.getTitle(), addr);

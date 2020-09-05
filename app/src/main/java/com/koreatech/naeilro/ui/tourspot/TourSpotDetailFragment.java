@@ -43,6 +43,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_AREA_CODE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_X;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_Y;
@@ -87,6 +88,7 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
     private String contentThumbnail;
     private String mapX;
     private String mapY;
+    private String areaCode;
     private Unbinder unbinder;
 
     @SuppressWarnings("deprecation")
@@ -117,6 +119,7 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
         intent.putExtra(CONTENT_MAP_X, mapX);
         intent.putExtra(CONTENT_MAP_Y, mapY);
         intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
+        intent.putExtra(CONTENT_AREA_CODE, areaCode);
         startActivity(intent);
     }
 
@@ -233,6 +236,7 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
     public void showCommonInfo(TourInfo tour) {
         contentThumbnail = tour.getFirstimage();
         contentTitle = tour.getTitle();
+        areaCode = tour.getAreacode();
         mapX = tour.getMapx();
         mapY = tour.getMapy();
         setAddressInfo(Double.parseDouble(tour.getMapx()), Double.parseDouble(tour.getMapy()), tour.getTitle(), tour.getAddr1());

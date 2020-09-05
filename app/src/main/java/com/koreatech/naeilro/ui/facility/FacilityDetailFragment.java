@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_AREA_CODE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_X;
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_Y;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_THUMBNAIL;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TITLE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_TYPE;
@@ -72,6 +74,16 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
     private String contentTitle;
     private String contentThumbnail;
     private String detailTitle;
+    private String mapX;
+    private String mapY;
+    private String areaCode;
+
+    public static Spanned fromHtml(String source) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
+            return Html.fromHtml(source);
+        }
+        return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,20 +96,26 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
         init(view);
         return view;
     }
+
     @OnClick(R.id.add_my_plan_facility)
-    public void clickFacilityMyPlanButton(){
+    public void clickFacilityMyPlanButton() {
         Intent intent = new Intent(getActivity(), MyPlanBottomSheetActivity.class);
         intent.putExtra(CONTENT_ID, String.valueOf(contentId));
         intent.putExtra(CONTENT_TYPE, contentTypeID);
         intent.putExtra(CONTENT_TITLE, contentTitle);
         intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
+        intent.putExtra(CONTENT_MAP_X, mapX);
+        intent.putExtra(CONTENT_MAP_Y, mapY);
+        intent.putExtra(CONTENT_AREA_CODE, areaCode);
         startActivity(intent);
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         if (unbinder != null) unbinder.unbind();
     }
+
     public void init(View view) {
         imagefacilityInfoList = new ArrayList<>();
         initView(view);
@@ -110,6 +128,7 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
 
 
     }
+
     private void initView(View view) {
         facilityDetailImage = view.findViewById(R.id.facility_detail_image);
         facilityDetailTitle = view.findViewById(R.id.facility_detail_title);
@@ -126,6 +145,7 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
         facilityInfoRecyclerView = view.findViewById(R.id.facility_info_recycler_view);
 
     }
+
     private void initTMap(View view) {
         tMapView = new TMapView(Objects.requireNonNull(getActivity()));
         tMapView.setSKTMapApiKey(NaeilroApplication.getTMapApiKey());
@@ -133,6 +153,7 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
         facilityDetailTMapLinearLayout.addView(tMapView);
 
     }
+
     public void setAddressInfo(double x, double y, String title, String address) {
         showMapPoint(x, y, title, address);
         facilityAddressTextView.setText(address);
@@ -180,11 +201,15 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
     public void showCommonInfo(Facility facility) {
         contentTypeID = facility.getContenttypeid();
         contentThumbnail = facility.getFirstimage();
+        mapX = facility.getMapx();
+        mapY = facility.getMapy();
+        areaCode = facility.getAreacode();
         setAddressInfo(Double.parseDouble(facility.getMapx()), Double.parseDouble(facility.getMapy()), detailTitle, facility.getAddr1());
         setFirstImageView(facility.getFirstimage());
         setTitle(detailTitle);
         setSummary(facility.getOverview());
     }
+
     private void setImageExtra(List<Facility> facilityItems) {
         if (facilityItems == null || facilityItems.size() == 0) return;
         facilityImageLinearLayout.setVisibility(View.VISIBLE);
@@ -195,7 +220,7 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
 
     private void initFacilityExtraImageRecyclerView() {
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        facilityDetailImageRecyclerViewAdapter = new FacilityImageRecyclerViewAdapter( imagefacilityInfoList,getContext());
+        facilityDetailImageRecyclerViewAdapter = new FacilityImageRecyclerViewAdapter(imagefacilityInfoList, getContext());
         facilityDetailImageRecyclerViewAdapter.setRecyclerViewClickListener(new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -221,8 +246,6 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
         }
         facilityDetailInfoTextView.setText(fromHtml(stringBuilder.toString()));
     }
-
-
 
     private void setFacilityExtraImageView(int position) {
         if (imagefacilityInfoList.isEmpty() || imagefacilityInfoList.size() < position) return;
@@ -261,11 +284,5 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
     @Override
     public void setPresenter(FacilityDetailFragmentPresenter presenter) {
         this.facilityDetailPresenter = presenter;
-    }
-    public static Spanned fromHtml(String source) {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
-            return Html.fromHtml(source);
-        }
-        return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
     }
 }

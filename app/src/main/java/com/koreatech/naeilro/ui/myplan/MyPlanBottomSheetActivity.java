@@ -42,6 +42,7 @@ public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBot
     public static final String CONTENT_TYPE = "CONTENT_TYPE";
     public static final String CONTENT_MAP_X = "CONTENT_MAP_X";
     public static final String CONTENT_MAP_Y = "CONTENT_MAP_Y";
+    public static final String CONTENT_AREA_CODE = "CONTENT_AREA_CODE";
     public final double BOTTOM_SHEET_SIZE_SHOW_PERCENT = 0.5;
     public final double BOTTOM_SHEET_SIZE_EXPENDED_PERCENT = 0.95;
     private LinearLayout myPlanSaveCardView;
@@ -65,10 +66,11 @@ public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBot
         String contentThumbnail = getIntent().getStringExtra(CONTENT_THUMBNAIL);
         String mapX = getIntent().getStringExtra(CONTENT_MAP_X);
         String mapY = getIntent().getStringExtra(CONTENT_MAP_Y);
+        String areaCode = getIntent().getStringExtra(CONTENT_AREA_CODE);
         if (mapX != null && mapY != null)
-            selectedPlanNode = new MyPlanNode(contentType, contentID, contentTitle, contentThumbnail, Float.parseFloat(mapX), Float.parseFloat(mapY));
+            selectedPlanNode = new MyPlanNode(contentType, contentID, contentTitle, contentThumbnail, Float.parseFloat(mapX), Float.parseFloat(mapY), areaCode);
         else
-            selectedPlanNode = new MyPlanNode(contentType, contentID, contentTitle, contentThumbnail, null, null);
+            selectedPlanNode = new MyPlanNode(contentType, contentID, contentTitle, contentThumbnail, null, null, areaCode);
         init();
     }
 
@@ -94,7 +96,7 @@ public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBot
                 if (myPlanList.get(position).isContainPlan()) {
                     MyPlanNode myPlanNode = getSelectedPlan(myPlanList.get(position));
                     if (myPlanNode != null)
-                        myPlanBottomSheetPresenter.removeNode(myPlanNode.getNodeNumber(),myPlanNode.getContentType(),myPlanNode.getContendID());
+                        myPlanBottomSheetPresenter.removeNode(myPlanNode.getNodeNumber(), myPlanNode.getContentType(), myPlanNode.getContendID());
                 } else {
                     myPlanBottomSheetPresenter.createNode(myPlanList.get(position).getPlanNumber(), selectedPlanNode);
                 }

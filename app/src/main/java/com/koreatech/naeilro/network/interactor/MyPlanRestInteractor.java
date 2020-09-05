@@ -30,16 +30,16 @@ import retrofit2.HttpException;
 public class MyPlanRestInteractor implements MyPlanInteractor {
     public static final String TAG = "MyPlanRestInteractor";
 
-
     @Override
-    public void createNode(ApiCallback apiCallback, String planNumber, String contentID, String contentType, String contentTitle, String contentThumbnail, Float mapX, Float mapY) {
+    public void createNode(ApiCallback apiCallback, String planNumber, String contentID, String contentType, String contentTitle, String contentThumbnail, Float mapX, Float mapY, String areaCode) {
         Map<String, Object> jsonObject = new ArrayMap<>();
         jsonObject.put("plan_no", planNumber);
         jsonObject.put("content_id", contentID);
         jsonObject.put("content_type", contentType);
         jsonObject.put("thumbnail", contentThumbnail);
         jsonObject.put("title", contentTitle);
-        if(mapX != null && mapY != null){
+        jsonObject.put("areacode", areaCode);
+        if (mapX != null && mapY != null) {
             jsonObject.put("mapX", mapX);
             jsonObject.put("mapY", mapY);
         }

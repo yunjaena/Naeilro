@@ -36,6 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_AREA_CODE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_X;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_Y;
@@ -97,6 +98,7 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
     private String detailTitle;
     private String mapX;
     private String mapY;
+    private String areaCode;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -119,6 +121,7 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
         intent.putExtra(CONTENT_THUMBNAIL, contentThumbnail);
         intent.putExtra(CONTENT_MAP_X, mapX);
         intent.putExtra(CONTENT_MAP_Y, mapY);
+        intent.putExtra(CONTENT_AREA_CODE, areaCode);
         startActivity(intent);
     }
 
@@ -203,6 +206,7 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
         contentThumbnail = houseInfo.getFirstimage();
         mapX = houseInfo.getMapx();
         mapY = houseInfo.getMapy();
+        areaCode = houseInfo.getAreacode();
         setAddressInfo(Double.parseDouble(houseInfo.getMapx()), Double.parseDouble(houseInfo.getMapy()), detailTitle, houseInfo.getAddr1());
         setFirstImageView(houseInfo.getFirstimage());
         setSummary(houseInfo.getOverview());
