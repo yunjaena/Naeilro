@@ -43,7 +43,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     private static final double centerLon = 127.48318433761597;
     private static final double centerLat = 36.41592967015607;
     private LinearLayout tMapLinearLayout;
-    private TMapView tMapView;
+    private com.skt.Tmap.TMapView tMapView;
     private SearchView restaurantSearchView;
     private RecyclerView restaurantRecyclerView;
     private RestaurantPresenter restaurantPresenter;

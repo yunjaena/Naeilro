@@ -112,6 +112,8 @@ dependencies {
     }
 
     api 'org.jetbrains:annotations:15.0'
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
+    api files('libs/com.skt.Tmap_1.64.jar')
 
 
 }

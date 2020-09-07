@@ -1,80 +1,32 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'io.fabric'
-String applicationName = 'naeilro'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.koreatech.naeilro"
-        compileSdkVersion project.compileSdkVersion
-        minSdkVersion project.minSdkVersion
-        targetSdkVersion project.targetSdkVersion
-        versionCode 10000
-        versionName "1.0.0"
-        vectorDrawables.useSupportLibrary = true
+        applicationId "com.yunjaena.naeilro.admin"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
-    }
-
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
-    }
-
-    signingConfigs {
-        release {
-            storeFile file("./naeilro_key.jks")
-            storePassword getPassword()
-            keyAlias "naeilro_key_alias"
-            keyPassword getPassword()
-        }
     }
 
     buildTypes {
-        debug {
-            debuggable true
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "boolean", "IS_DEBUG", "true"
-        }
-
         release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "boolean", "IS_DEBUG", "false"
-            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
-    compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
-    }
-
-    applicationVariants.all { variant ->
-        variant.outputs.all {
-            outputFileName = "${applicationName}_v${defaultConfig.versionName}_${variant.buildType.name}.apk"
-        }
-    }
-}
-
-def getPassword() {
-    try {
-        def stringsFile = file("./src/main/res/values/keys.xml")
-        return new XmlParser().parse(stringsFile).string.find {
-            it.@name.equals 'naeilro_store_password'
-        }.text()
-    } catch (e) {
-        println(e)
-        return ""
-    }
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':core')
     implementation 'com.google.guava:guava:29.0-android'
     /* Dependency - glide */
@@ -119,7 +71,4 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.2.0'
     /* Mockito */
     testImplementation 'org.mockito:mockito-core:2.28.2'
-}
-repositories {
-    mavenCentral()
 }
