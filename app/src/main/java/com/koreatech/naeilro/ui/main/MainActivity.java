@@ -17,9 +17,9 @@ public class MainActivity extends ActivityBase {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.nailro_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setElevation(0);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.nailro_toolbar);
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setElevation(0);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
