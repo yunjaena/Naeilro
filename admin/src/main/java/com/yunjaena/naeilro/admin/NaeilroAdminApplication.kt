@@ -2,12 +2,18 @@ package com.yunjaena.naeilro.admin
 
 import android.app.Application
 import android.content.Context
+import com.koreatech.core.toast.ToastUtil
 
 class NaeilroAdminApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
         context = this
+        init()
+    }
+
+    private fun init(){
+        ToastUtil.getInstance().init(context)
     }
 
     companion object {

@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+String applicationName = 'naeilro.admin'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -23,10 +23,62 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("./naeilro_key.jks")
+            storePassword getPassword()
+            keyAlias "naeilro_key_alias"
+            keyPassword getPassword()
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "IS_DEBUG", "true"
+        }
+
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "IS_DEBUG", "false"
+            signingConfig signingConfigs.release
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "${applicationName}_v${defaultConfig.versionName}_${variant.buildType.name}.apk"
+        }
+    }
+
+}
+
+def getPassword() {
+    try {
+        def stringsFile = file("./src/main/res/values/keys.xml")
+        return new XmlParser().parse(stringsFile).string.find {
+            it.@name.equals 'naeilro_store_password'
+        }.text()
+    } catch (e) {
+        println(e)
+        return ""
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':core')
     implementation 'com.google.guava:guava:29.0-android'
     /* Dependency - glide */
