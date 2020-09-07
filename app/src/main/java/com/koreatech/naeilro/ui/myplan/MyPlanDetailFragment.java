@@ -3,6 +3,8 @@ package com.koreatech.naeilro.ui.myplan;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +32,7 @@ public class MyPlanDetailFragment extends Fragment implements MyPlanDetailContra
     private MyPlanNodelAdapter myPlanDetailAdapter;
     private int removeIndex = -1;
     private List<MyPlanNode> nodeList = new ArrayList<>();
+    private NavController navController;
 
 
 
@@ -37,6 +40,7 @@ public class MyPlanDetailFragment extends Fragment implements MyPlanDetailContra
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_plan_detail, container, false);
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         init(view);
         String planNumber = getArguments().getString("planNumber");
         myPlanDetailPresenter.getMyPlanNodeList(planNumber);
@@ -60,6 +64,27 @@ public class MyPlanDetailFragment extends Fragment implements MyPlanDetailContra
                 if(view.getId() == R.id.node_cancel_button){
                     removeIndex = position;
                     myPlanDetailPresenter.deleteNode(nodeList.get(position).getNodeNumber(), nodeList.get(position).getContentType(), nodeList.get(position).getContendID());
+                }else{
+                    String contentTypeId = nodeList.get(position).getContentType();
+                    int contentId = Integer.parseInt(nodeList.get(position).getContendID());
+                    Bundle bundle = new Bundle();
+                    bundle.putString("title", nodeList.get(position).getTitle());
+                    bundle.putInt("contentId", contentId);
+                    if(contentTypeId.equals("12")){//관광지
+                        navController.navigate(R.id.action_navigation_my_plan_detail_to_navigation_tourspot_detail, bundle);
+                    }
+                    else if(contentTypeId.equals("14")){//문화시설
+                        navController.navigate(R.id.action_navigation_my_plan_detail_to_navigation_detail_facility, bundle);
+                    }
+                    else if(contentTypeId.equals("15")){//축제/행사
+                        navController.navigate(R.id.action_navigation_my_plan_detail_to_navigation_detail_festival, bundle);
+                    }
+                    else if(contentTypeId.equals("28")){//레포츠
+                        navController.navigate(R.id.action_navigation_my_plan_detail_to_navigation_detail_reports, bundle);
+                    }
+                    else if(contentTypeId.equals("32")){//숙박
+                        navController.navigate(R.id.action_navigation_my_plan_detail_to_navigation_house_detail, bundle);
+                    }
                 }
             }
 

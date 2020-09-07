@@ -52,8 +52,8 @@ public class HomeFragment extends Fragment implements HomeFragmentContract.View 
     private HomePresenter homePresenter;
     private List<MyRecommendItem> recommendItemList = new LinkedList<>();
 
-    View root;
-    NavController navController;
+    private View root;
+    private NavController navController;
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -107,7 +107,6 @@ public class HomeFragment extends Fragment implements HomeFragmentContract.View 
         recommendRecyclerViewAdapter.setRecyclerViewClickListener(new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Log.e("asdf","click");
                 String contentTypeId = recommendItemList.get(position).getContentType();
                 int contentId = Integer.parseInt(recommendItemList.get(position).getContendID());
                 Bundle bundle = new Bundle();
