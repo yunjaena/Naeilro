@@ -44,6 +44,11 @@ public class MyPlanNodelAdapter extends RecyclerView.Adapter<MyPlanNodelAdapter.
         holder.myNodeName.setText(myNode.getTitle());
         Glide.with(context).load(myNode.getThumbnail()).error(R.drawable.ic_no_image).into(holder.thumbnail);
         holder.cancelButton.setOnClickListener((view)-> recyclerViewClickListener.onClick(holder.cancelButton, position));
+        holder.itemView.setOnClickListener(v->{
+            if(recyclerViewClickListener != null){
+                recyclerViewClickListener.onClick(v, position);
+            }
+        });
 
     }
 
