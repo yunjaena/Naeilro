@@ -42,6 +42,18 @@ public class RestaurantInfo {
     @Element(name = "title")
     private String title;
 
+
+    @Element(name = "overview", required = false)
+    private String overview;
+    @Element(name = "infoname", required = false)
+    private String infoname;
+    @Element(name = "infotext", required = false)
+    private String infotext;
+    @Element(name = "originimgurl", required = false)
+    private String originimgurl;
+    @Element(name = "smallimageurl", required = false)
+    private String smallimageurl;
+
     public String getAddress() {
         return address;
     }
@@ -176,6 +188,26 @@ public class RestaurantInfo {
 
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public String getInfoname() {
+        return infoname;
+    }
+
+    public String getInfotext() {
+        return infotext;
+    }
+
+    public String getOriginimgurl() {
+        return originimgurl;
+    }
+
+    public String getSmallimageurl() {
+        return smallimageurl;
     }
 
     public String getTitle() {

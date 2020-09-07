@@ -15,27 +15,33 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.naeilro.R;
+import com.koreatech.naeilro.network.entity.facility.Facility;
 import com.koreatech.naeilro.network.entity.restaurant.RestaurantInfo;
 import com.koreatech.naeilro.ui.main.MainActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantInfoRecyclerViewAdapter extends RecyclerView.Adapter<RestaurantInfoRecyclerViewAdapter.ViewHolder> {
     NavController navController;
     private List<RestaurantInfo> restaurantInfoList;
     private Context context;
-    private RecyclerViewClickListener recyclerViewClickListener;
 
-    public RestaurantInfoRecyclerViewAdapter(List<RestaurantInfo> restaurantInfoList, Context context) {
+    public RestaurantInfoRecyclerViewAdapter(Context context) {
         this.context = context;
-        this.restaurantInfoList = restaurantInfoList;
+        restaurantInfoList = new ArrayList<>();
         navController = Navigation.findNavController((MainActivity) context, R.id.nav_host_fragment);
     }
-
-    public void setRecyclerClickListener(RecyclerViewClickListener recyclerViewClickListener) {
-        this.recyclerViewClickListener = recyclerViewClickListener;
+    public void addItem(List<RestaurantInfo> item){
+        for(int i=0;i<item.size();i++){
+            restaurantInfoList.add(item.get(i));
+        }
+        notifyDataSetChanged();
     }
 
+    public void clearItem(){
+        restaurantInfoList.clear();
+    }
     @NonNull
     @Override
     public RestaurantInfoRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -85,10 +91,6 @@ public class RestaurantInfoRecyclerViewAdapter extends RecyclerView.Adapter<Rest
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
-            view.setOnClickListener(v -> {
-                if (recyclerViewClickListener != null)
-                    recyclerViewClickListener.onClick(view, getAdapterPosition());
-            });
             restaurantTitleTextView = itemView.findViewById(R.id.restaurant_title);
             restaurantAddressTextView = itemView.findViewById(R.id.restaurant_address);
             restaurantTelTextView = itemView.findViewById(R.id.restaurant_tel);
