@@ -9,11 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.koreatech.naeilro.R;
+import com.koreatech.naeilro.network.entity.facility.Facility;
 import com.koreatech.naeilro.network.entity.restaurant.RestaurantInfo;
 import com.koreatech.naeilro.ui.facility.adapter.FacilityDetailInfoRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.koreatech.naeilro.ui.reports.ReportsDetailFragment.fromHtml;
 
 public class RestaurantDetailInfoRecyclerViewAdapter extends RecyclerView.Adapter<RestaurantDetailInfoRecyclerViewAdapter.ViewHolder>{
     private List<RestaurantInfo> restaurantList;
@@ -32,11 +35,21 @@ public class RestaurantDetailInfoRecyclerViewAdapter extends RecyclerView.Adapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        RestaurantInfo restaurantInfo = restaurantList.get(position);
+        holder.setIsRecyclable(false);
+        if(restaurantInfo.getInfoname() != null)
+            holder.infoName.setText(restaurantInfo.getInfoname());
+        else
+            holder.infoName.setText("");
+        if(restaurantInfo.getInfotext() != null)
+            holder.infoText.setText(fromHtml(restaurantInfo.getInfotext()));
+        else
+            holder.infoText.setText("");
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return restaurantList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

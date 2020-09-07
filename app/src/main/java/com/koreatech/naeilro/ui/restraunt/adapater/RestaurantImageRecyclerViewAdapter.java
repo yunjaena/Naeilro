@@ -36,7 +36,9 @@ public class RestaurantImageRecyclerViewAdapter extends RecyclerView.Adapter<Res
         selectIndex = index;
         notifyDataSetChanged();
     }
-
+    public void setRecyclerViewClickListener(RecyclerViewClickListener recyclerViewClickListener) {
+        this.recyclerViewClickListener = recyclerViewClickListener;
+    }
     @NonNull
     @Override
     public RestaurantImageRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -68,7 +70,7 @@ public class RestaurantImageRecyclerViewAdapter extends RecyclerView.Adapter<Res
 
     @Override
     public int getItemCount() {
-        return 0;
+        return restaurantInfoList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

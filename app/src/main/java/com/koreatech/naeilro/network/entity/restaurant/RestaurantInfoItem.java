@@ -14,7 +14,4 @@ public class RestaurantInfoItem {
         return restaurantInfoList;
     }
 
-    public void setRestaurantInfoList(List<RestaurantInfo> restaurantInfoList) {
-        this.restaurantInfoList = restaurantInfoList;
-    }
 }

@@ -129,6 +129,9 @@ public class HomeFragment extends Fragment implements HomeFragmentContract.View 
                 else if(contentTypeId.equals("32")){//숙박
                     navController.navigate(R.id.action_navigation_home_to_navigation_house_detail, bundle);
                 }
+                else if(contentTypeId.equals("39")){//숙박
+                    navController.navigate(R.id.action_navigation_home_to_navigation_restraunt_detail, bundle);
+                }
 
             }
 

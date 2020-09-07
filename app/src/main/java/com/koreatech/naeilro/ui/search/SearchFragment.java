@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchFragment extends Fragment implements SearchContract.View, RecyclerViewClickListener {
-    private static final int[] CATEGORY_TYPE_LIST = {12, 14, 28, 14, 15};
+    private static final int[] CATEGORY_TYPE_LIST = {12, 14, 28, 14, 15,39};
     private static final int MAX_ITEM = 20;
     private RecyclerView searchResultRecyclerView;
     private Spinner searchSpinner;
@@ -195,7 +195,10 @@ public class SearchFragment extends Fragment implements SearchContract.View, Rec
             navController.navigate(R.id.action_navigation_home_to_navigation_detail_reports, bundle);
         } else if (contentTypeId.equals("32")) {//숙박
             navController.navigate(R.id.action_navigation_home_to_navigation_house_detail, bundle);
+        }else if (contentTypeId.equals("39")) {//음식점
+            navController.navigate(R.id.action_navigation_search_to_navigation_restraunt_detail2, bundle);
         }
+
     }
 
     @Override

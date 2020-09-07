@@ -108,7 +108,35 @@ public class RestaurantRestInteractor implements RestaurantInteractor {
 
     @Override
     public void getCommonItems(ApiCallback apiCallback, int contentId, String MobileOs, String MobileApp) {
+        Observable<RestaurantList> observable = KoreanTourRetrofitManager.getInstance().getRetrofit().create(RestaurantService.class).
+                getRestaurantCommonInfo(apiKey, 39,contentId, mobileOS, "nailro", "Y","Y","Y", "Y", "Y", "Y","Y")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        observable.subscribe(new Observer<RestaurantList>() {
+            @Override
+            public void onSubscribe(Disposable d) {
 
+            }
+
+            @Override
+            public void onNext(RestaurantList restaurantList) {
+                if(restaurantList != null){
+                    apiCallback.onSuccess(restaurantList.getRestaurantInfoBodyList().get(0).getRestaurantInfoItemList().get(0).getRestaurantInfoList().get(0));
+                }else {
+                    apiCallback.onFailure(new Throwable("fail read reportsCommonInfo"));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 
     @Override
@@ -125,9 +153,9 @@ public class RestaurantRestInteractor implements RestaurantInteractor {
             }
 
             @Override
-            public void onNext(RestaurantList facilityInfoList) {
-                if(facilityInfoList != null){
-                    restaurantInfoItems.addAll(facilityInfoList.getRestaurantInfoBodyList().get(0).getRestaurantInfoItemList().get(0).getRestaurantInfoList());
+            public void onNext(RestaurantList restaurantInfoList) {
+                if(restaurantInfoList != null){
+                    restaurantInfoItems.addAll(restaurantInfoList.getRestaurantInfoBodyList().get(0).getRestaurantInfoItemList().get(0).getRestaurantInfoList());
                     apiCallback.onSuccess(restaurantInfoItems);
                 }
                 else{
@@ -152,7 +180,6 @@ public class RestaurantRestInteractor implements RestaurantInteractor {
 
     @Override
     public void getDetailItems(ApiCallback apiCallback, int contentId, String MobileOs, String MobileApp) {
-        List<RestaurantInfo> restaurantInfoItems = new ArrayList<>();
         Observable<RestaurantList> observable = KoreanTourRetrofitManager.getInstance().getRetrofit().create(RestaurantService.class).
                 getRestaurantDetailnfo(apiKey, 39, contentId, mobileOS, MobileApp)
                 .subscribeOn(Schedulers.io())
@@ -164,12 +191,14 @@ public class RestaurantRestInteractor implements RestaurantInteractor {
             }
 
             @Override
-            public void onNext(RestaurantList facilityInfoList) {
-                if(facilityInfoList != null){
-                    restaurantInfoItems.addAll(facilityInfoList.getRestaurantInfoBodyList().get(0).getRestaurantInfoItemList().get(0).getRestaurantInfoList());
-                    apiCallback.onSuccess(restaurantInfoItems);
+            public void onNext(RestaurantList restaurantList) {
+                if(restaurantList != null){
+                    RestaurantInfo restaurantInfo = restaurantList.getRestaurantInfoBodyList().get(0).getRestaurantInfoItemList().get(0).getRestaurantInfoList().get(0);
+                    Log.e("interactor", "success");
+                    apiCallback.onSuccess(restaurantInfo);
                 }
                 else{
+                    Log.e("interactor", "fail");
                     apiCallback.onFailure(new Throwable("fail read Restaurant List"));
                 }
             }

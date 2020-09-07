@@ -1,6 +1,8 @@
 package com.koreatech.naeilro.ui.restraunt.adapater;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +76,16 @@ public class RestaurantInfoRecyclerViewAdapter extends RecyclerView.Adapter<Rest
             Glide.with(holder.restaurantImageView)
                     .load(R.drawable.ic_no_image)
                     .into(holder.restaurantImageView);
+        holder.view.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("contentId", restaurantInfo.getContentID());
+                Log.e("adapter", Integer.toString(restaurantInfo.getContentID()));
+                bundle.putString("title", restaurantInfo.getTitle());
+                navController.navigate(R.id.action_navigation_restraunt_to_navigation_restraunt_detail, bundle);
+            }
+        });
     }
 
     @Override
