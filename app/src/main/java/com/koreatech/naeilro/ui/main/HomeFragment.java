@@ -47,6 +47,8 @@ public class HomeFragment extends Fragment implements HomeFragmentContract.View 
     LinearLayout categoryTrainLayout;
     @BindView(R.id.category_weather)
     LinearLayout categoryWeatherLayout;
+    @BindView(R.id.recommend_null_text)
+    LinearLayout recommnedNullText;
     private RecyclerView recommendRecyclerView;
     private RecommendRecyclerViewAdapter recommendRecyclerViewAdapter;
     private HomePresenter homePresenter;
@@ -127,6 +129,9 @@ public class HomeFragment extends Fragment implements HomeFragmentContract.View 
                 else if(contentTypeId.equals("32")){//숙박
                     navController.navigate(R.id.action_navigation_home_to_navigation_house_detail, bundle);
                 }
+                else if(contentTypeId.equals("39")){//숙박
+                    navController.navigate(R.id.action_navigation_home_to_navigation_restraunt_detail, bundle);
+                }
 
             }
 
@@ -140,10 +145,18 @@ public class HomeFragment extends Fragment implements HomeFragmentContract.View 
 
     @Override
     public void showRecommendList(List<MyRecommendItem> recommendList) {
+        recommendRecyclerView.setVisibility(View.VISIBLE);
+        recommnedNullText.setVisibility(View.GONE);
         recommendItemList.clear();
         recommendItemList.addAll(recommendList);
         initRecyclerView(recommendItemList);
 
+    }
+
+    @Override
+    public void showNullRecommendList(String message) {
+        recommendRecyclerView.setVisibility(View.GONE);
+        recommnedNullText.setVisibility(View.VISIBLE);
     }
 
     @Override

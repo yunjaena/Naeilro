@@ -3,7 +3,7 @@ package com.koreatech.naeilro.network.entity.restaurant;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root(name = "item")
+@Root(name = "item", strict = false)
 public class RestaurantInfo {
     @Element(name = "addr1", required = false)
     private String address;
@@ -39,8 +39,51 @@ public class RestaurantInfo {
     private int sigunguCode;
     @Element(name = "tel", required = false)
     private String telephoneNumber;
-    @Element(name = "title")
+    @Element(name = "title",required = false)
     private String title;
+
+
+    @Element(name = "overview", required = false)
+    private String overview;
+    @Element(name = "infoname", required = false)
+    private String infoname;
+    @Element(name = "infotext", required = false)
+    private String infotext;
+    @Element(name = "originimgurl", required = false)
+    private String originimgurl;
+    @Element(name = "smallimageurl", required = false)
+    private String smallimageurl;
+
+    @Element(name = "firstmenu", required = false)
+    private String firstmenu;
+    @Element(name = "opentimefood", required = false)
+    private String opentimefood;
+    @Element(name = "parkingfood", required = false)
+    private String parkingfood;
+    @Element(name = "restdatefood", required = false)
+    private String restdatefood;
+    @Element(name = "treatmenu", required = false)
+    private String treatmenu;
+
+    public String getFirstmenu() {
+        return firstmenu;
+    }
+
+    public String getOpentimefood() {
+        return opentimefood;
+    }
+
+    public String getParkingfood() {
+        return parkingfood;
+    }
+
+    public String getRestdatefood() {
+        return restdatefood;
+    }
+
+    public String getTreatmenu() {
+        return treatmenu;
+    }
 
     public String getAddress() {
         return address;
@@ -178,6 +221,26 @@ public class RestaurantInfo {
         this.telephoneNumber = telephoneNumber;
     }
 
+    public String getOverview() {
+        return overview;
+    }
+
+    public String getInfoname() {
+        return infoname;
+    }
+
+    public String getInfotext() {
+        return infotext;
+    }
+
+    public String getOriginimgurl() {
+        return originimgurl;
+    }
+
+    public String getSmallimageurl() {
+        return smallimageurl;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -186,27 +249,4 @@ public class RestaurantInfo {
         this.title = title;
     }
 
-    @Override
-    public String toString() {
-        return "RestaurantInfo{" +
-                "address='" + address + '\'' +
-                ", areaCode=" + areaCode +
-                ", categoryOne='" + categoryOne + '\'' +
-                ", categoryTwo='" + categoryTwo + '\'' +
-                ", categoryThree='" + categoryThree + '\'' +
-                ", contentID=" + contentID +
-                ", contentTypeID=" + contentTypeID +
-                ", createdTime='" + createdTime + '\'' +
-                ", firstImage='" + firstImage + '\'' +
-                ", secondImage='" + secondImage + '\'' +
-                ", mapX=" + mapX +
-                ", mapY=" + mapY +
-                ", level=" + level +
-                ", modifiedTime='" + modifiedTime + '\'' +
-                ", readCount=" + readCount +
-                ", sigunguCode=" + sigunguCode +
-                ", telephoneNumber='" + telephoneNumber + '\'' +
-                ", title='" + title + '\'' +
-                '}';
-    }
 }

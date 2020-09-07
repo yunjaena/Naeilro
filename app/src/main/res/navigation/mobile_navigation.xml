@@ -51,6 +51,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_detail_reports"
             app:destination="@id/navigation_detail_reports" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_restraunt_detail"
+            app:destination="@id/navigation_restraunt_detail" />
     </fragment>
 
     <fragment
@@ -73,6 +76,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_detail_reports"
             app:destination="@id/navigation_detail_reports" />
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_restraunt_detail2"
+            app:destination="@id/navigation_restraunt_detail" />
     </fragment>
 
     <fragment
@@ -104,6 +110,9 @@
         <action
             android:id="@+id/action_navigation_my_plan_detail_to_navigation_detail_festival"
             app:destination="@id/navigation_detail_festival" />
+        <action
+            android:id="@+id/action_navigation_my_plan_detail_to_navigation_restraunt_detail"
+            app:destination="@id/navigation_restraunt_detail" />
     </fragment>
     <fragment
         android:id="@+id/navigation_my_info"
@@ -135,7 +144,16 @@
         android:id="@+id/navigation_restraunt"
         android:name="com.koreatech.naeilro.ui.restraunt.RestaurantFragment"
         android:label="@string/category_serarch_restraunt"
-        tools:layout="@layout/fragment_restraunt" />
+        tools:layout="@layout/fragment_restraunt" >
+        <action
+            android:id="@+id/action_navigation_restraunt_to_navigation_restraunt_detail"
+            app:destination="@id/navigation_restraunt_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_restraunt_detail"
+        android:name="com.koreatech.naeilro.ui.restraunt.RestaurantDetailFragment"
+        android:label="@string/category_serarch_restraunt"
+        tools:layout="@layout/fragment_restaurant_detail" />
     <fragment
         android:id="@+id/navigation_house"
         android:name="com.koreatech.naeilro.ui.house.HouseFragment"

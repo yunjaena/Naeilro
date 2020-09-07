@@ -20,7 +20,11 @@ public class HomePresenter {
         @Override
         public void onSuccess(Object object) {
             List<MyRecommendItem> recommendItems = (List<MyRecommendItem>) object;
-            homeView.showRecommendList(recommendItems);
+            if(recommendItems != null)
+                homeView.showRecommendList(recommendItems);
+            else{
+                homeView.showNullRecommendList("추천할 목록이 없습니다.");
+            }
             homeView.hideLoading();
         }
 
