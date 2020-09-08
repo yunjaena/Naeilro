@@ -103,7 +103,10 @@ public class TrainRestInteractor implements TrainInteractor {
 
                     @Override
                     public void onNext(TrainStationList trainStationList) {
-                        stationInfoList.addAll(trainStationList.getTrainStationInfoBodyList().get(0).getTrainStationInfoItemList().get(0).getTrainStationInfoList());
+                        if (trainStationList.getTrainStationInfoBodyList() != null && trainStationList.getTrainStationInfoBodyList().get(0) != null
+                                && trainStationList.getTrainStationInfoBodyList().get(0).getTrainStationInfoItemList() != null && trainStationList.getTrainStationInfoBodyList().get(0).getTrainStationInfoItemList().get(0).getTrainStationInfoList() != null) {
+                            stationInfoList.addAll(trainStationList.getTrainStationInfoBodyList().get(0).getTrainStationInfoItemList().get(0).getTrainStationInfoList());
+                        }
                     }
 
                     @Override
