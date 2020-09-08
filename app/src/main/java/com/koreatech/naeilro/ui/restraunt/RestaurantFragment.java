@@ -1,14 +1,9 @@
 package com.koreatech.naeilro.ui.restraunt;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -20,24 +15,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.core.toast.ToastUtil;
-import com.koreatech.naeilro.NaeilroApplication;
 import com.koreatech.naeilro.R;
-
 import com.koreatech.naeilro.network.entity.restaurant.RestaurantInfo;
 import com.koreatech.naeilro.network.interactor.RestaurantRestInteractor;
 import com.koreatech.naeilro.ui.main.MainActivity;
 import com.koreatech.naeilro.ui.restraunt.adapater.RestaurantInfoRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.restraunt.presenter.RestaurantContract;
 import com.koreatech.naeilro.ui.restraunt.presenter.RestaurantPresenter;
-import com.skt.Tmap.TMapMarkerItem;
-import com.skt.Tmap.TMapPoint;
-import com.skt.Tmap.TMapView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +35,18 @@ import butterknife.Unbinder;
 
 public class RestaurantFragment extends Fragment implements RestaurantContract.View {
     public static final String TAG = "RestaurantFragment";
+    private static final double centerLon = 127.48318433761597;
+    private static final double centerLat = 36.41592967015607;
+    boolean filterFlag = false;
+    @BindView(R.id.restaurant_city_spinner)
+    Spinner citySpiner;
+    @BindView(R.id.restaurant_detail_city_spinner)
+    Spinner detailSpinner;
+    @BindView(R.id.search_restaurant)
+    Button restaurantSearchButton;
+    private LinearLayout tMapLinearLayout;
+    private com.skt.Tmap.TMapView tMapView;
+    private SearchView restaurantSearchView;
     private View view;
     private RecyclerView restaurantRecyclerView;
     private RestaurantPresenter restaurantPresenter;
@@ -57,13 +56,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     private Unbinder unbinder;
     private int areaCode;
     private int sigunguCode;
-    boolean filterFlag = false;
-    @BindView(R.id.restaurant_city_spinner)
-    Spinner citySpiner;
-    @BindView(R.id.restaurant_detail_city_spinner)
-    Spinner detailSpinner;
-    @BindView(R.id.search_restaurant)
-    Button restaurantSearchButton;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_restraunt, container, false);
@@ -75,7 +68,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
 
     private void init(View view) {
         pageNum = 1;
-        restaurantPresenter = new RestaurantPresenter( this, new RestaurantRestInteractor());
+        restaurantPresenter = new RestaurantPresenter(this, new RestaurantRestInteractor());
         restaurantRecyclerView = view.findViewById(R.id.restaurant_info_recycler_view);
         restaurantRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         restaurantInfoRecyclerViewAdapter = new RestaurantInfoRecyclerViewAdapter(view.getContext());
@@ -104,6 +97,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
             }
         });
     }
+
     @OnClick(R.id.search_restaurant)
     public void getSearchRestaurant() {
         filterFlag = true;
@@ -111,18 +105,16 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         if (areaCode != 0) {
             if (areaCode == 34 && sigunguCode > 9) {
                 restaurantPresenter.getRestaurantCategoryItems(pageNum, areaCode, sigunguCode + 1);
-            }
-            else if (areaCode == 36 && sigunguCode > 10) {
+            } else if (areaCode == 36 && sigunguCode > 10) {
                 restaurantPresenter.getRestaurantCategoryItems(pageNum, areaCode, sigunguCode + 1);
-            }else if (areaCode == 38 && sigunguCode > 13) {
+            } else if (areaCode == 38 && sigunguCode > 13) {
                 restaurantPresenter.getRestaurantCategoryItems(pageNum, areaCode, sigunguCode + 2);
-            }
-            else
+            } else
                 restaurantPresenter.getRestaurantCategoryItems(pageNum, areaCode, sigunguCode);
-        }
-        else
+        } else
             restaurantPresenter.getRestaurantItems(pageNum);
     }
+
     @OnItemSelected(R.id.restaurant_city_spinner)
     public void onCitySpinnerSelet(int position) {
         switch (position) {
@@ -200,20 +192,17 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
                 break;
         }
     }
+
     @OnItemSelected(R.id.restaurant_detail_city_spinner)
     public void onCityDetailSpinnerSelet(int position, Spinner spinner) {
         sigunguCode = position + 1;
     }
+
     public void changeSpinnerItem(int arrayId, Spinner spinner) {
         String[] items = getResources().getStringArray(arrayId);
         ArrayAdapter spinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
         spinner.setAdapter(spinnerAdapter);
     }
-
-
-
-
-
 
 
     @Override

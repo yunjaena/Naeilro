@@ -1,23 +1,31 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'io.fabric'
-String applicationName = 'naeilro'
+String applicationName = 'naeilro.admin'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.koreatech.naeilro"
-        compileSdkVersion project.compileSdkVersion
-        minSdkVersion project.minSdkVersion
-        targetSdkVersion project.targetSdkVersion
-        versionCode 10000
-        versionName "1.0.0"
-        vectorDrawables.useSupportLibrary = true
+        applicationId "com.yunjaena.naeilro.admin"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     lintOptions {
@@ -50,16 +58,12 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
-    }
-
     applicationVariants.all { variant ->
         variant.outputs.all {
             outputFileName = "${applicationName}_v${defaultConfig.versionName}_${variant.buildType.name}.apk"
         }
     }
+
 }
 
 def getPassword() {
@@ -119,7 +123,4 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.2.0'
     /* Mockito */
     testImplementation 'org.mockito:mockito-core:2.28.2'
-}
-repositories {
-    mavenCentral()
 }
