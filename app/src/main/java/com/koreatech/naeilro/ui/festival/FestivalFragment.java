@@ -1,12 +1,6 @@
 package com.koreatech.naeilro.ui.festival;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.event.Festival;
@@ -32,7 +31,14 @@ import butterknife.OnItemSelected;
 import butterknife.Unbinder;
 
 
-public class FestivalFragment extends Fragment implements FestivalInfoFragmentContract.View{
+public class FestivalFragment extends Fragment implements FestivalInfoFragmentContract.View {
+    boolean filterFlag = false;
+    @BindView(R.id.festival_city_spinner)
+    Spinner citySpinner;
+    @BindView(R.id.festival_detail_city_spinner)
+    Spinner detailSpinner;
+    @BindView(R.id.search_festival)
+    Button festivalSearchButton;
     private View view;
     private FestivalFragmentPresenter festivalFragmentPresenter;
     private List<Festival> eventList;
@@ -42,26 +48,19 @@ public class FestivalFragment extends Fragment implements FestivalInfoFragmentCo
     private Unbinder unbinder;
     private int areaCode;
     private int sigunguCode;
-    boolean filterFlag = false;
-
-    @BindView(R.id.festival_city_spinner)
-    Spinner citySpinner;
-    @BindView(R.id.festival_detail_city_spinner)
-    Spinner detailSpinner;
-    @BindView(R.id.search_festival)
-    Button festivalSearchButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (view != null) {
+            return view;
+        }
         view = inflater.inflate(R.layout.fragment_festival, container, false);
         init(view);
         this.unbinder = ButterKnife.bind(this, view);
         festivalFragmentPresenter.getFestivalItems(pageNum);
         return view;
     }
-
-
 
     @Override
     public void showHouseList(List<Festival> festivalList) {
@@ -87,7 +86,7 @@ public class FestivalFragment extends Fragment implements FestivalInfoFragmentCo
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(unbinder != null) unbinder.unbind();
+        if (unbinder != null) unbinder.unbind();
     }
 
     @Override
@@ -95,7 +94,8 @@ public class FestivalFragment extends Fragment implements FestivalInfoFragmentCo
         this.festivalFragmentPresenter = presenter;
 
     }
-    public void init(View view){
+
+    public void init(View view) {
         pageNum = 1;
         festivalFragmentPresenter = new FestivalFragmentPresenter(new FestivalRestInteractor(), this);
         eventList = new ArrayList<>();
@@ -107,7 +107,7 @@ public class FestivalFragment extends Fragment implements FestivalInfoFragmentCo
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int totalItemCount = recyclerView.getAdapter().getItemCount()-1;
+                int totalItemCount = recyclerView.getAdapter().getItemCount() - 1;
                 int lastVisible = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 if (lastVisible >= pageNum * 20 - 1) {
                     if (areaCode == 0) {
@@ -117,19 +117,18 @@ public class FestivalFragment extends Fragment implements FestivalInfoFragmentCo
                         pageNum += 1;
                         if (areaCode == 34 && sigunguCode > 9) {
                             festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode + 1);
-                        }
-                        else if (areaCode == 36 && sigunguCode > 10) {
+                        } else if (areaCode == 36 && sigunguCode > 10) {
                             festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode + 1);
-                        }else if (areaCode == 38 && sigunguCode > 13) {
+                        } else if (areaCode == 38 && sigunguCode > 13) {
                             festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode + 2);
-                        }
-                        else
+                        } else
                             festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode);
                     }
                 }
             }
         });
     }
+
     @OnClick(R.id.search_festival)
     public void getSearchFestival() {
         filterFlag = true;
@@ -137,18 +136,16 @@ public class FestivalFragment extends Fragment implements FestivalInfoFragmentCo
         if (areaCode != 0) {
             if (areaCode == 34 && sigunguCode > 9) {
                 festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode + 1);
-            }
-            else if (areaCode == 36 && sigunguCode > 10) {
+            } else if (areaCode == 36 && sigunguCode > 10) {
                 festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode + 1);
-            }else if (areaCode == 38 && sigunguCode > 13) {
+            } else if (areaCode == 38 && sigunguCode > 13) {
                 festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode + 2);
-            }
-            else
+            } else
                 festivalFragmentPresenter.getFestivalCategoryItems(pageNum, areaCode, sigunguCode);
-        }
-        else
+        } else
             festivalFragmentPresenter.getFestivalItems(pageNum);
     }
+
     @OnItemSelected(R.id.festival_city_spinner)
     public void onCitySpinnerSelet(int position) {
         switch (position) {
@@ -226,11 +223,13 @@ public class FestivalFragment extends Fragment implements FestivalInfoFragmentCo
                 break;
         }
     }
+
     @OnItemSelected(R.id.festival_detail_city_spinner)
     public void onCityDetailSpinnerSelet(int position, Spinner spinner) {
         sigunguCode = position + 1;
         Log.e("position", Integer.toString(position));
     }
+
     public void changeSpinnerItem(int arrayId, Spinner spinner) {
         String[] items = getResources().getStringArray(arrayId);
         ArrayAdapter spinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items);

@@ -59,6 +59,9 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (view != null) {
+            return view;
+        }
         view = inflater.inflate(R.layout.fragment_restraunt, container, false);
         this.unbinder = ButterKnife.bind(this, view);
         init(view);

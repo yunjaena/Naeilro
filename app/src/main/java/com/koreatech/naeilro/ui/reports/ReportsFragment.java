@@ -1,13 +1,11 @@
 package com.koreatech.naeilro.ui.reports;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -22,7 +20,6 @@ import com.koreatech.naeilro.ui.main.MainActivity;
 import com.koreatech.naeilro.ui.reports.adapter.ReportsInfoRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.reports.presenter.ReportsFragmentPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,6 +30,13 @@ import butterknife.Unbinder;
 
 
 public class ReportsFragment extends Fragment implements ReportsFragmentContract.View {
+    boolean filterFlag = false;
+    @BindView(R.id.reports_city_spinner)
+    Spinner citySpiner;
+    @BindView(R.id.reports_detail_city_spinner)
+    Spinner detailSpinner;
+    @BindView(R.id.search_reports)
+    Button reportsSearchButton;
     private View view;
     private ReportsFragmentPresenter reportsFragmentPresenter;
     private RecyclerView reportsRecyclerView;
@@ -41,18 +45,14 @@ public class ReportsFragment extends Fragment implements ReportsFragmentContract
     private Unbinder unbinder;
     private int areaCode;
     private int sigunguCode;
-    boolean filterFlag = false;
-
-    @BindView(R.id.reports_city_spinner)
-    Spinner citySpiner;
-    @BindView(R.id.reports_detail_city_spinner)
-    Spinner detailSpinner;
-    @BindView(R.id.search_reports)
-    Button reportsSearchButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        if (view != null) {
+            return view;
+        }
         view = inflater.inflate(R.layout.fragment_reports, container, false);
         init(view);
         this.unbinder = ButterKnife.bind(this, view);
@@ -131,18 +131,16 @@ public class ReportsFragment extends Fragment implements ReportsFragmentContract
         if (areaCode != 0) {
             if (areaCode == 34 && sigunguCode > 9) {
                 reportsFragmentPresenter.getReportsCategoryItems(pageNum, areaCode, sigunguCode + 1);
-            }
-            else if (areaCode == 36 && sigunguCode > 10) {
+            } else if (areaCode == 36 && sigunguCode > 10) {
                 reportsFragmentPresenter.getReportsCategoryItems(pageNum, areaCode, sigunguCode + 1);
-            }else if (areaCode == 38 && sigunguCode > 13) {
+            } else if (areaCode == 38 && sigunguCode > 13) {
                 reportsFragmentPresenter.getReportsCategoryItems(pageNum, areaCode, sigunguCode + 2);
-            }
-            else
+            } else
                 reportsFragmentPresenter.getReportsCategoryItems(pageNum, areaCode, sigunguCode);
-        }
-        else
+        } else
             reportsFragmentPresenter.getReportsItems(pageNum);
     }
+
     @OnItemSelected(R.id.reports_city_spinner)
     public void onCitySpinnerSelet(int position) {
         switch (position) {
@@ -220,10 +218,12 @@ public class ReportsFragment extends Fragment implements ReportsFragmentContract
                 break;
         }
     }
+
     @OnItemSelected(R.id.reports_detail_city_spinner)
     public void onCityDetailSpinnerSelet(int position, Spinner spinner) {
         sigunguCode = position + 1;
     }
+
     public void changeSpinnerItem(int arrayId, Spinner spinner) {
         String[] items = getResources().getStringArray(arrayId);
         ArrayAdapter spinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items);

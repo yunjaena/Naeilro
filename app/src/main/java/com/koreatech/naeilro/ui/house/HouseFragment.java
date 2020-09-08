@@ -1,8 +1,6 @@
 package com.koreatech.naeilro.ui.house;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,6 @@ import com.koreatech.naeilro.ui.house.adapter.HouseInfoRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.house.presenter.HouseFragmentPresenter;
 import com.koreatech.naeilro.ui.main.MainActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,6 +30,13 @@ import butterknife.Unbinder;
 
 
 public class HouseFragment extends Fragment implements HouseInfoFragmentContract.View {
+    boolean filterFlag = false;
+    @BindView(R.id.city_spinner)
+    Spinner citySpinner;
+    @BindView(R.id.detail_city_spinner)
+    Spinner detailSpinner;
+    @BindView(R.id.search_house)
+    Button houseSearchButton;
     private HouseFragmentPresenter houseFragmentPresenter;
     private RecyclerView houseInfoRecyclerView;
     private HouseInfoRecyclerViewAdapter houseInfoRecyclerViewAdapter;
@@ -41,20 +45,13 @@ public class HouseFragment extends Fragment implements HouseInfoFragmentContract
     private Unbinder unbinder;
     private int areaCode;
     private int sigunguCode;
-    boolean filterFlag = false;
-
-    @BindView(R.id.city_spinner)
-    Spinner citySpinner;
-    @BindView(R.id.detail_city_spinner)
-    Spinner detailSpinner;
-    @BindView(R.id.search_house)
-    Button houseSearchButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
+        if (view != null) {
+            return view;
+        }
         view = inflater.inflate(R.layout.fragment_house, container, false);
         this.unbinder = ButterKnife.bind(this, view);
         init(view);
@@ -83,13 +80,11 @@ public class HouseFragment extends Fragment implements HouseInfoFragmentContract
                         pageNum += 1;
                         if (areaCode == 34 && sigunguCode > 9) {
                             houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode + 1);
-                        }
-                        else if (areaCode == 36 && sigunguCode > 10) {
+                        } else if (areaCode == 36 && sigunguCode > 10) {
                             houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode + 1);
-                        }else if (areaCode == 38 && sigunguCode > 13) {
+                        } else if (areaCode == 38 && sigunguCode > 13) {
                             houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode + 2);
-                        }
-                        else
+                        } else
                             houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode);
                     }
                 }
@@ -105,16 +100,13 @@ public class HouseFragment extends Fragment implements HouseInfoFragmentContract
         if (areaCode != 0) {
             if (areaCode == 34 && sigunguCode > 9) {
                 houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode + 1);
-            }
-            else if (areaCode == 36 && sigunguCode > 10) {
+            } else if (areaCode == 36 && sigunguCode > 10) {
                 houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode + 1);
-            }else if (areaCode == 38 && sigunguCode > 13) {
+            } else if (areaCode == 38 && sigunguCode > 13) {
                 houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode + 2);
-            }
-            else
+            } else
                 houseFragmentPresenter.getHouseCategoryItems(pageNum, areaCode, sigunguCode);
-        }
-        else
+        } else
             houseFragmentPresenter.getHouseItems(pageNum);
     }
 
