@@ -56,16 +56,18 @@ public class TourSpotFragment extends Fragment implements TourSpotContract.View 
     private List<TourInfo> tourInfoList;
     private TourSpotPresenter tourSpotPresenter;
     private NavController navController;
+    private View view;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_tour_spot, container, false);
+        if (view != null) {
+            return view;
+        }
+        view = inflater.inflate(R.layout.fragment_tour_spot, container, false);
         unbinder = ButterKnife.bind(this, view);
         init(view);
-        Log.e("sdfg", "onCreateView");
         return view;
     }
 
