@@ -11,11 +11,11 @@ public class RestaurantInfoBody {
 
     @ElementList(inline = true, required = false)
     private List<RestaurantInfoItem> restaurantInfoItemList;
-    @Element(name = "numOfRows")
+    @Element(name = "numOfRows", required = false)
     private int numOfRows;
-    @Element(name = "pageNo")
+    @Element(name = "pageNo", required = false)
     private int pageNo;
-    @Element(name = "totalCount")
+    @Element(name = "totalCount", required = false)
     private int totalCount;
 
     public List<RestaurantInfoItem> getRestaurantInfoItemList() {
@@ -26,23 +26,12 @@ public class RestaurantInfoBody {
         return numOfRows;
     }
 
-    public void setNumOfRows(int numOfRows) {
-        this.numOfRows = numOfRows;
-    }
-
     public int getPageNo() {
         return pageNo;
-    }
-
-    public void setPageNo(int pageNo) {
-        this.pageNo = pageNo;
     }
 
     public int getTotalCount() {
         return totalCount;
     }
 
-    public void setTotalCount(int totalCount) {
-        this.totalCount = totalCount;
-    }
 }

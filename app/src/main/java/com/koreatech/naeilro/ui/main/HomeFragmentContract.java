@@ -11,6 +11,7 @@ import java.util.List;
 public interface HomeFragmentContract {
     interface View extends BaseView<HomePresenter> {
         void showRecommendList(List<MyRecommendItem> recommendList);
+        void showNullRecommendList(String message);
         void showLoading();
         void hideLoading();
         void showFailure(String s);

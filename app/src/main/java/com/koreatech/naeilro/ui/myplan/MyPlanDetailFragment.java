@@ -85,6 +85,9 @@ public class MyPlanDetailFragment extends Fragment implements MyPlanDetailContra
                     else if(contentTypeId.equals("32")){//숙박
                         navController.navigate(R.id.action_navigation_my_plan_detail_to_navigation_house_detail, bundle);
                     }
+                    else if(contentTypeId.equals("39")){//숙박
+                        navController.navigate(R.id.action_navigation_my_plan_detail_to_navigation_restraunt_detail, bundle);
+                    }
                 }
             }
 
