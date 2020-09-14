@@ -10,6 +10,7 @@ import com.koreatech.naeilro.network.entity.user.EnrollObject;
 import com.koreatech.naeilro.network.entity.user.Token;
 import com.koreatech.naeilro.network.entity.user.UserInfo;
 import com.koreatech.naeilro.network.service.UserService;
+import com.koreatech.naeilro.util.HashUtil;
 
 import org.json.JSONObject;
 
@@ -32,7 +33,7 @@ public class UserRestInteractor implements UserInteractor {
         Map<String, Object> jsonObject = new ArrayMap<>();
         jsonObject.put("name", name);
         jsonObject.put("email", email);
-        jsonObject.put("pw", pw);
+        jsonObject.put("pw", HashUtil.sha256(pw));
         jsonObject.put("phone", phoneNumber);
 
 
@@ -78,7 +79,7 @@ public class UserRestInteractor implements UserInteractor {
 
         Map<String, Object> jsonObject = new ArrayMap<>();
         jsonObject.put("email", email);
-        jsonObject.put("pw", password);
+        jsonObject.put("pw", HashUtil.sha256(password));
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), (new JSONObject(jsonObject)).toString());
 
         Observable<Token> loginObservable = UserRetrofitManager.getInstance().getRetrofit().create(UserService.class).postSignIn(body);
