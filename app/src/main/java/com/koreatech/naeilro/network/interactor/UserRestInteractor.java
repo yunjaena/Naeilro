@@ -52,8 +52,7 @@ public class UserRestInteractor implements UserInteractor {
                         if (enrollObject != null) {
                             Log.e("presenter", Integer.toString(enrollObject.getSuccess()));
                             apiCallback.onSuccess(enrollObject);
-                        }
-                        else
+                        } else
                             apiCallback.onFailure(new Throwable("fail registeration"));
                     }
 
@@ -63,7 +62,6 @@ public class UserRestInteractor implements UserInteractor {
                             Log.d("enrollRestInteractor", ((HttpException) e).code() + " ");
                         }
                         apiCallback.onFailure(e);
-                        Log.e("sdf", e.toString());
                     }
 
                     @Override
@@ -138,7 +136,41 @@ public class UserRestInteractor implements UserInteractor {
 
                     @Override
                     public void onNext(UserInfo userInfo) {
-                        if (userInfo != null ) {
+                        if (userInfo != null) {
+                            apiCallback.onSuccess(userInfo);
+                        } else
+                            apiCallback.onFailure(new Throwable("fail get userInfo"));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (e instanceof HttpException) {
+                            Log.d(TAG, ((HttpException) e).code() + " ");
+                        }
+                        apiCallback.onFailure(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
+    public void deactivateAccount(ApiCallback apiCallback, String token) {
+        UserRetrofitManager.getInstance().getRetrofit().create(UserService.class).deactivateAccount(UserRetrofitManager.addAuthorizationBearer(token))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<UserInfo>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(UserInfo userInfo) {
+                        if (userInfo != null) {
                             apiCallback.onSuccess(userInfo);
                         } else
                             apiCallback.onFailure(new Throwable("fail get userInfo"));
@@ -162,38 +194,101 @@ public class UserRestInteractor implements UserInteractor {
     @Override
     public void getUserInfo(ApiCallback apiCallback, String token) {
 
-            UserRetrofitManager.getInstance().getRetrofit().create(UserService.class).getUserInfo(UserRetrofitManager.addAuthorizationBearer(token))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<UserInfo>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
+        UserRetrofitManager.getInstance().getRetrofit().create(UserService.class).getUserInfo(UserRetrofitManager.addAuthorizationBearer(token))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<UserInfo>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(UserInfo userInfo) {
+                        if (userInfo != null) {
+                            apiCallback.onSuccess(userInfo);
+                        } else
+                            apiCallback.onFailure(new Throwable("fail get userInfo"));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (e instanceof HttpException) {
+                            Log.d(TAG, ((HttpException) e).code() + " ");
                         }
+                        apiCallback.onFailure(e);
+                    }
 
-                        @Override
-                        public void onNext(UserInfo userInfo) {
-                            if (userInfo != null ) {
-                                apiCallback.onSuccess(userInfo);
-                            } else
-                                apiCallback.onFailure(new Throwable("fail get userInfo"));
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
+    }
+
+    @Override
+    public void changePassword(ApiCallback apiCallback, String email, String changingPassword) {
+        String token = JWTTokenManager.getInstance().getAccessToken();
+        Map<String, Object> jsonObject = new ArrayMap<>();
+        jsonObject.put("pw", HashUtil.sha256(changingPassword));
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), (new JSONObject(jsonObject)).toString());
+        Observable<UserInfo> updatePassword = UserRetrofitManager.getInstance().getRetrofit().create(UserService.class).changePassword(UserRetrofitManager.addAuthorizationBearer(token), body);
+
+
+        Map<String, Object> tokenUpdate = new ArrayMap<>();
+        tokenUpdate.put("email", email);
+        tokenUpdate.put("pw", HashUtil.sha256(changingPassword));
+        RequestBody tokenUpdateBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), (new JSONObject(tokenUpdate)).toString());
+
+        Observable<Token> loginObservable = UserRetrofitManager.getInstance().getRetrofit().create(UserService.class).postSignIn(tokenUpdateBody);
+        Observable<Token> refreshObservable = UserRetrofitManager.getInstance().getRetrofit().create(UserService.class).getRefreshToken(tokenUpdateBody);
+
+        updatePassword.flatMap(userInfo -> {
+            if (userInfo != null && userInfo.getSuccess() == 1) {
+                return loginObservable;
+            } else {
+                throw new Exception(userInfo.getMessage());
+            }
+        }).flatMap(updateToken -> {
+            if (updateToken != null && updateToken.getAccessToken() != null) {
+                Log.d(TAG, "signIn: " + updateToken.getAccessToken());
+                JWTTokenManager.getInstance().saveAccessToken(updateToken.getAccessToken());
+                return refreshObservable;
+            } else {
+                throw new Exception(updateToken.getMessage());
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Token>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Token token) {
+                        if (token != null && token.getRefreshToken() != null) {
+                            JWTTokenManager.getInstance().saveRefreshToken(token.getRefreshToken());
+                            apiCallback.onSuccess(token);
+                        } else
+                            apiCallback.onFailure(new Throwable(token.getMessage()));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (e instanceof HttpException) {
+                            Log.d(TAG, ((HttpException) e).code() + " ");
                         }
+                        apiCallback.onFailure(e);
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            if (e instanceof HttpException) {
-                                Log.d(TAG, ((HttpException) e).code() + " ");
-                            }
-                            apiCallback.onFailure(e);
-                        }
+                    @Override
+                    public void onComplete() {
 
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
-
-
+                    }
+                });
     }
 
     @Override

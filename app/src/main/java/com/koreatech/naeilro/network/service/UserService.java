@@ -19,6 +19,8 @@ public interface UserService {
     String REFRESH_TOKEN = "/nailo/member/get-Rtoken.php";
     String USER_INFO = "/nailo/member/member-info.php";
     String USER_LOGOUT = "/nailo/member/logout.php";
+    String USER_DEACTIVATE_ACCOUNT = "/nailo/member/withdrawal.php";
+    String USER_CHANGE_PASSWORD = "/nailo/member/change-pw.php";
 
     @POST(ENROLL_USER)
     @Json
@@ -44,4 +46,11 @@ public interface UserService {
     @Json
     Observable<UserInfo> logOut(@Header("Authorization") String auth);
 
+    @POST(USER_DEACTIVATE_ACCOUNT)
+    @Json
+    Observable<UserInfo> deactivateAccount(@Header("Authorization") String auth);
+
+    @POST(USER_CHANGE_PASSWORD)
+    @Json
+    Observable<UserInfo> changePassword(@Header("Authorization") String auth, @Body RequestBody requestBody);
 }
