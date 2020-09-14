@@ -21,7 +21,8 @@
                 android:layout_height="match_parent"
                 android:background="@color/gray3"
                 android:gravity="center"
-                android:text="지역" />
+                android:textSize="16sp"
+                android:text="관강지" />
 
             <Spinner
                 android:id="@+id/city_spinner"

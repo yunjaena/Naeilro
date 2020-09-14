@@ -128,6 +128,7 @@ public class MyPlanDetailFragment extends Fragment implements MyPlanDetailContra
 
     @Override
     public void showMyPlanNode(List<MyPlanNode> myPlanList) {
+        nodeList.clear();
         nodeList.addAll(myPlanList);
         initRecyclerView(nodeList);
 
