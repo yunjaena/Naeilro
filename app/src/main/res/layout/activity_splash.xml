@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/blue5"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <ImageView
         android:id="@+id/logo_image_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="50dp"
-        android:src="@mipmap/logo"
+        android:src="@drawable/splash_logo_2"
         android:layout_gravity=""
         />
 

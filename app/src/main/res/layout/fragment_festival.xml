@@ -23,13 +23,13 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="3dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="3dp"
                 android:layout_toStartOf="@+id/festival_city_spinner"
                 android:gravity="center"
                 android:text="행사"
                 android:textStyle="bold"
-                android:textSize="26sp" />
+                android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/festival_city_spinner"

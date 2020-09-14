@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.NaeilroApplication;
@@ -316,6 +318,7 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
 
     private void setFirstImageView(String url) {
         Glide.with(getContext()).load(url)
+                .apply(new RequestOptions().bitmapTransform(new RoundedCorners(24)))
                 .error(R.drawable.ic_no_image)
                 .into(tourDetailImage);
     }

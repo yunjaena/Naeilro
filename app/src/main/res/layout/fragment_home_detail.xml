@@ -33,6 +33,7 @@
             <ImageView
                 android:id="@+id/home_detail_image"
                 android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp"
                 android:layout_height="300dp" />
 
 
@@ -113,19 +114,36 @@
 
 
             </LinearLayout>
-            <Button
-                android:id="@+id/add_my_plan_home"
-                android:layout_width="280dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/bg_rect_peach_gradient"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/white"
-                android:text="여행계획에 담기"/>
+
 
         </LinearLayout>
 
 
     </androidx.core.widget.NestedScrollView>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/bottom_navigation_height">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:gravity="center">
+                <Button
+                    android:id="@+id/add_my_plan_home"
+                    android:layout_width="280dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_rect_peach_gradient"
+                    android:textColor="@color/white"
+                    android:text="여행계획에 담기"/>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
 
 </FrameLayout>

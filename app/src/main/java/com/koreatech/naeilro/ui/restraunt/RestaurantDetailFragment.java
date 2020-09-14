@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.naeilro.NaeilroApplication;
 import com.koreatech.naeilro.R;
@@ -279,6 +281,7 @@ public class RestaurantDetailFragment extends Fragment implements RestaurantDeta
 
     private void setFirstImageView(String url) {
         Glide.with(getContext()).load(url)
+                .apply(new RequestOptions().bitmapTransform(new RoundedCorners(24)))
                 .error(R.drawable.ic_no_image)
                 .into(restaurantDetailImage);
     }

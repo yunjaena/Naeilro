@@ -31,7 +31,7 @@
           android:gravity="center"
           android:text="식당"
           android:textStyle="bold"
-          android:textSize="26sp" />
+          android:textSize="16sp" />
 
       <Spinner
           android:id="@+id/restaurant_city_spinner"
