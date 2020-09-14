@@ -94,7 +94,7 @@
         android:id="@+id/navigation_my_plan_detail"
         android:name="com.koreatech.naeilro.ui.myplan.MyPlanDetailFragment"
         android:label="@string/bottom_nav_my_plan"
-        tools:layout="@layout/fragment_my_plan_detail" >
+        tools:layout="@layout/fragment_my_plan_detail">
         <action
             android:id="@+id/action_navigation_my_plan_detail_to_navigation_tourspot_detail"
             app:destination="@id/navigation_tourspot_detail" />
@@ -118,7 +118,19 @@
         android:id="@+id/navigation_my_info"
         android:name="com.koreatech.naeilro.ui.myinfo.MyInfoFragment"
         android:label="@string/bottom_nav_my_info"
-        tools:layout="@layout/fragment_my_info" />
+        tools:layout="@layout/fragment_my_info">
+        <action
+            android:id="@+id/action_navigation_my_info_to_navigation_change_password"
+            app:destination="@id/navigation_change_password" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_change_password"
+        android:name="com.koreatech.naeilro.ui.myinfo.ChangePasswordFragment"
+        android:label="@string/bottom_nav_my_info"
+        tools:layout="@layout/fragment_change_password"></fragment>
+
+
     <fragment
         android:id="@+id/navigation_tourspot"
         android:name="com.koreatech.naeilro.ui.tourspot.TourSpotFragment"
@@ -144,7 +156,7 @@
         android:id="@+id/navigation_restraunt"
         android:name="com.koreatech.naeilro.ui.restraunt.RestaurantFragment"
         android:label="@string/category_serarch_restraunt"
-        tools:layout="@layout/fragment_restraunt" >
+        tools:layout="@layout/fragment_restraunt">
         <action
             android:id="@+id/action_navigation_restraunt_to_navigation_restraunt_detail"
             app:destination="@id/navigation_restraunt_detail" />

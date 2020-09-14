@@ -11,6 +11,10 @@ public interface UserInteractor {
 
     void logOut(ApiCallback apiCallback, String token);
 
+    void deactivateAccount(ApiCallback apiCallback, String token);
+
+    void changePassword(ApiCallback apiCallback, String email, String changingPassword);
+
     void getRefreshToken(ApiCallback apiCallback, String email, String password);
 
     void getNewAccessToken(ApiCallback apiCallback);

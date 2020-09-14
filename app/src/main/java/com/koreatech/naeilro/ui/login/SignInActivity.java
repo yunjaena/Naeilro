@@ -108,7 +108,7 @@ public class SignInActivity extends ActivityBase implements View.OnClickListener
         if (FilterUtil.isPhoneValidate(phoneNumber)) {
             phoneNumberTextInputLayout.setError(null);
         } else {
-            phoneNumberTextInputLayout.setError("비밀번호 형식을 확인해주세요");
+            phoneNumberTextInputLayout.setError("핸드폰 형식을 확인해주세요");
             return false;
         }
         return true;
