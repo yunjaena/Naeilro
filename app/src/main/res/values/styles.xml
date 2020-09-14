@@ -45,6 +45,15 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="ContractDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@color/colorPrimary</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@color/black</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@drawable/bg_dialog</item>
+    </style>
+
 
 
 

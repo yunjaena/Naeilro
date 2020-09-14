@@ -1,22 +1,31 @@
 package com.koreatech.naeilro.ui.login;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.koreatech.core.activity.ActivityBase;
+import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.user.EnrollObject;
 import com.koreatech.naeilro.network.interactor.UserRestInteractor;
 import com.koreatech.naeilro.ui.login.presenter.SignInActivityContract;
 import com.koreatech.naeilro.ui.login.presenter.SignInPresenter;
 import com.koreatech.naeilro.util.FilterUtil;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class SignInActivity extends ActivityBase implements View.OnClickListener, SignInActivityContract.View {
     private Button signInButton;
@@ -28,7 +37,8 @@ public class SignInActivity extends ActivityBase implements View.OnClickListener
     private TextInputLayout emailTextInputLayout;
     private TextInputLayout passwordTextInputLayout;
     private TextInputLayout phoneNumberTextInputLayout;
-
+    private TextView personalInfoTermsTextView;
+    private CheckBox personalInfoCheckBox;
     private SignInPresenter signInPresenter;
 
     @Override
@@ -48,21 +58,29 @@ public class SignInActivity extends ActivityBase implements View.OnClickListener
         emailTextInputEditText = findViewById(R.id.signin_email_text_input_edit_text);
         passwordTextInputEditText = findViewById(R.id.signin_password_text_input_edit_text);
         phoneNumberInputEditText = findViewById(R.id.signin_phone_text_input_edit_text);
+        personalInfoTermsTextView = findViewById(R.id.signup_textview_personal_info_terms);
+        personalInfoCheckBox = findViewById(R.id.signup_check_box_personal_info_terms);
+        personalInfoTermsTextView.setPaintFlags(personalInfoTermsTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         signInPresenter = new SignInPresenter(new UserRestInteractor(), this);
         signInButton.setOnClickListener(this);
+        personalInfoTermsTextView.setOnClickListener(this);
     }
+
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.sign_in_button) {
             onClickedSingInButton();
+        } else if (v.getId() == R.id.signup_textview_personal_info_terms) {
+            makeContractDialog("개인정보 이용약관", "naeilro_contract.txt");
         }
     }
 
     private void onClickedSingInButton() {
-        if (!isSigninFormatCorrect()) {
+        if (!isSigninFormatCorrect() || !isTermCheckBoxChecked()) {
             return;
         }
+
         String name = nameTextInputEditText.getText().toString();
         String email = emailTextInputEditText.getText().toString();
         String password = passwordTextInputEditText.getText().toString();
@@ -76,6 +94,16 @@ public class SignInActivity extends ActivityBase implements View.OnClickListener
             nameTextInputLayout.setError(null);
         } else {
             nameTextInputLayout.setError("이름 형식을 확인해주세요");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isTermCheckBoxChecked() {
+        boolean isTermChecked = personalInfoCheckBox.isChecked();
+        if (!isTermChecked) {
+            ToastUtil.getInstance().makeShort("이용약관에 동의해주세요.");
             return false;
         }
         return true;
@@ -134,8 +162,54 @@ public class SignInActivity extends ActivityBase implements View.OnClickListener
         }
     }
 
+    private void makeContractDialog(String title, String textFile) {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_terms, null, false);
+
+        BufferedReader reader = null;
+
+        TextView textViewTitle = dialogView.findViewById(R.id.dialog_terms_title);
+        textViewTitle.setText(title);
+
+        TextView textViewContent = dialogView.findViewById(R.id.dialog_terms_content);
+        textViewContent.setMovementMethod(ScrollingMovementMethod.getInstance());
+
+        try {
+            reader = new BufferedReader(
+                    new InputStreamReader(getAssets().open(textFile), "UTF-8"));
+
+            // do reading, usually loop until end of file reading
+            String mLine;
+            StringBuilder content = new StringBuilder();
+            while ((mLine = reader.readLine()) != null) {
+                content.append(mLine).append('\n');
+            }
+            textViewContent.setText(content.toString());
+        } catch (IOException e) {
+            //log the exception
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    //log the exception
+                }
+            }
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.ContractDialog);
+        builder.setView(dialogView);
+        builder.setPositiveButton("확인",
+                (dialog, which) -> {
+
+                });
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     @Override
-    public void showLoading() {showProgressDialog(R.string.loading);
+    public void showLoading() {
+        showProgressDialog(R.string.loading);
     }
 
     @Override
