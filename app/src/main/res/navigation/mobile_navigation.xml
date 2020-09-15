@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.koreatech.naeilro.ui.main.HomeFragment"
+        android:label="@string/bottom_nav_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_tourspot"
+            app:destination="@id/navigation_tourspot" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_train"
+            app:destination="@id/navigation_train" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_restraunt"
+            app:destination="@id/navigation_restraunt" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_house"
+            app:destination="@id/navigation_house" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_reports"
+            app:destination="@id/navigation_reports" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_facility"
+            app:destination="@id/navigation_facility" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_festival"
+            app:destination="@id/navigation_festival" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_weather"
+            app:destination="@id/navigation_weather" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_tourspot_detail"
+            app:destination="@id/navigation_tourspot_detail" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_house_detail"
+            app:destination="@id/navigation_house_detail" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detail_festival"
+            app:destination="@id/navigation_detail_festival" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_restraunt2"
+            app:destination="@id/navigation_restraunt" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detail_facility"
+            app:destination="@id/navigation_detail_facility" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detail_reports"
+            app:destination="@id/navigation_detail_reports" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_restraunt_detail"
+            app:destination="@id/navigation_restraunt_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.koreatech.naeilro.ui.search.SearchFragment"
+        android:label="@string/bottom_nav_search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_tourspot_detail"
+            app:destination="@id/navigation_tourspot_detail" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_house_detail"
+            app:destination="@id/navigation_house_detail" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detail_festival"
+            app:destination="@id/navigation_detail_festival" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detail_facility"
+            app:destination="@id/navigation_detail_facility" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detail_reports"
+            app:destination="@id/navigation_detail_reports" />
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_restraunt_detail2"
+            app:destination="@id/navigation_restraunt_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_my_plan"
+        android:name="com.koreatech.naeilro.ui.myplan.MyPlanFragment"
+        android:label="@string/bottom_nav_my_plan"
+        tools:layout="@layout/fragment_my_plan">
+        <action
+            android:id="@+id/action_navigation_my_plan_to_navigation_my_plan_detail"
+            app:destination="@id/navigation_my_plan_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_my_plan_detail"
+        android:name="com.koreatech.naeilro.ui.myplan.MyPlanDetailFragment"
+        android:label="@string/bottom_nav_my_plan"
+        tools:layout="@layout/fragment_my_plan_detail">
+        <action
+            android:id="@+id/action_navigation_my_plan_detail_to_navigation_tourspot_detail"
+            app:destination="@id/navigation_tourspot_detail" />
+        <action
+            android:id="@+id/action_navigation_my_plan_detail_to_navigation_house_detail"
+            app:destination="@id/navigation_house_detail" />
+        <action
+            android:id="@+id/action_navigation_my_plan_detail_to_navigation_detail_facility"
+            app:destination="@id/navigation_detail_facility" />
+        <action
+            android:id="@+id/action_navigation_my_plan_detail_to_navigation_detail_reports"
+            app:destination="@id/navigation_detail_reports" />
+        <action
+            android:id="@+id/action_navigation_my_plan_detail_to_navigation_detail_festival"
+            app:destination="@id/navigation_detail_festival" />
+        <action
+            android:id="@+id/action_navigation_my_plan_detail_to_navigation_restraunt_detail"
+            app:destination="@id/navigation_restraunt_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_my_info"
+        android:name="com.koreatech.naeilro.ui.myinfo.MyInfoFragment"
+        android:label="@string/bottom_nav_my_info"
+        tools:layout="@layout/fragment_my_info">
+        <action
+            android:id="@+id/action_navigation_my_info_to_navigation_change_password"
+            app:destination="@id/navigation_change_password" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_change_password"
+        android:name="com.koreatech.naeilro.ui.myinfo.ChangePasswordFragment"
+        android:label="@string/bottom_nav_my_info"
+        tools:layout="@layout/fragment_change_password"></fragment>
+
+
+    <fragment
+        android:id="@+id/navigation_tourspot"
+        android:name="com.koreatech.naeilro.ui.tourspot.TourSpotFragment"
+        android:label="@string/category_search_tourspot"
+        tools:layout="@layout/fragment_tour_spot">
+        <action
+            android:id="@+id/action_navigation_tourspot_to_navigation_tourspot_detail"
+            app:destination="@id/navigation_tourspot_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_tourspot_detail"
+        android:name="com.koreatech.naeilro.ui.tourspot.TourSpotDetailFragment"
+        android:label="@string/category_search_tourspot"
+        tools:layout="@layout/fragment_tour_spot_detail"></fragment>
+
+    <fragment
+        android:id="@+id/navigation_train"
+        android:name="com.koreatech.naeilro.ui.train.TrainInfoFragment"
+        android:label="@string/category_train_info"
+        tools:layout="@layout/fragment_train_info" />
+    <fragment
+        android:id="@+id/navigation_restraunt"
+        android:name="com.koreatech.naeilro.ui.restraunt.RestaurantFragment"
+        android:label="@string/category_serarch_restraunt"
+        tools:layout="@layout/fragment_restraunt">
+        <action
+            android:id="@+id/action_navigation_restraunt_to_navigation_restraunt_detail"
+            app:destination="@id/navigation_restraunt_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_restraunt_detail"
+        android:name="com.koreatech.naeilro.ui.restraunt.RestaurantDetailFragment"
+        android:label="@string/category_serarch_restraunt"
+        tools:layout="@layout/fragment_restaurant_detail" />
+    <fragment
+        android:id="@+id/navigation_house"
+        android:name="com.koreatech.naeilro.ui.house.HouseFragment"
+        android:label="@string/category_search_house"
+        tools:layout="@layout/fragment_house">
+        <argument
+            android:name="contentTypeId"
+            app:argType="integer"
+            app:nullable="false" />
+        <argument
+            android:name="contentId"
+            app:argType="integer"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_navigation_house_to_navigation_house_detail"
+            app:destination="@id/navigation_house_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_house_detail"
+        android:name="com.koreatech.naeilro.ui.house.HouseDetailFragment"
+        android:label="@string/category_search_house"
+        tools:layout="@layout/fragment_house_detail" />
+    <fragment
+        android:id="@+id/navigation_reports"
+        android:name="com.koreatech.naeilro.ui.reports.ReportsFragment"
+        android:label="@string/category_search_reports"
+        tools:layout="@layout/fragment_reports">
+        <argument
+            android:name="contentTypeId"
+            app:argType="integer"
+            app:nullable="false" />
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_navigation_reports_to_navigation_detail_reports"
+            app:destination="@id/navigation_detail_reports" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_detail_reports"
+        android:name="com.koreatech.naeilro.ui.reports.ReportsDetailFragment"
+        android:label="@string/category_search_reports"
+        tools:layout="@layout/fragment_reports_detail">
+
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_facility"
+        android:name="com.koreatech.naeilro.ui.facility.FacilityFragment"
+        android:label="@string/category_search_facility"
+        tools:layout="@layout/fragment_facility">
+        <argument
+            android:name="contentTypeId"
+            app:argType="integer"
+            app:nullable="false" />
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_navigation_facility_to_navigation_detail_facility"
+            app:destination="@id/navigation_detail_facility" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_detail_facility"
+        android:name="com.koreatech.naeilro.ui.facility.FacilityDetailFragment"
+        android:label="@string/category_search_facility"
+        tools:layout="@layout/fragment_facility_detail">
+
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_festival"
+        android:name="com.koreatech.naeilro.ui.festival.FestivalFragment"
+        android:label="@string/category_festival"
+        tools:layout="@layout/fragment_festival">
+        <argument
+            android:name="contentTypeId"
+            app:argType="integer"
+            app:nullable="false" />
+        <argument
+            android:name="contentId"
+            app:argType="integer"
+            app:nullable="false" />
+        <argument
+            android:name="address"
+            app:argType="string"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_navigation_festival_to_navigation_detail_festival"
+            app:destination="@id/navigation_detail_festival" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_detail_festival"
+        android:name="com.koreatech.naeilro.ui.festival.FestivalDetailFragment"
+        android:label="@string/category_festival"
+        tools:layout="@layout/fragment_festival" />
+    <fragment
+        android:id="@+id/navigation_weather"
+        android:name="com.koreatech.naeilro.ui.weather.WeatherFragment"
+        android:label="@string/category_weather"
+        tools:layout="@layout/fragment_weather" />
+
+
+</navigation>

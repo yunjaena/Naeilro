@@ -1,0 +1,122 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.29.0'
+    }
+}
+
+android {
+    flavorDimensions "default"
+
+    defaultConfig {
+        versionCode 10000
+        versionName "10000"
+
+        compileSdkVersion project.compileSdkVersion
+        minSdkVersion project.minSdkVersion
+        targetSdkVersion project.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "IS_DEBUG", "true"
+        }
+
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "IS_DEBUG", "false"
+        }
+    }
+
+    /* guava */
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
+}
+
+dependencies {
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.2.0', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs'
+    })
+
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+
+    /* Dependency - AndroidX Jetpack */
+    api project.androidxAppCompat
+    api project.androidxRecyclerView
+    api project.androidxCardView
+    api project.androidxMaterial
+    api project.androidxNavigation
+    api project.androidxNavigationFragment
+
+    /* Dependency - Firebase */
+    api project.firebaseCore
+    api project.firebaseDatabase
+    api project.firebasePerformance
+
+    /* Dependency - Retrofit2 */
+    api project.retrofit
+    api project.retrofitGsonConvert
+    api project.retrofitRxJava
+    api project.retrofitXmlConvert
+
+    /* Dependency - leakcanary */
+    debugImplementation project.leakcanaryDebug
+    releaseImplementation project.leakcanaryRelease
+    debugImplementation project.leakcanrySupportFragment
+
+    /* Dependency - glide */
+    api project.glide
+    annotationProcessor project.glideAnnotation
+
+    /* Dependency - butterknife */
+    api project.butterknife
+    annotationProcessor project.butterknifeAnnotation
+
+    /* Dependency - okhttp */
+    api project.okhttp
+    api project.okhttpLogging
+
+    /* Dependency - kotlin */
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api project.kotlinExtension
+
+    api 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+
+    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    api 'io.reactivex.rxjava2:rxjava:2.1.2'
+    api 'javax.inject:javax.inject:1'
+    api 'javax.annotation:jsr250-api:1.0'
+
+    api 'com.jpardogo.materialtabstrip:library:1.1.1'
+    api('com.crashlytics.sdk.android:crashlytics:2.9.8@aar') {
+        transitive = true;
+    }
+
+    api 'org.jetbrains:annotations:15.0'
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
+    api files('libs/com.skt.Tmap_1.64.jar')
+
+
+}
+repositories {
+    mavenCentral()
+}

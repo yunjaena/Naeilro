@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="NaeilroProgress" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/white</item>
+        <item name="android:textColorPrimary">@color/background</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:indeterminateTintMode">src_in</item>
+    </style>
+</resources>

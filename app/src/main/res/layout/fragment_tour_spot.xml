@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/bottom_navigation_height"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_rect_boundary_gray5_4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray3"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:text="관강지" />
+
+            <Spinner
+                android:id="@+id/city_spinner"
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:dropDownWidth="100dp"
+                android:dropDownHeight="150dp"
+                android:entries="@array/city_name_array"
+                android:textColor="@color/black" />
+
+            <Spinner
+                android:id="@+id/detail_city_spinner"
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:dropDownWidth="100dp"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/search_tour"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:text="검색" />
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tour_info_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</FrameLayout>

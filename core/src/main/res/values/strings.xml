@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">core</string>
+    <string name="loading">로딩 중</string>
+    <string name="auto_login">자동 로그인 되었습니다.</string>
+    <string name="session_expired">세션이 만료되었습니다. 재로그인 바랍니다.</string>
+    <string name="loading_station_info">열차정보 로딩 중</string>
+    <string name="saving">저장 중</string>
+    <string name="error_null">값이 없습니다</string>
+    <string name="error_network">네트워크 환경을 확인해주세요</string>
+
+    <!-- 숙박정보 -->
+    <string name="loading_house_info">숙박정보 로딩 중</string>
+
+    <!-- 행사정보 -->
+    <string name="loading_festival_info">행사정보 로딩 중</string>
+    <!-- 레포츠정보 -->
+    <string name="loading_reports_info">레포츠정보 로딩 중</string>
+    <!-- 문화시설정보 -->
+    <string name="loading_facility_info">문화시설정보 로딩 중</string>
+</resources>
