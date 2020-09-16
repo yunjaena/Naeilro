@@ -22,7 +22,7 @@
                 android:background="@color/gray3"
                 android:gravity="center"
                 android:textSize="16sp"
-                android:text="관강지" />
+                android:text="관광지" />
 
             <Spinner
                 android:id="@+id/city_spinner"
