@@ -11,7 +11,7 @@
         android:background="@drawable/cardview_radius_top_20dp"
         android:orientation="vertical"
         android:padding="20dp"
-        app:behavior_hideable="true"
+        app:behavior_hideable="false"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <ImageView

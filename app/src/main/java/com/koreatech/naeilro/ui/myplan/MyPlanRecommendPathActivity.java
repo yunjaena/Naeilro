@@ -43,8 +43,8 @@ import static com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_
 public class MyPlanRecommendPathActivity extends ActivityBase implements MyPlanRecommendPathContract.View {
     private static final double centerLon = 127.48318433761597;
     private static final double centerLat = 36.41592967015607;
-    public final double BOTTOM_SHEET_SIZE_SHOW_PERCENT = 0.95;
-    public final double BOTTOM_SHEET_SIZE_EXPENDED_PERCENT = 0.95;
+    public final double BOTTOM_SHEET_SIZE_SHOW_PERCENT = 1;
+    public final double BOTTOM_SHEET_SIZE_EXPENDED_PERCENT = 1;
     public final double T_Map_HEIGHT_PERCENT = 0.4;
     private LinearLayout tMapLinearLayout;
     private LinearLayout departureAndArrivalLinearLayout;
@@ -173,9 +173,7 @@ public class MyPlanRecommendPathActivity extends ActivityBase implements MyPlanR
         if (recommendPathList != null && recommendPathList.size() <= position)
             return;
 
-        recommendPathNestedScrollView.post(() -> {
-            recommendPathNestedScrollView.smoothScrollTo(0, 0);
-        });
+        recommendPathNestedScrollView.post(() -> recommendPathNestedScrollView.smoothScrollTo(0, 0));
         tMapView.setZoomLevel(15);
         tMapView.setCenterPoint(recommendPathList.get(position).getMapX(), recommendPathList.get(position).getMapY());
     }
@@ -185,6 +183,10 @@ public class MyPlanRecommendPathActivity extends ActivityBase implements MyPlanR
         tMapView.setCenterPoint(centerLon, centerLat);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     private double getTMapDefaultHeight() {
         return getWindowHeight() * T_Map_HEIGHT_PERCENT;
