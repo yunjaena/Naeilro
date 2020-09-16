@@ -4,6 +4,9 @@ import com.koreatech.core.network.Json;
 import com.koreatech.naeilro.network.entity.DefaultMessage;
 import com.koreatech.naeilro.network.entity.myplan.MyPlanNodeResponse;
 import com.koreatech.naeilro.network.entity.myplan.MyPlanResponse;
+import com.koreatech.naeilro.network.entity.myplan.RecommendPath;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 
@@ -20,6 +23,7 @@ public interface MyPlanService {
     String GET_NODE = "/nailo/place/get_node.php";
     String GET_PLAN = "/nailo/place/get_plan.php";
     String SET_PLAN = "/nailo/place/set_plan.php";
+    String GET_RECOMMEND_PATH = "/nailo/path/index.php";
 
     @POST(CREATE_NODE)
     @Json
@@ -48,4 +52,8 @@ public interface MyPlanService {
     @POST(SET_PLAN)
     @Json
     Observable<DefaultMessage> setPlan(@Header("Authorization") String auth, @Body RequestBody requestBody);
+
+    @POST(GET_RECOMMEND_PATH)
+    @Json
+    Observable<List<RecommendPath>> getRecommendPath(@Header("Authorization") String auth, @Body RequestBody requestBody);
 }
