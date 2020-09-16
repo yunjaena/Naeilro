@@ -241,7 +241,7 @@ public class MyPlanRecommendPathActivity extends ActivityBase implements MyPlanR
         tMapView.removeAllMarkerItem();
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.train_parrent).copy(Bitmap.Config.ARGB_8888, true);
         Bitmap roundBitmap = BitmapUtil.getRoundedCornerBitmapWithStroke(BitmapUtil.transParentBackgroundToWhiteBackground(bitmap), Color.BLACK, 2);
-        Bitmap markerBitmap = Bitmap.createScaledBitmap(roundBitmap, 100, 100, false);
+        Bitmap markerBitmap = Bitmap.createScaledBitmap(roundBitmap, 75, 75, false);
         for (RecommendPath recommendPath : recommendPathList) {
             TMapMarkerItem markerItem = new TMapMarkerItem();
             TMapPoint tMapPoint1 = new TMapPoint(recommendPath.getMapY(), recommendPath.getMapX());
