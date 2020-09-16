@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.myplan.RecommendPath;
 
@@ -21,11 +22,17 @@ import java.util.List;
 
 public class MyPlanPathAdapter extends RecyclerView.Adapter<MyPlanPathAdapter.ViewHolder> {
     private List<RecommendPath> recommendPathList;
+    private RecyclerViewClickListener recyclerViewClickListener;
     private Context context;
+
 
     public MyPlanPathAdapter(List<RecommendPath> recommendPathList, Context context) {
         this.recommendPathList = recommendPathList;
         this.context = context;
+    }
+
+    public void setRecyclerViewClickListener(RecyclerViewClickListener recyclerViewClickListener) {
+        this.recyclerViewClickListener = recyclerViewClickListener;
     }
 
     @NonNull
@@ -57,7 +64,11 @@ public class MyPlanPathAdapter extends RecyclerView.Adapter<MyPlanPathAdapter.Vi
 
         holder.trainStationTextView.setText(recommendPathList.get(position).getStationName());
         holder.trainStationPlaceTextView.setText(recommendPathList.get(position).getPlace());
-
+        holder.selectPlaceLinearLayout.setOnClickListener(v -> {
+            if (recyclerViewClickListener != null) {
+                recyclerViewClickListener.onClick(holder.selectPlaceLinearLayout, position);
+            }
+        });
     }
 
 
@@ -76,6 +87,7 @@ public class MyPlanPathAdapter extends RecyclerView.Adapter<MyPlanPathAdapter.Vi
         public ImageView trainIconImageView;
         public TextView trainStationTextView;
         public TextView trainStationPlaceTextView;
+        public LinearLayout selectPlaceLinearLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -83,6 +95,7 @@ public class MyPlanPathAdapter extends RecyclerView.Adapter<MyPlanPathAdapter.Vi
             trainIconImageView = itemView.findViewById(R.id.train_icon_image_view);
             trainStationTextView = itemView.findViewById(R.id.train_station_text_view);
             trainStationPlaceTextView = itemView.findViewById(R.id.train_station_place_text_view);
+            selectPlaceLinearLayout = itemView.findViewById(R.id.show_select_place_linear_layout);
         }
     }
 }
