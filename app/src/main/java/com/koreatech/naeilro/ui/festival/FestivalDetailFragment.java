@@ -31,6 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import kr.co.prnd.readmore.ReadMoreTextView;
 
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_AREA_CODE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
@@ -50,7 +51,11 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
     @BindView(R.id.festival_detail_title)
     TextView festivalDetailTitle;
     @BindView(R.id.festival_detail_overview)
-    TextView festivalDetailOverview;
+    ReadMoreTextView festivalDetailOverview;
+    @BindView(R.id.festival_info_korean_text_view)
+    TextView festivalInfoKoreanTextView;
+    @BindView(R.id.festival_info_linear_layout)
+    LinearLayout festivalInfoLinearLayout;
     @BindView(R.id.festival_start_date)
     TextView festivalStartDate;
     @BindView(R.id.festival_end_date)
@@ -122,6 +127,8 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
         initTMap(view);
         festivalDetailFragmentPresenter.getFestivalCommonInfo(contentId);
         festivalDetailFragmentPresenter.getFestivalIntroInfo(contentId);
+        festivalInfoKoreanTextView.setOnClickListener(v -> festivalDetailOverview.toggle());
+        festivalInfoLinearLayout.setOnClickListener(v -> festivalDetailOverview.toggle());
 
     }
 
@@ -174,6 +181,18 @@ public class FestivalDetailFragment extends Fragment implements FestivalDetailFr
     private void setSummary(String text) {
         if (text == null) return;
         festivalDetailOverview.setText(fromHtml(text));
+        festivalDetailOverview.setChangeListener(this::toggle);
+        toggle(festivalDetailOverview.getState());
+    }
+
+    private void toggle(ReadMoreTextView.State state){
+        if (state == ReadMoreTextView.State.COLLAPSED) {
+            festivalInfoKoreanTextView.setVisibility(View.GONE);
+            festivalInfoLinearLayout.setVisibility(View.GONE);
+        } else {
+            festivalInfoKoreanTextView.setVisibility(View.VISIBLE);
+            festivalInfoLinearLayout.setVisibility(View.VISIBLE);
+        }
     }
 
 
