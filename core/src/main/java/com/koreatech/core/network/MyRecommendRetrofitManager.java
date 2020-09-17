@@ -7,6 +7,7 @@ import com.koreatech.core.BuildConfig;
 import java.lang.reflect.Field;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -46,7 +47,10 @@ public class MyRecommendRetrofitManager {
     private Retrofit getDefaultRetrofitSetting() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(interceptor).
+        OkHttpClient httpClient = new OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.MINUTES)
+                .readTimeout(5, TimeUnit.MINUTES)
+                .addInterceptor(interceptor).
                 addInterceptor(new UTFDecodeInterceptor()).build();
         try {
             SSLContext sslContext;
