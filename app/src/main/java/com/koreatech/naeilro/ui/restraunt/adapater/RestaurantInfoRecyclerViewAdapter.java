@@ -66,7 +66,7 @@ public class RestaurantInfoRecyclerViewAdapter extends RecyclerView.Adapter<Rest
         if (restaurantInfo.getTelephoneNumber() != null)
             holder.restaurantTelTextView.setText(restaurantInfo.getTelephoneNumber());
         else
-            holder.restaurantTelTextView.setText("전화번호가 등록되지 않았습니다.");
+            holder.restaurantTelTextView.setText("");
 
         if (restaurantInfo.getFirstImage() != null) {
             Glide.with(holder.restaurantImageView)

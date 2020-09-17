@@ -57,7 +57,7 @@ public class HouseInfoRecyclerViewAdapter extends RecyclerView.Adapter<HouseInfo
         if(houseInfo.getTel() != null)
             holder.houseTelTextView.setText(houseInfo.getTel());
         else
-            holder.houseTelTextView.setText("전화번호가 등록되지 않았습니다.");
+            holder.houseTelTextView.setText("");
         if(houseInfo.getHanok() == 1)
             holder.houseHanokTextView.setVisibility(View.VISIBLE);
         else
