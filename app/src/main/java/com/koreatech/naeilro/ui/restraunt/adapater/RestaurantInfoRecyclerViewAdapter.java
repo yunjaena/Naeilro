@@ -15,6 +15,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.facility.Facility;
@@ -75,6 +77,10 @@ public class RestaurantInfoRecyclerViewAdapter extends RecyclerView.Adapter<Rest
         } else
             Glide.with(holder.restaurantImageView)
                     .load(R.drawable.ic_no_image)
+                    .thumbnail(0.05f)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+                    .error(R.drawable.ic_no_image)
                     .into(holder.restaurantImageView);
         holder.view.setOnClickListener(new View.OnClickListener(){
             @Override

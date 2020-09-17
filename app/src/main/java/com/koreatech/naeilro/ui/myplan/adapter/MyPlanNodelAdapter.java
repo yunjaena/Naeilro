@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.myplan.MyPlanNode;
@@ -42,7 +44,12 @@ public class MyPlanNodelAdapter extends RecyclerView.Adapter<MyPlanNodelAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MyPlanNode myNode = myNodes.get(position);
         holder.myNodeName.setText(myNode.getTitle());
-        Glide.with(context).load(myNode.getThumbnail()).error(R.drawable.ic_no_image).into(holder.thumbnail);
+        Glide.with(context).load(myNode.getThumbnail())
+                .thumbnail(0.05f)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                .error(R.drawable.ic_no_image)
+                .into(holder.thumbnail);
         holder.cancelButton.setOnClickListener((view)-> recyclerViewClickListener.onClick(holder.cancelButton, position));
         holder.itemView.setOnClickListener(v->{
             if(recyclerViewClickListener != null){
