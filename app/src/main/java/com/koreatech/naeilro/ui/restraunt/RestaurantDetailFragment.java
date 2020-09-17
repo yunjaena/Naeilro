@@ -2,11 +2,6 @@ package com.koreatech.naeilro.ui.restraunt;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -17,19 +12,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.naeilro.NaeilroApplication;
 import com.koreatech.naeilro.R;
-import com.koreatech.naeilro.network.entity.facility.Facility;
 import com.koreatech.naeilro.network.entity.restaurant.RestaurantInfo;
-import com.koreatech.naeilro.network.interactor.FacilityRestInteractor;
 import com.koreatech.naeilro.network.interactor.RestaurantRestInteractor;
-import com.koreatech.naeilro.ui.facility.adapter.FacilityDetailInfoRecyclerViewAdapter;
-import com.koreatech.naeilro.ui.facility.adapter.FacilityImageRecyclerViewAdapter;
-import com.koreatech.naeilro.ui.facility.presenter.FacilityDetailFragmentPresenter;
 import com.koreatech.naeilro.ui.main.MainActivity;
 import com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity;
 import com.koreatech.naeilro.ui.restraunt.adapater.RestaurantDetailInfoRecyclerViewAdapter;
@@ -48,8 +42,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import kr.co.prnd.readmore.ReadMoreTextView;
 
-import static android.content.Context.RESTRICTIONS_SERVICE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_AREA_CODE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_MAP_X;
@@ -62,14 +56,24 @@ import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_
 public class RestaurantDetailFragment extends Fragment implements RestaurantDetailContract.View {
     private static final double centerLon = 127.48318433761597;
     private static final double centerLat = 36.41592967015607;
+    @BindView(R.id.rest_parkinlot)
+    TextView parkinglotTextView;
+    @BindView(R.id.rest_opening)
+    TextView openingTextView;
+    @BindView(R.id.rest_day)
+    TextView restDayTextView;
+    @BindView(R.id.main_food)
+    TextView mainFoodTextView;
+    @BindView(R.id.left_food)
+    TextView leftFoodTextView;
     private Unbinder unbinder;
     private View view;
-
     private ImageView restaurantDetailImage;
     private TextView restaurantDetailTitle;
-    private TextView restaurantDetailOverview;
+    private ReadMoreTextView restaurantDetailOverview;
     private TextView restaurantDetailInfoTextView;
     private LinearLayout restaurantImageLinearLayout;
+    private LinearLayout restaurantDetailLinearLayout;
     private ImageView restaurantExtraImageView;
     private RecyclerView restaurantExtraImageRecyclerView;
     private RecyclerView restaurantInfoRecyclerView;
@@ -77,6 +81,7 @@ public class RestaurantDetailFragment extends Fragment implements RestaurantDeta
     private LinearLayout restaurantDetailTMapLinearLayout;
     private TextView restaurantAddressTextView;
     private TMapView tMapView;
+    private TextView restaurantInfoKoreanTextView;
     private RestaurantDetailInfoRecyclerViewAdapter restaurantDetailInfoRecyclerViewAdapter;
     private RestaurantDetailPresenter restaurantDetailPresenter;
     private LinearLayoutManager linearLayoutManager;
@@ -90,21 +95,18 @@ public class RestaurantDetailFragment extends Fragment implements RestaurantDeta
     private String mapX;
     private String mapY;
     private String areaCode;
-    @BindView(R.id.rest_parkinlot)
-    TextView parkinglotTextView;
-    @BindView(R.id.rest_opening)
-    TextView openingTextView;
-    @BindView(R.id.rest_day)
-    TextView restDayTextView;
-    @BindView(R.id.main_food)
-    TextView mainFoodTextView;
-    @BindView(R.id.left_food)
-    TextView leftFoodTextView;
+
+    public static Spanned fromHtml(String source) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
+            return Html.fromHtml(source);
+        }
+        return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view =  inflater.inflate(R.layout.fragment_restaurant_detail, container, false);
+        view = inflater.inflate(R.layout.fragment_restaurant_detail, container, false);
         this.unbinder = ButterKnife.bind(this, view);
         contentId = getArguments().getInt("contentId");
         Log.e("fragment", Integer.toString(contentId));
@@ -113,12 +115,7 @@ public class RestaurantDetailFragment extends Fragment implements RestaurantDeta
         init(view);
         return view;
     }
-    public static Spanned fromHtml(String source) {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
-            return Html.fromHtml(source);
-        }
-        return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
-    }
+
     @OnClick(R.id.add_my_plan_restaurant)
     public void clickFacilityMyPlanButton() {
         Intent intent = new Intent(getActivity(), MyPlanBottomSheetActivity.class);
@@ -131,11 +128,13 @@ public class RestaurantDetailFragment extends Fragment implements RestaurantDeta
         intent.putExtra(CONTENT_AREA_CODE, areaCode);
         startActivity(intent);
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         if (unbinder != null) unbinder.unbind();
     }
+
     public void init(View view) {
         imageRestaurantInfoList = new ArrayList<>();
         initView(view);
@@ -145,11 +144,14 @@ public class RestaurantDetailFragment extends Fragment implements RestaurantDeta
         restaurantDetailPresenter.getCommonInfo(contentId);
 
     }
+
     private void initView(View view) {
         restaurantDetailImage = view.findViewById(R.id.restaurant_detail_image);
         restaurantDetailTitle = view.findViewById(R.id.restaurant_detail_title);
         restaurantDetailOverview = view.findViewById(R.id.restaurant_detail_overview);
         restaurantDetailInfoTextView = view.findViewById(R.id.restaurant_detail_info_text_view);
+        restaurantDetailLinearLayout = view.findViewById(R.id.restaurant_detail_linear_layout);
+        restaurantInfoKoreanTextView = view.findViewById(R.id.restaurant_info_korean_text_view);
         restaurantImageLinearLayout = view.findViewById(R.id.restaurant_image_linear_layout);
         restaurantExtraImageView = view.findViewById(R.id.restaurant_extra_image_view);
         restaurantExtraImageRecyclerView = view.findViewById(R.id.restaurant_extra_image_recycler_view);
@@ -159,8 +161,13 @@ public class RestaurantDetailFragment extends Fragment implements RestaurantDeta
         restaurantDetailMapLinearLayout.setVisibility(View.GONE);
         restaurantImageLinearLayout.setVisibility(View.GONE);
         restaurantInfoRecyclerView = view.findViewById(R.id.restaurant_info_recycler_view);
+        restaurantDetailInfoTextView.setOnClickListener(v -> restaurantDetailOverview.toggle());
+        restaurantDetailLinearLayout.setOnClickListener(v -> restaurantDetailOverview.toggle());
+        restaurantInfoKoreanTextView.setOnClickListener(v -> restaurantDetailOverview.toggle());
+
 
     }
+
     private void initTMap(View view) {
         tMapView = new TMapView(Objects.requireNonNull(getActivity()));
         tMapView.setSKTMapApiKey(NaeilroApplication.getTMapApiKey());
@@ -200,10 +207,11 @@ public class RestaurantDetailFragment extends Fragment implements RestaurantDeta
         leftFoodTextView.setText(fromHtml(getRestaurntDetailInfoString(restaurant.getTreatmenu())));
         restaurantDetailPresenter.getImageInfo(contentId);
     }
-    public String getRestaurntDetailInfoString(String s){
-        if(s == null){
+
+    public String getRestaurntDetailInfoString(String s) {
+        if (s == null) {
             return " - ";
-        }else{
+        } else {
             return s;
         }
     }
@@ -289,7 +297,22 @@ public class RestaurantDetailFragment extends Fragment implements RestaurantDeta
     private void setSummary(String text) {
         if (text == null) return;
         restaurantDetailOverview.setText(fromHtml(text));
+        restaurantDetailOverview.setChangeListener(this::toggleTextView);
+        toggleTextView(restaurantDetailOverview.getState());
     }
+
+    private void toggleTextView(ReadMoreTextView.State state) {
+        if (state == ReadMoreTextView.State.COLLAPSED) {
+            restaurantDetailLinearLayout.setVisibility(View.GONE);
+            restaurantDetailInfoTextView.setVisibility(View.GONE);
+            restaurantInfoKoreanTextView.setVisibility(View.GONE);
+        } else {
+            restaurantDetailLinearLayout.setVisibility(View.VISIBLE);
+            restaurantDetailInfoTextView.setVisibility(View.VISIBLE);
+            restaurantInfoKoreanTextView.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     private void setTitle(String text) {
         if (text == null) return;

@@ -65,6 +65,7 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
     private TextView tourDetailInfoTextView;
     private TextView tourTelTextView;
     private TextView tourRestDateTextView;
+    private TextView tourInfoKoreanTextView;
     private LinearLayout tourDetailLinearLayout;
     private TextView tourExperienceDetailTextView;
     private TextView tourExperienceAgeTextView;
@@ -153,6 +154,7 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
         tourRestDateTextView = view.findViewById(R.id.tour_rest_date);
         tourDetailInfoTextView = view.findViewById(R.id.tour_detail_info_text_view);
         tourExperienceDetailTextView = view.findViewById(R.id.tour_experience_detail_text_view);
+        tourInfoKoreanTextView = view.findViewById(R.id.tour_info_korean_text_view);
         tourDetailLinearLayout = view.findViewById(R.id.tour_detail_info_linear_layout);
         tourExperienceAgeTextView = view.findViewById(R.id.tour_experience_age_text_view);
         tourPersonLimitTextView = view.findViewById(R.id.tour_person_limit_text_view);
@@ -171,6 +173,7 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
         tourImageLinearLayout.setVisibility(View.GONE);
         tourDetailInfoTextView.setOnClickListener(v -> tourDetailOverview.toggle());
         tourDetailLinearLayout.setOnClickListener(v -> tourDetailOverview.toggle());
+        tourInfoKoreanTextView.setOnClickListener(v -> tourDetailOverview.toggle());
     }
 
     private void initTMap(View view) {
@@ -330,21 +333,21 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
     private void setSummary(String text) {
         if (text == null) return;
         tourDetailOverview.setText(fromHtml(text));
+        tourDetailOverview.setChangeListener(this::toggleTextView);
+        toggleTextView(tourDetailOverview.getState());
 
-        if(tourDetailOverview.isCollapsed()){
-            tourDetailInfoTextView.setVisibility(View.GONE);
-            tourDetailLinearLayout.setVisibility(View.GONE);
-        }
+    }
 
-        tourDetailOverview.setChangeListener(state -> {
+    private void toggleTextView(ReadMoreTextView.State state) {
             if(state == ReadMoreTextView.State.COLLAPSED){
                 tourDetailInfoTextView.setVisibility(View.GONE);
                 tourDetailLinearLayout.setVisibility(View.GONE);
+                tourInfoKoreanTextView.setVisibility(View.GONE);
             }else{
                 tourDetailInfoTextView.setVisibility(View.VISIBLE);
                 tourDetailLinearLayout.setVisibility(View.VISIBLE);
+                tourInfoKoreanTextView.setVisibility(View.VISIBLE);
             }
-        });
     }
 
     private void setTitle(String text) {
