@@ -84,25 +84,37 @@
 
                     <Button
                         android:id="@+id/user_password_change_button"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_rect_boundary_blue6_radius24dp"
+                        android:textColor="@color/white"
                         android:layout_weight="1"
                         android:text="비밀번호 변경" />
-
+                    <TextView
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
                     <Button
                         android:id="@+id/deactivate_account_button"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_rect_boundary_blue6_radius24dp"
+                        android:textColor="@color/white"
+
                         android:layout_weight="1"
                         android:text="회원탈퇴" />
 
                 </LinearLayout>
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
                 <Button
                     android:id="@+id/log_out"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_rect_boundary_blue6_radius24dp"
+                    android:textColor="@color/white"
+
                     android:text="로그아웃" />
 
             </LinearLayout>

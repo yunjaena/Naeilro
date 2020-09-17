@@ -84,7 +84,15 @@
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="위치"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"/>
                 <LinearLayout
                     android:id="@+id/reports_detail_map_linear_layout"
                     android:layout_width="match_parent"

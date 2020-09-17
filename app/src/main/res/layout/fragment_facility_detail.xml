@@ -91,12 +91,17 @@
                         android:layout_marginTop="10dp" />
 
                 </LinearLayout>
-
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="위치"
+    android:layout_margin="10dp"
+    android:textColor="@color/black"
+    android:textSize="18sp"/>
                 <LinearLayout
                     android:id="@+id/facility_detail_map_linear_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:orientation="vertical">
 
                     <LinearLayout
