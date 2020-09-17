@@ -14,6 +14,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.facility.Facility;
 import com.koreatech.naeilro.ui.main.MainActivity;
@@ -51,7 +53,12 @@ public class FacilityInfoRecyclerViewAdapter extends RecyclerView.Adapter<Facili
         else
             holder.facilityTelTextView.setText("");
         if(facility.getFirstimage() != null)
-            Glide.with(holder.facilityImageView).load(facility.getFirstimage()).into(holder.facilityImageView);
+            Glide.with(holder.facilityImageView)
+                    .load(facility.getFirstimage())
+                    .thumbnail(0.05f)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+                    .into(holder.facilityImageView);
         else
             Glide.with(holder.facilityImageView).load(R.drawable.ic_no_image).into(holder.facilityImageView);
 

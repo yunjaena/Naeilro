@@ -14,6 +14,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.reports.Reports;
 import com.koreatech.naeilro.ui.main.MainActivity;
@@ -50,7 +52,13 @@ public class ReportsInfoRecyclerViewAdapter extends RecyclerView.Adapter<Reports
         else
             holder.reportsTelTextView.setText("");
         if(reports.getFirstimage() != null)
-            Glide.with(holder.reportsImageView).load(reports.getFirstimage()).into(holder.reportsImageView);
+            Glide.with(holder.reportsImageView)
+                    .load(reports.getFirstimage())
+                    .thumbnail(0.05f)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+                    .error(R.drawable.ic_no_image)
+                    .into(holder.reportsImageView);
         else
             Glide.with(holder.reportsImageView).load(R.drawable.ic_no_image).into(holder.reportsImageView);
 

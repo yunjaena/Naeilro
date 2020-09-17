@@ -10,14 +10,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.naeilro.R;
-import com.koreatech.naeilro.network.entity.facility.Facility;
 import com.koreatech.naeilro.network.entity.house.HouseInfo;
 
 import java.util.List;
 
 public class HouseImageRecyclerViewAdapter extends RecyclerView.Adapter<HouseImageRecyclerViewAdapter.ViewHolder> {
+    private List<HouseInfo> houseInfoList;
+    private RecyclerViewClickListener recyclerViewClickListener;
+    private int selectIndex;
+    private Context context;
+    public HouseImageRecyclerViewAdapter(List<HouseInfo> houseInfoList, Context context) {
+        this.houseInfoList = houseInfoList;
+        selectIndex = 0;
+        this.context = context;
+    }
+
     @NonNull
     @Override
     public HouseImageRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,6 +49,9 @@ public class HouseImageRecyclerViewAdapter extends RecyclerView.Adapter<HouseIma
         Glide.with(context)
                 .load(houseInfo.getOriginimgurl())
                 .error(R.drawable.ic_no_image)
+                .thumbnail(0.05f)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .into(holder.showImageView);
 
 
@@ -54,28 +68,20 @@ public class HouseImageRecyclerViewAdapter extends RecyclerView.Adapter<HouseIma
         return houseInfoList.size();
     }
 
-    private List<HouseInfo> houseInfoList;
-    private RecyclerViewClickListener recyclerViewClickListener;
-    private int selectIndex;
-    private Context context;
-
-    public HouseImageRecyclerViewAdapter(List<HouseInfo> houseInfoList, Context context) {
-        this.houseInfoList = houseInfoList;
-        selectIndex = 0;
-        this.context = context;
-    }
     private void selectImage(int index) {
         selectIndex = index;
         notifyDataSetChanged();
     }
+
     public void setRecyclerViewClickListener(RecyclerViewClickListener recyclerViewClickListener) {
         this.recyclerViewClickListener = recyclerViewClickListener;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public final View view;
         public ImageView selectImageView;
         public ImageView showImageView;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;

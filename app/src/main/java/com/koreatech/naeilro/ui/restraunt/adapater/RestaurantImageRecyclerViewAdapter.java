@@ -12,6 +12,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.restaurant.RestaurantInfo;
@@ -57,6 +59,9 @@ public class RestaurantImageRecyclerViewAdapter extends RecyclerView.Adapter<Res
 
         Glide.with(context)
                 .load(restaurant.getOriginimgurl())
+                .thumbnail(0.05f)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .error(R.drawable.ic_no_image)
                 .into(holder.showImageView);
 

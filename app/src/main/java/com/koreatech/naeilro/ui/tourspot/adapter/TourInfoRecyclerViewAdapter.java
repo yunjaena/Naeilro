@@ -13,6 +13,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.tour.TourInfo;
@@ -63,6 +65,10 @@ public class TourInfoRecyclerViewAdapter extends RecyclerView.Adapter<TourInfoRe
         if (tourInfo.getFirstimage() != null) {
             Glide.with(holder.tourImageView)
                     .load(tourInfo.getFirstimage())
+                    .thumbnail(0.05f)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+                    .error(R.drawable.ic_no_image)
                     .into(holder.tourImageView);
         } else
             Glide.with(holder.tourImageView)

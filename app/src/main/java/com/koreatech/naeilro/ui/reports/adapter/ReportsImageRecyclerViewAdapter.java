@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.reports.Reports;
 
@@ -38,7 +40,13 @@ public class ReportsImageRecyclerViewAdapter extends RecyclerView.Adapter<Report
         Reports reports = reportsList.get(position);
         holder.setIsRecyclable(false);
         if(reports.getOriginimgurl() != null)
-            Glide.with(holder.reportsImageView).load(reports.getOriginimgurl()).into(holder.reportsImageView);
+            Glide.with(holder.reportsImageView)
+                    .load(reports.getOriginimgurl())
+                    .thumbnail(0.05f)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+                    .error(R.drawable.ic_no_image)
+                    .into(holder.reportsImageView);
 
     }
 
