@@ -39,6 +39,7 @@ import java.util.Objects;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import kr.co.prnd.readmore.ReadMoreTextView;
 
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_AREA_CODE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
@@ -56,7 +57,7 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
     /* View component */
     private ImageView facilityDetailImage;
     private TextView facilityDetailTitle;
-    private TextView facilityDetailOverview;
+    private ReadMoreTextView facilityDetailOverview;
     private TextView facilityDetailInfoTextView;
     private LinearLayout facilityImageLinearLayout;
     private ImageView facilityExtraImageView;
@@ -182,6 +183,17 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
     public void showDetailInfoList(List<Facility> facilityList) {
         facilityInfoRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         facilityDetailInfoRecyclerViewAdapter = new FacilityDetailInfoRecyclerViewAdapter(facilityList);
+        facilityDetailInfoRecyclerViewAdapter.setRecyclerViewClickListener(new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                facilityDetailOverview.toggle();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        });
         facilityInfoRecyclerView.setAdapter(facilityDetailInfoRecyclerViewAdapter);
         //setDetailInfo(facilityList);
         //facilityDetailFragmentPresenter.getImageInfo(contentId);
@@ -267,6 +279,18 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
     private void setSummary(String text) {
         if (text == null) return;
         facilityDetailOverview.setText(fromHtml(text));
+        facilityDetailOverview.setChangeListener(this::toggle);
+        toggle(facilityDetailOverview.getState());
+    }
+
+    private void toggle(ReadMoreTextView.State state) {
+        if (state == ReadMoreTextView.State.COLLAPSED) {
+            facilityDetailInfoTextView.setVisibility(View.GONE);
+            facilityInfoRecyclerView.setVisibility(View.GONE);
+        } else {
+            facilityDetailInfoTextView.setVisibility(View.VISIBLE);
+            facilityInfoRecyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setTitle(String text) {
