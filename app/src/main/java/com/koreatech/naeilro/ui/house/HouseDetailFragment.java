@@ -37,6 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import kr.co.prnd.readmore.ReadMoreTextView;
 
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_AREA_CODE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
@@ -79,8 +80,10 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
     private Unbinder unbinder;
     private ImageView houseDetailImage;
     private TextView houseDetailTitle;
-    private TextView houseDetailOverview;
+    private ReadMoreTextView houseDetailOverview;
     private TextView houseDetailInfoTextView;
+    private LinearLayout houseDetailLinearLayout;
+    private TextView houseDetailInfoKoreanTextView;
     private LinearLayout houseImageLinearLayout;
     private ImageView houseExtraImageView;
     private RecyclerView houseExtraImageRecyclerView;
@@ -144,6 +147,8 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
         houseDetailTitle = view.findViewById(R.id.house_detail_title);
         houseDetailOverview = view.findViewById(R.id.house_detail_overview);
         houseDetailInfoTextView = view.findViewById(R.id.house_detail_info_text_view);
+        houseDetailInfoKoreanTextView = view.findViewById(R.id.house_detail_info_korean_text_view);
+        houseDetailLinearLayout = view.findViewById(R.id.house_detail_linear_layout);
         houseImageLinearLayout = view.findViewById(R.id.house_image_linear_layout);
         houseExtraImageView = view.findViewById(R.id.house_extra_image_view);
         houseExtraImageRecyclerView = view.findViewById(R.id.house_extra_image_recycler_view);
@@ -152,7 +157,9 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
         houseAddressTextView = view.findViewById(R.id.house_address_text_view);
         houseDetailMapLinearLayout.setVisibility(View.GONE);
         houseImageLinearLayout.setVisibility(View.GONE);
-
+        houseDetailInfoTextView.setOnClickListener(v -> houseDetailOverview.toggle());
+        houseDetailInfoKoreanTextView.setOnClickListener(v -> houseDetailOverview.toggle());
+        houseDetailLinearLayout.setOnClickListener(v -> houseDetailOverview.toggle());
 
     }
 
@@ -333,6 +340,20 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
     private void setSummary(String text) {
         if (text == null) return;
         houseDetailOverview.setText(fromHtml(text));
+        houseDetailOverview.setChangeListener(this::toggle);
+        toggle(houseDetailOverview.getState());
+    }
+
+    private void toggle(ReadMoreTextView.State state) {
+        if (state == ReadMoreTextView.State.COLLAPSED) {
+            houseDetailInfoTextView.setVisibility(View.GONE);
+            houseDetailLinearLayout.setVisibility(View.GONE);
+            houseDetailInfoKoreanTextView.setVisibility(View.GONE);
+        } else {
+            houseDetailInfoTextView.setVisibility(View.VISIBLE);
+            houseDetailLinearLayout.setVisibility(View.VISIBLE);
+            houseDetailInfoKoreanTextView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setTitle(String text) {
