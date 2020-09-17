@@ -58,7 +58,7 @@ public class TourInfoRecyclerViewAdapter extends RecyclerView.Adapter<TourInfoRe
         if (tourInfo.getTel() != null)
             holder.tourTelTextView.setText(tourInfo.getTel());
         else
-            holder.tourTelTextView.setText("전화번호가 등록되지 않았습니다.");
+            holder.tourTelTextView.setText("");
 
         if (tourInfo.getFirstimage() != null) {
             Glide.with(holder.tourImageView)

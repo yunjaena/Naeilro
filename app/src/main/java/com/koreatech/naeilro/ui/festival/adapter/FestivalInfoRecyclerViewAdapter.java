@@ -54,7 +54,7 @@ public class FestivalInfoRecyclerViewAdapter extends RecyclerView.Adapter<Festiv
         if(festivalInfo.getTel() != null)
             holder.festivalTelTextView.setText(festivalInfo.getTel());
         else
-            holder.festivalTelTextView.setText("전화번호가 등록되지 않았습니다.");
+            holder.festivalTelTextView.setText("");
         if(festivalInfo.getFirstimage() != null){
             Glide.with(holder.festivalImageView)
                     .load(festivalInfo.getFirstimage())
