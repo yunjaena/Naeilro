@@ -86,7 +86,7 @@ public class HouseInfo {
     private String foodplace;
     @Element(name = "reservationlodging", required = false)
     private String reservationlodging;                      //예약안내
-    @Element(name = "accomcountlodging", required = false)
+    @Element(name = "roomcount", required = false)
     private String accomcountlodging;                       //수용인원
     @Element(name = "infoname", required = false)
     private String infoname;

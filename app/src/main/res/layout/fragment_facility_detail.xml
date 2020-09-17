@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -39,11 +40,11 @@
                 <ImageView
                     android:id="@+id/facility_detail_image"
                     android:layout_width="match_parent"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_height="300dp" />
+                    android:layout_height="300dp"
+                    android:layout_marginHorizontal="20dp" />
 
 
-                <TextView
+                <kr.co.prnd.readmore.ReadMoreTextView
                     android:id="@+id/facility_detail_overview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -52,6 +53,9 @@
                     android:layout_marginRight="34sp"
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    app:readMoreColor="@color/colorPrimary"
+                    app:readMoreMaxLine="4"
+                    app:readMoreText="…더보기"
                     tools:text="소개 : 서울시 강서구 화곡동에 위치한 KORSTAY는 최신식 시설의 쾌적한 공간에 안전한 숙박과 개인의 프라이버시를 보장받을 수 있도록 마련된 숙소이다. 일행이 아닌 다른 사람들과의 분리를 통해 독립적인 공간(침실,화장실)이 마련되어 있는 내 집같은 편안한 휴식을 제공한다. 김포공항은 물론 인천공항 통해 여행을 즐기는 여행객에게 최적의 장소가 될 것이다. 지하철 까치산역에서도 도보로 10분 거리에 있어 교통의 편리함도 더해준다." />
 
                 <TextView
@@ -91,13 +95,15 @@
                         android:layout_marginTop="10dp" />
 
                 </LinearLayout>
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="위치"
-    android:layout_margin="10dp"
-    android:textColor="@color/black"
-    android:textSize="18sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="위치"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
                 <LinearLayout
                     android:id="@+id/facility_detail_map_linear_layout"
                     android:layout_width="match_parent"
@@ -127,7 +133,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"/>
+                    android:layout_height="48dp" />
 
             </LinearLayout>
 
@@ -143,12 +149,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@android:color/transparent"
             android:gravity="bottom">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@color/white"
+                android:background="@android:color/transparent"
                 android:gravity="center"
                 android:orientation="vertical">
 

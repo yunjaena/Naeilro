@@ -3,404 +3,455 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.house.HouseDetailFragment">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
 
 
+        <View
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
 
-    <View
-        android:layout_width="0px"
-        android:layout_height="0px"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/bottom_navigation_height">
-
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/house_detail_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="14sp"
-                android:layout_marginTop="10dp"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                tools:text="강원랜드" />
-
-            <ImageView
-                android:id="@+id/house_detail_image"
-                android:layout_width="match_parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_height="300dp" />
-
-
-
-            <TextView
-                android:id="@+id/house_detail_overview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="34sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="34sp"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                tools:text="소개 : 서울시 강서구 화곡동에 위치한 KORSTAY는 최신식 시설의 쾌적한 공간에 안전한 숙박과 개인의 프라이버시를 보장받을 수 있도록 마련된 숙소이다. 일행이 아닌 다른 사람들과의 분리를 통해 독립적인 공간(침실,화장실)이 마련되어 있는 내 집같은 편안한 휴식을 제공한다. 김포공항은 물론 인천공항 통해 여행을 즐기는 여행객에게 최적의 장소가 될 것이다. 지하철 까치산역에서도 도보로 10분 거리에 있어 교통의 편리함도 더해준다." />
-
-            <TextView
-                android:id="@+id/house_detail_info_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="34sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="34sp"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                tools:text="소개 : 서울시 강서구 화곡동에 위치한 KORSTAY는 최신식 시설의 쾌적한 공간에 안전한 숙박과 개인의 프라이버시를 보장받을 수 있도록 마련된 숙소이다. 일행이 아닌 다른 사람들과의 분리를 통해 독립적인 공간(침실,화장실)이 마련되어 있는 내 집같은 편안한 휴식을 제공한다. 김포공항은 물론 인천공항 통해 여행을 즐기는 여행객에게 최적의 장소가 될 것이다. 지하철 까치산역에서도 도보로 10분 거리에 있어 교통의 편리함도 더해준다." />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="숙박정보"
-                android:textStyle="bold"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/black"
-                android:textSize="20sp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="7"
-                        android:textSize="16sp"
-                        android:text="   수용 가능 인원" />
-
-                    <TextView
-                        android:id="@+id/accomtaion_number"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:textSize="16sp"
-                        android:text="   x" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="7"
-                        android:textSize="16sp"
-                        android:text="   객실 유형" />
-
-                    <TextView
-                        android:id="@+id/room_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:textSize="16sp"
-                        android:text="   x" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="7"
-                        android:textSize="16sp"
-                        android:text="   체크인" />
-
-                    <TextView
-                        android:id="@+id/check_in"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:textSize="16sp"
-                        android:text="   x" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="7"
-                        android:textSize="16sp"
-                        android:text="   체크 아웃" />
-
-                    <TextView
-                        android:id="@+id/check_out"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:textSize="16sp"
-                        android:text="   x" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="7"
-                        android:textSize="16sp"
-                        android:text="   예약 안내" />
-
-                    <TextView
-                        android:id="@+id/reservation_guide"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:textSize="16sp"
-                        android:text="   x" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="7"
-                        android:textSize="16sp"
-                        android:text="   조리 가능" />
-
-                    <TextView
-                        android:id="@+id/check_cook"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:textSize="16sp"
-                        android:text="   x" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="7"
-                        android:textSize="16sp"
-                        android:text="   주차 가능" />
-                    <TextView
-                        android:id="@+id/parkinglot"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:textSize="16sp"
-                        android:text="   x" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="7"
-                        android:textSize="16sp"
-                        android:text="   식음료장" />
-                    <TextView
-                        android:id="@+id/food_place"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:textSize="16sp"
-                        android:text="   x" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="7"
-                        android:textSize="16sp"
-                        android:text="   부대시설" />
-                    <TextView
-                        android:id="@+id/sub_facility"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:textSize="16sp"
-                        android:text="   x" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="7"
-                        android:textSize="16sp"
-                        android:text="   바베큐장" />
-                    <TextView
-                        android:id="@+id/barbecue"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:textSize="16sp"
-                        android:text="   x" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="7"
-                        android:textSize="16sp"
-                        android:text="   캠프파이어" />
-                    <TextView
-                        android:id="@+id/campfire"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:textSize="16sp"
-                        android:text="   x" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="7"
-                        android:textSize="16sp"
-                        android:text="   픽업서비스" />
-                    <TextView
-                        android:id="@+id/pick_up"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:textSize="16sp"
-                        android:text="   x" />
-                </LinearLayout>
-
-
-            </LinearLayout>
-
+            android:layout_marginBottom="@dimen/bottom_navigation_height">
 
             <LinearLayout
-                android:id="@+id/house_image_linear_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/house_extra_image_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp" />
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/house_extra_image_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="위치"
-                android:textStyle="bold"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/black"
-                android:textSize="20sp"/>
-            <LinearLayout
-                android:id="@+id/house_detail_map_linear_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/house_detail_t_map_linear_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:orientation="horizontal" />
 
                 <TextView
-                    android:id="@+id/house_address_text_view"
+                    android:id="@+id/house_detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14sp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    tools:text="강원랜드" />
+
+                <ImageView
+                    android:id="@+id/house_detail_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginHorizontal="20dp" />
+
+
+                <kr.co.prnd.readmore.ReadMoreTextView
+                    android:id="@+id/house_detail_overview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="34sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="34sp"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:readMoreColor="@color/colorPrimary"
+                    app:readMoreMaxLine="4"
+                    app:readMoreText="…더보기"
+                    tools:text="소개 : 서울시 강서구 화곡동에 위치한 KORSTAY는 최신식 시설의 쾌적한 공간에 안전한 숙박과 개인의 프라이버시를 보장받을 수 있도록 마련된 숙소이다. 일행이 아닌 다른 사람들과의 분리를 통해 독립적인 공간(침실,화장실)이 마련되어 있는 내 집같은 편안한 휴식을 제공한다. 김포공항은 물론 인천공항 통해 여행을 즐기는 여행객에게 최적의 장소가 될 것이다. 지하철 까치산역에서도 도보로 10분 거리에 있어 교통의 편리함도 더해준다." />
+
+                <TextView
+                    android:id="@+id/house_detail_info_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="34sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="34sp"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:text="소개 : 서울시 강서구 화곡동에 위치한 KORSTAY는 최신식 시설의 쾌적한 공간에 안전한 숙박과 개인의 프라이버시를 보장받을 수 있도록 마련된 숙소이다. 일행이 아닌 다른 사람들과의 분리를 통해 독립적인 공간(침실,화장실)이 마련되어 있는 내 집같은 편안한 휴식을 제공한다. 김포공항은 물론 인천공항 통해 여행을 즐기는 여행객에게 최적의 장소가 될 것이다. 지하철 까치산역에서도 도보로 10분 거리에 있어 교통의 편리함도 더해준다." />
+
+                <TextView
+                    android:id="@+id/house_detail_info_korean_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="숙박정보"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/house_detail_linear_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="7"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    tools:text="address" />
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7"
+                            android:text="수용 가능 인원"
+                            android:textSize="16sp"
+                            android:padding="10dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/accomtaion_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight="3"
+                            android:text="   x"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:text="   객실 유형"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/room_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text="   x"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:text="   체크인"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/check_in"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text="   x"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:text="   체크 아웃"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/check_out"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text="   x"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:text="   예약 안내"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/reservation_guide"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text="   x"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:text="   조리 가능"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/check_cook"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text="   x"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:text="   주차 가능"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/parkinglot"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text="   x"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:text="   식음료장"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/food_place"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text="   x"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:text="   부대시설"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/sub_facility"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text="   x"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:text="   바베큐장"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/barbecue"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text="   x"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:text="   캠프파이어"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/campfire"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text="   x"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:text="   픽업서비스"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/pick_up"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text="   x"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/house_image_linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/house_extra_image_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/house_extra_image_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="위치"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/house_detail_map_linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/house_detail_t_map_linear_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:orientation="horizontal" />
+
+                    <TextView
+                        android:id="@+id/house_address_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="7"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="address" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp" />
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"/>
-
-        </LinearLayout>
 
 
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
     </FrameLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/bottom_navigation_height">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="bottom">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:orientation="vertical"
                 android:background="@color/white"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
+
                 <Button
                     android:id="@+id/add_my_plan_house"
                     android:layout_width="280dp"
                     android:layout_height="40dp"
                     android:background="@drawable/bg_rect_peach_gradient"
-                    android:textColor="@color/white"
-                    android:text="여행계획에 담기"/>
+                    android:text="여행계획에 담기"
+                    android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

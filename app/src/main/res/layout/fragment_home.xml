@@ -254,159 +254,165 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
-                        app:cardCornerRadius="16dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        app:cardCornerRadius="16dp">
 
-                    <LinearLayout
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/ic_facility_color" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="문화시설"
+                                android:textColor="@color/black" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/category_festival"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_margin="10dp"
+                        android:orientation="vertical"
+                        app:cardCornerRadius="16dp">
 
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/ic_facility_color" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="문화시설"
-                        android:textColor="@color/black" />
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/ic_festival_color" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="축제/행사"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/category_festival"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:orientation="vertical"
-                app:cardCornerRadius="16dp">
 
                 <LinearLayout
+                    android:id="@+id/category_weather"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/ic_festival_color" />
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical"
+                        app:cardCornerRadius="16dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="축제/행사"
-                        android:textColor="@color/black" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/ic_wheather_color" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="날씨 정보"
+                                android:textColor="@color/black" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </LinearLayout>
         </LinearLayout>
 
-
-        <LinearLayout
-            android:id="@+id/category_weather"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:text="추천여행지"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold">
 
-            <androidx.cardview.widget.CardView
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="나의 취향에 맞는 여행지를 만나보세요"
+            android:textColor="@color/black"
+            android:textSize="16sp">
+
+        </TextView>
+
+
+        <FrameLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recommend_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/recommend_null_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:orientation="vertical"
-                app:cardCornerRadius="16dp">
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="내 여행계획을 만드시면"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/ic_wheather_color" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="취향에 맞는 여행지를 추천해드립니다."
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </FrameLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="날씨 정보"
-                        android:textColor="@color/black" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
+        <TextView
+            android:id="@+id/asd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
-</LinearLayout>
-
-<TextView
-android:layout_height="wrap_content"
-android:layout_marginLeft="20dp"
-android:layout_marginTop="30dp"
-android:layout_width="match_parent"
-android:text="추천여행지"
-android:textColor="@color/black"
-android:textSize="20sp"
-android:textStyle="bold">
-
-</TextView><TextView
-android:layout_height="wrap_content"
-android:layout_marginLeft="20dp"
-android:layout_width="match_parent"
-android:text="나의 취향에 맞는 여행지를 만나보세요"
-android:textColor="@color/black"
-android:textSize="16sp">
-
-</TextView>
-
-
-<FrameLayout
-android:layout_height="match_parent"
-android:layout_width="match_parent">
-
-
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recommend_recyclerview"
-    android:layout_height="250dp"
-    android:layout_width="match_parent"
-    android:visibility="gone" />
-
-<LinearLayout
-    android:gravity="center"
-    android:id="@+id/recommend_null_text"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="내 여행계획을 만드시면"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="취향에 맞는 여행지를 추천해드립니다."
-        android:textSize="20sp"
-        android:textStyle="bold" />
-</LinearLayout>
-</FrameLayout>
-
-<TextView
-android:id="@+id/asd"
-android:layout_height="wrap_content"
-android:layout_width="wrap_content" /></LinearLayout></androidx.core.widget.NestedScrollView>
+</androidx.core.widget.NestedScrollView>

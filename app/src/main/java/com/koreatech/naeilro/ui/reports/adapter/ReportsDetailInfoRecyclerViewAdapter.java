@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.reports.Reports;
 
@@ -18,10 +19,15 @@ import static com.koreatech.naeilro.ui.reports.ReportsDetailFragment.fromHtml;
 
 public class ReportsDetailInfoRecyclerViewAdapter extends RecyclerView.Adapter<ReportsDetailInfoRecyclerViewAdapter.ViewHolder>{
     private List<Reports> reportsList;
+    private RecyclerViewClickListener recyclerViewClickListener;
 
     public ReportsDetailInfoRecyclerViewAdapter(List<Reports> list) {
         reportsList = new ArrayList<>();
         reportsList.addAll(list);
+    }
+
+    public void setRecyclerViewClickListener(RecyclerViewClickListener recyclerViewClickListener){
+        this.recyclerViewClickListener = recyclerViewClickListener;
     }
 
     @NonNull
@@ -58,6 +64,9 @@ public class ReportsDetailInfoRecyclerViewAdapter extends RecyclerView.Adapter<R
             super(itemView);
             infoName = itemView.findViewById(R.id.info_name);
             infoText = itemView.findViewById(R.id.info_text);
+            if(recyclerViewClickListener != null){
+                itemView.setOnClickListener(v ->  recyclerViewClickListener.onClick(itemView, getAdapterPosition()));
+            }
         }
     }
 }
