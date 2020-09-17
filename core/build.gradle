@@ -94,6 +94,9 @@ dependencies {
     api project.okhttp
     api project.okhttpLogging
 
+    /* Dependency - lottie */
+    api project.lottie
+
     /* Dependency - kotlin */
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api project.kotlinExtension
