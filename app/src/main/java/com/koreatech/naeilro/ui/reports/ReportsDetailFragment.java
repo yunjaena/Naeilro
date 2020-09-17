@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.naeilro.NaeilroApplication;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.reports.Reports;
@@ -38,6 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import kr.co.prnd.readmore.ReadMoreTextView;
 
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_AREA_CODE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
@@ -53,7 +55,7 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
     @BindView(R.id.reports_detail_title)
     TextView reportsDetailTitle;
     @BindView(R.id.reports_detail_overview)
-    TextView reportsDetailOverview;
+    ReadMoreTextView reportsDetailOverview;
     @BindView(R.id.reports_detail_image)
     ImageView reportsImageView;
     @BindView(R.id.reports_detail_tel)
@@ -120,13 +122,13 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
 
     public void init(View view) {
         reportsDetailFragmentPresenter = new ReportsDetailFragmentPresenter(new ReportsRestInteractor(), this);
+        reportsDetailRecyclerView = view.findViewById(R.id.reports_detailInfo_recyclerview);
         contentId = getArguments().getInt("contentId");
         title = getArguments().getString("title");
         contentTitle = title;
         initTMap(view);
         reportsDetailFragmentPresenter.getComonInfo(contentId);
         reportsDetailFragmentPresenter.getDetailInfo(contentId);
-
     }
 
     private void initTMap(View view) {
@@ -139,9 +141,19 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
 
     @Override
     public void showDetailInfoList(List<Reports> reportsList) {
-        reportsDetailRecyclerView = view.findViewById(R.id.reports_detailInfo_recyclerview);
         reportsDetailRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         reportsDetailInfoRecyclerViewAdapter = new ReportsDetailInfoRecyclerViewAdapter(reportsList);
+        reportsDetailInfoRecyclerViewAdapter.setRecyclerViewClickListener(new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                reportsDetailOverview.toggle();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        });
         reportsDetailRecyclerView.setAdapter(reportsDetailInfoRecyclerViewAdapter);
         reportsDetailFragmentPresenter.getImageInfo(contentId);
     }
@@ -207,6 +219,16 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
     private void setSummary(String text) {
         if (text == null) return;
         reportsDetailOverview.setText(fromHtml(text));
+        reportsDetailOverview.setChangeListener(this::toggle);
+        toggle(reportsDetailOverview.getState());
+    }
+
+    private void toggle(ReadMoreTextView.State state){
+        if(state == ReadMoreTextView.State.COLLAPSED){
+            reportsDetailRecyclerView.setVisibility(View.GONE);
+        }else{
+            reportsDetailRecyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
