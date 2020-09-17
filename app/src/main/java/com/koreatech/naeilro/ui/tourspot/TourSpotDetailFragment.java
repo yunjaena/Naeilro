@@ -44,6 +44,7 @@ import java.util.Objects;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import kr.co.prnd.readmore.ReadMoreTextView;
 
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_AREA_CODE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
@@ -60,10 +61,11 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
     /* View component */
     private ImageView tourDetailImage;
     private TextView tourDetailTitle;
-    private TextView tourDetailOverview;
+    private ReadMoreTextView tourDetailOverview;
     private TextView tourDetailInfoTextView;
     private TextView tourTelTextView;
     private TextView tourRestDateTextView;
+    private LinearLayout tourDetailLinearLayout;
     private TextView tourExperienceDetailTextView;
     private TextView tourExperienceAgeTextView;
     private TextView tourPersonLimitTextView;
@@ -151,6 +153,7 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
         tourRestDateTextView = view.findViewById(R.id.tour_rest_date);
         tourDetailInfoTextView = view.findViewById(R.id.tour_detail_info_text_view);
         tourExperienceDetailTextView = view.findViewById(R.id.tour_experience_detail_text_view);
+        tourDetailLinearLayout = view.findViewById(R.id.tour_detail_info_linear_layout);
         tourExperienceAgeTextView = view.findViewById(R.id.tour_experience_age_text_view);
         tourPersonLimitTextView = view.findViewById(R.id.tour_person_limit_text_view);
         tourRunningTimeTextView = view.findViewById(R.id.tour_running_time_text_view);
@@ -166,7 +169,8 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
         tourAddressTextView = view.findViewById(R.id.tour_address_text_view);
         tourDetailMapLinearLayout.setVisibility(View.GONE);
         tourImageLinearLayout.setVisibility(View.GONE);
-
+        tourDetailInfoTextView.setOnClickListener(v -> tourDetailOverview.toggle());
+        tourDetailLinearLayout.setOnClickListener(v -> tourDetailOverview.toggle());
     }
 
     private void initTMap(View view) {
@@ -326,6 +330,21 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
     private void setSummary(String text) {
         if (text == null) return;
         tourDetailOverview.setText(fromHtml(text));
+
+        if(tourDetailOverview.isCollapsed()){
+            tourDetailInfoTextView.setVisibility(View.GONE);
+            tourDetailLinearLayout.setVisibility(View.GONE);
+        }
+
+        tourDetailOverview.setChangeListener(state -> {
+            if(state == ReadMoreTextView.State.COLLAPSED){
+                tourDetailInfoTextView.setVisibility(View.GONE);
+                tourDetailLinearLayout.setVisibility(View.GONE);
+            }else{
+                tourDetailInfoTextView.setVisibility(View.VISIBLE);
+                tourDetailLinearLayout.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void setTitle(String text) {
