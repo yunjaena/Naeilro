@@ -33,6 +33,7 @@ import com.koreatech.naeilro.ui.facility.adapter.FacilityImageRecyclerViewAdapte
 import com.koreatech.naeilro.ui.facility.presenter.FacilityDetailFragmentPresenter;
 import com.koreatech.naeilro.ui.main.MainActivity;
 import com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity;
+import com.koreatech.naeilro.util.SearchKeyWordUtil;
 import com.skt.Tmap.TMapData;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPOIItem;
@@ -59,7 +60,7 @@ import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_
 public class FacilityDetailFragment extends Fragment implements FacilityDetailFragmentContract.View {
     private static final double centerLon = 127.48318433761597;
     private static final double centerLat = 36.41592967015607;
-    private static final int ZOOM_LEVEL = 17;
+    private static final int ZOOM_LEVEL = 15;
     private View view;
     private Unbinder unbinder;
     /* View component */
@@ -95,7 +96,6 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
     private String mapX;
     private String mapY;
     private String areaCode;
-
 
 
     public static Spanned fromHtml(String source) {
@@ -182,10 +182,10 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
         facilityDetailTMapLinearLayout.addView(tMapView);
     }
 
-    private void goToDetailPageByMarker(TMapMarkerItem tMapMarkerItem){
+    private void goToDetailPageByMarker(TMapMarkerItem tMapMarkerItem) {
         String[] s = tMapMarkerItem.getCalloutSubTitle().split(" ");
         String searchName = s[s.length - 1] + " " + tMapMarkerItem.getCalloutTitle();
-        ToastUtil.getInstance().makeShort(searchName);
+        SearchKeyWordUtil.searchByNaver(searchName, getContext());
     }
 
 
@@ -218,10 +218,10 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
         if (selectedTMapMarkerItem == null) return;
         TMapPoint tMapPoint = new TMapPoint(selectedTMapMarkerItem.latitude, selectedTMapMarkerItem.longitude);
         new TMapData().findAroundKeywordPOI(tMapPoint, id, 3, 50, arrayList -> {
-            if(id.equals("편의점")){
+            if (id.equals("편의점")) {
                 removeMapMarkerByID(id);
                 convenienceStoreIDArrayList.addAll(arrayList);
-            }else{
+            } else {
                 removeMapMarkerByID(id);
                 restaurantIDArrayList.addAll(arrayList);
             }
@@ -232,22 +232,22 @@ public class FacilityDetailFragment extends Fragment implements FacilityDetailFr
         });
     }
 
-    private void removeMapMarkerByID(String id){
-        if(id.equals("편의점")){
-            for(TMapPOIItem mapPOIItem : convenienceStoreIDArrayList){
+    private void removeMapMarkerByID(String id) {
+        if (id.equals("편의점")) {
+            for (TMapPOIItem mapPOIItem : convenienceStoreIDArrayList) {
                 tMapView.removeMarkerItem(mapPOIItem.getPOIName());
             }
             convenienceStoreIDArrayList.clear();
-        }else{
-            for(TMapPOIItem mapPOIItem : restaurantIDArrayList){
+        } else {
+            for (TMapPOIItem mapPOIItem : restaurantIDArrayList) {
                 tMapView.removeMarkerItem(mapPOIItem.getPOIName());
             }
             restaurantIDArrayList.clear();
         }
     }
 
-    private void resetPosition(){
-        if(selectedTMapMarkerItem == null) return;
+    private void resetPosition() {
+        if (selectedTMapMarkerItem == null) return;
         tMapView.setCenterPoint(selectedTMapMarkerItem.longitude, selectedTMapMarkerItem.latitude, true);
         tMapView.setZoomLevel(ZOOM_LEVEL);
     }

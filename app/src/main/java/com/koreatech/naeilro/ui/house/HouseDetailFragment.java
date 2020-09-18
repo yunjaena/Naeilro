@@ -30,6 +30,7 @@ import com.koreatech.naeilro.ui.house.adapter.HouseImageRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.house.presenter.HouseDetailFragmentPresenter;
 import com.koreatech.naeilro.ui.main.MainActivity;
 import com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity;
+import com.koreatech.naeilro.util.SearchKeyWordUtil;
 import com.skt.Tmap.TMapData;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPOIItem;
@@ -59,7 +60,7 @@ import static com.koreatech.naeilro.ui.tourspot.TourSpotDetailFragment.fromHtml;
 public class HouseDetailFragment extends Fragment implements HouseDetailFragmentContract.View {
     private static final double centerLon = 127.48318433761597;
     private static final double centerLat = 36.41592967015607;
-    private static final int ZOOM_LEVEL = 17;
+    private static final int ZOOM_LEVEL = 15;
     @BindView(R.id.accomtaion_number)
     TextView accomdationTextView;
     @BindView(R.id.room_type)
@@ -203,7 +204,7 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
     private void goToDetailPageByMarker(TMapMarkerItem tMapMarkerItem){
         String[] s = tMapMarkerItem.getCalloutSubTitle().split(" ");
         String searchName = s[s.length - 1] + " " + tMapMarkerItem.getCalloutTitle();
-        ToastUtil.getInstance().makeShort(searchName);
+        SearchKeyWordUtil.searchByNaver(searchName, getContext());
     }
 
 

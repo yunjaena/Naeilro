@@ -35,6 +35,7 @@ import com.koreatech.naeilro.ui.restraunt.adapater.RestaurantDetailInfoRecyclerV
 import com.koreatech.naeilro.ui.restraunt.adapater.RestaurantImageRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.restraunt.presenter.RestaurantDetailContract;
 import com.koreatech.naeilro.ui.restraunt.presenter.RestaurantDetailPresenter;
+import com.koreatech.naeilro.util.SearchKeyWordUtil;
 import com.skt.Tmap.TMapData;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPOIItem;
@@ -63,7 +64,7 @@ import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_
 public class RestaurantDetailFragment extends Fragment implements RestaurantDetailContract.View {
     private static final double centerLon = 127.48318433761597;
     private static final double centerLat = 36.41592967015607;
-    private static final int ZOOM_LEVEL = 17;
+    private static final int ZOOM_LEVEL = 15;
     @BindView(R.id.rest_parkinlot)
     TextView parkinglotTextView;
     @BindView(R.id.rest_opening)
@@ -224,7 +225,7 @@ public class RestaurantDetailFragment extends Fragment implements RestaurantDeta
     private void goToDetailPageByMarker(TMapMarkerItem tMapMarkerItem) {
         String[] s = tMapMarkerItem.getCalloutSubTitle().split(" ");
         String searchName = s[s.length - 1] + " " + tMapMarkerItem.getCalloutTitle();
-        ToastUtil.getInstance().makeShort(searchName);
+        SearchKeyWordUtil.searchByNaver(searchName, getContext());
     }
 
 

@@ -33,6 +33,7 @@ import com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity;
 import com.koreatech.naeilro.ui.reports.adapter.ReportsDetailInfoRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.reports.adapter.ReportsImageRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.reports.presenter.ReportsDetailFragmentPresenter;
+import com.koreatech.naeilro.util.SearchKeyWordUtil;
 import com.skt.Tmap.TMapData;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPOIItem;
@@ -60,7 +61,7 @@ import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_
 public class ReportsDetailFragment extends Fragment implements ReportsDetailFragmentContract.View {
     private static final double centerLon = 127.48318433761597;
     private static final double centerLat = 36.41592967015607;
-    private static final int ZOOM_LEVEL = 17;
+    private static final int ZOOM_LEVEL = 15;
     @BindView(R.id.reports_detail_title)
     TextView reportsDetailTitle;
     @BindView(R.id.reports_detail_overview)
@@ -167,7 +168,7 @@ public class ReportsDetailFragment extends Fragment implements ReportsDetailFrag
     private void goToDetailPageByMarker(TMapMarkerItem tMapMarkerItem){
         String[] s = tMapMarkerItem.getCalloutSubTitle().split(" ");
         String searchName = s[s.length - 1] + " " + tMapMarkerItem.getCalloutTitle();
-        ToastUtil.getInstance().makeShort(searchName);
+        SearchKeyWordUtil.searchByNaver(searchName, getContext());
     }
 
 

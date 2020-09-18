@@ -36,6 +36,7 @@ import com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity;
 import com.koreatech.naeilro.ui.tourspot.adapter.TourDetailImageRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.tourspot.presenter.TourSpotDetailContract;
 import com.koreatech.naeilro.ui.tourspot.presenter.TourSpotDetailPresenter;
+import com.koreatech.naeilro.util.SearchKeyWordUtil;
 import com.skt.Tmap.TMapData;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPOIItem;
@@ -62,7 +63,7 @@ import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_
 public class TourSpotDetailFragment extends Fragment implements TourSpotDetailContract.View {
     private static final double centerLon = 127.48318433761597;
     private static final double centerLat = 36.41592967015607;
-    private static final int ZOOM_LEVEL = 17;
+    private static final int ZOOM_LEVEL = 15;
 
     /* View component */
     private ImageView tourDetailImage;
@@ -213,7 +214,7 @@ public class TourSpotDetailFragment extends Fragment implements TourSpotDetailCo
     private void goToDetailPageByMarker(TMapMarkerItem tMapMarkerItem) {
         String[] s = tMapMarkerItem.getCalloutSubTitle().split(" ");
         String searchName = s[s.length - 1] + " " + tMapMarkerItem.getCalloutTitle();
-        ToastUtil.getInstance().makeShort(searchName);
+        SearchKeyWordUtil.searchByNaver(searchName, getContext());
     }
 
 
