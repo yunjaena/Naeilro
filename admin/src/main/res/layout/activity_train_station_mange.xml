@@ -108,5 +108,13 @@
         android:orientation="vertical"
         android:text="추가하기" />
 
+    <Button
+        android:id="@+id/restaurant_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:text="주변음식점" />
+
 
 </LinearLayout>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.reports.ReportsDetailFragment">
 
     <FrameLayout
@@ -14,8 +14,8 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="10dp"
-            android:layout_marginBottom="@dimen/bottom_navigation_height">
+            android:layout_marginBottom="@dimen/bottom_navigation_height"
+            android:paddingBottom="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,8 +34,8 @@
                 <ImageView
                     android:id="@+id/reports_detail_image"
                     android:layout_width="match_parent"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_height="300dp" />
+                    android:layout_height="300dp"
+                    android:layout_marginHorizontal="20dp" />
 
 
                 <TextView
@@ -90,15 +90,17 @@
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="위치"
-                    android:textStyle="bold"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
+                    android:text="위치"
                     android:textColor="@color/black"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:id="@+id/reports_detail_map_linear_layout"
                     android:layout_width="match_parent"
@@ -124,10 +126,53 @@
                         android:textStyle="bold"
                         tools:text="address" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="음식점" />
+
+                        <CheckBox
+                            android:id="@+id/restaurant_check_box"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginStart="10dp"
+                            android:checked="false" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="편의점" />
+
+                        <CheckBox
+                            android:id="@+id/convenience_store_check_box"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginStart="10dp"
+                            android:checked="false" />
+
+                        <TextView
+                            android:id="@+id/reset_text_view"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="초기화"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"/>
+                    android:layout_height="48dp" />
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
@@ -141,8 +186,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
             android:layout_marginBottom="10dp"
+            android:background="@android:color/transparent"
             android:gravity="bottom">
 
             <LinearLayout

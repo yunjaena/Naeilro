@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.festival.FestivalDetailFragment">
 
     <FrameLayout
@@ -14,8 +14,8 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="10dp"
-            android:layout_marginBottom="@dimen/bottom_navigation_height">
+            android:layout_marginBottom="@dimen/bottom_navigation_height"
+            android:paddingBottom="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,8 +35,8 @@
                 <ImageView
                     android:id="@+id/festival_detail_image"
                     android:layout_width="match_parent"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_height="300dp" />
+                    android:layout_height="300dp"
+                    android:layout_marginHorizontal="20dp" />
 
 
                 <kr.co.prnd.readmore.ReadMoreTextView
@@ -52,15 +52,16 @@
                     app:readMoreMaxLine="4"
                     app:readMoreText="…더보기"
                     tools:text="소개 : 서울시 강서구 화곡동에 위치한 KORSTAY는 최신식 시설의 쾌적한 공간에 안전한 숙박과 개인의 프라이버시를 보장받을 수 있도록 마련된 숙소이다. 일행이 아닌 다른 사람들과의 분리를 통해 독립적인 공간(침실,화장실)이 마련되어 있는 내 집같은 편안한 휴식을 제공한다. 김포공항은 물론 인천공항 통해 여행을 즐기는 여행객에게 최적의 장소가 될 것이다. 지하철 까치산역에서도 도보로 10분 거리에 있어 교통의 편리함도 더해준다." />
+
                 <TextView
                     android:id="@+id/festival_info_korean_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="행사정보"
-                    android:textStyle="bold"
                     android:layout_margin="20dp"
+                    android:text="행사정보"
                     android:textColor="@color/black"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/festival_info_linear_layout"
@@ -72,8 +73,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -94,8 +95,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -116,8 +117,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -138,8 +139,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -160,8 +161,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -182,8 +183,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -204,8 +205,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -225,14 +226,16 @@
 
 
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="위치"
-                    android:textStyle="bold"
                     android:layout_margin="20dp"
+                    android:text="위치"
                     android:textColor="@color/black"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:id="@+id/festival_detail_map_linear_layout"
                     android:layout_width="match_parent"
@@ -259,10 +262,54 @@
                         tools:text="address" />
 
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="음식점" />
+
+                        <CheckBox
+                            android:id="@+id/restaurant_check_box"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginStart="10dp"
+                            android:checked="false" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="편의점" />
+
+                        <CheckBox
+                            android:id="@+id/convenience_store_check_box"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginStart="10dp"
+                            android:checked="false" />
+
+                        <TextView
+                            android:id="@+id/reset_text_view"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="초기화"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"/>
+                    android:layout_height="48dp" />
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
