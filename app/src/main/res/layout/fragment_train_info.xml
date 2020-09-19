@@ -9,155 +9,155 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="10">
-
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="기차정보"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_margin="15dp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="9"
-            android:gravity="center">
-
-
+            android:layout_height="160dp"
+            android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical">
-
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/train_departure_station"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/train_depart_station_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="@string/train_departure_station_select"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
+                    android:textSize="16sp"
+                    android:text="출발"
+                    android:textColor="@color/black"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/train_depart_station_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="horizontal">
+                    android:gravity="center"
+                    android:text="출발역"
+                    android:textColor="@color/blue6"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/train_arrival_station"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
 
-                    <TextView
-                        android:id="@+id/train_arrival_station_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="@string/train_arrival_station_select"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/train_departure_date"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/train_depart_date_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="@string/train_departure_date_select"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/train_type"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/train_type_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="@string/train_type_select"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_arrow_forward_black_18dp">
 
-        <LinearLayout
-            android:id="@+id/train_search_linear_layout"
+            </ImageView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="16sp"
+                    android:text="도착"
+                    android:textColor="@color/black"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/train_arrival_station_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="도착역"
+                    android:textColor="@color/blue6"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="5dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/line_gray5_3dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="출발일"
+            android:textColor="@color/blue6"
+            android:gravity="center_horizontal"
+            android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/train_depart_date_text_view"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/train_departure_date_select"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/line_gray5_3dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="기차 종류"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/blue6"
+            android:gravity="center_horizontal"
+            android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/train_type_text_view"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="16dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/train_type_select"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/line_gray5_3dp" />
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_height="match_parent">
 
 
             <TextView
+                android:id="@+id/train_search_linear_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:background="@color/orange"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_rect_boundary_blue6_radius24dp"
                 android:gravity="center"
+                android:layout_margin="10dp"
                 android:text="@string/train_info_search"
                 android:textColor="@color/white"
+                android:layout_gravity="bottom"
                 android:textSize="20sp" />
         </LinearLayout>
+
+
 
     </LinearLayout>
 
