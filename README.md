@@ -16,7 +16,7 @@
 <p align="center">
   • <a href="#about">About</a>
   • <a href="#usage">Usage</a>
-  • <a href="#Screen shot">Screen shot</a>
+  • <a href="#screen-shot">Screen shot</a>
   • <a href="#Team">Team</a>
   • <a href="#license">License</a>
 </p>
