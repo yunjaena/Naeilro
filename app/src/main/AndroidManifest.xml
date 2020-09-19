@@ -34,6 +34,9 @@
         <activity
             android:name=".ui.myplan.MyPlanRecommendPathActivity"
             android:theme="@style/AppTheme.Transparent" />
+        <activity
+            android:name=".ui.train.TrainStationBottomSheetActivity"
+            android:theme="@style/AppTheme.Transparent" />
     </application>
 
 </manifest>

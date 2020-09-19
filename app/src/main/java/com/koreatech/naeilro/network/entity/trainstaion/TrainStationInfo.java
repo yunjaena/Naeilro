@@ -4,7 +4,7 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 @Root(name = "item")
-public class TrainStationInfo {
+public class TrainStationInfo implements Comparable<TrainStationInfo>{
     @Element(name = "nodeid")
     private String stationCode;
     @Element(name = "nodename")
@@ -24,6 +24,11 @@ public class TrainStationInfo {
 
     public void setStationName(String stationName) {
         this.stationName = stationName;
+    }
+
+    @Override
+    public int compareTo(TrainStationInfo o) {
+        return getStationName().compareTo(o.getStationName());
     }
 
     @Override

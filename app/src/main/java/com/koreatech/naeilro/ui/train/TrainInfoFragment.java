@@ -1,6 +1,7 @@
 package com.koreatech.naeilro.ui.train;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.koreatech.core.toast.ToastUtil;
@@ -32,9 +33,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class TrainInfoFragment extends Fragment implements TrainInfoFragmentContract.View, TrainStationSelectDialog.DialogCallback, TrainTypeSelectDialog.DialogCallback, View.OnClickListener {
     public static final String TAG = "TrainInfoFragment";
+    public static final int TRAIN_ARRIVAL_REQUEST_CODE = 100;
+    public static final int TRAIN_DEPARTURE_REQUEST_CODE = 101;
+    public static final int TRAIN_CODE_REQUEST_CODE = 102;
     private TrainInfoFragmentPresenter trainInfoFragmentPresenter;
     private List<TrainInfo> trainInfoList;
     private List<TrainStationInfo> trainStationInfoList;
@@ -157,20 +163,45 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
     }
 
     public void openTrainStationSelectDialog(boolean isDepart) {
-        TrainStationSelectDialog trainStationSelectDialog = new TrainStationSelectDialog(getActivity(), isDepart, this, trainStationInfoList);
-        trainStationSelectDialog.show();
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
+//        TrainStationSelectDialog trainStationSelectDialog = new TrainStationSelectDialog(getActivity(), isDepart, this, trainStationInfoList);
+//        trainStationSelectDialog.show();
+//        Display display = getActivity().getWindowManager().getDefaultDisplay();
+//        Point size = new Point();
+//        display.getSize(size);
+//
+//        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+//        lp.copyFrom(trainStationSelectDialog.getWindow().getAttributes());
+//        lp.width = (int) (size.x * 0.9f);
+//        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+//
+//        trainStationSelectDialog.show();
+//        Window window = trainStationSelectDialog.getWindow();
+//        window.setAttributes(lp);
 
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(trainStationSelectDialog.getWindow().getAttributes());
-        lp.width = (int) (size.x * 0.9f);
-        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
 
-        trainStationSelectDialog.show();
-        Window window = trainStationSelectDialog.getWindow();
-        window.setAttributes(lp);
+        Intent intent = new Intent(getActivity(), TrainStationBottomSheetActivity.class);
+        intent.putExtra("RECYCLER_VIEW_TEXT", "기차역");
+        intent.putStringArrayListExtra("LIST", getTrainStationList());
+        if (isDepart) {
+            intent.putExtra("TITLE", "출발역");
+            intent.putExtra("INPUT", "역명을 입력해주세요");
+            startActivityForResult(intent, TRAIN_DEPARTURE_REQUEST_CODE);
+        } else {
+            intent.putExtra("title", "도착역");
+            intent.putExtra("INPUT", "역명을 입력해주세요");
+            startActivityForResult(intent, TRAIN_ARRIVAL_REQUEST_CODE);
+        }
+
+    }
+
+    private ArrayList<String> getTrainStationList() {
+        ArrayList<String> trainStationList = new ArrayList<>();
+        if (trainStationInfoList != null) {
+            for (TrainStationInfo trainStation : trainStationInfoList) {
+                trainStationList.add(trainStation.getStationName());
+            }
+        }
+        return trainStationList;
     }
 
     public void openTrainTypeSelectDialog() {
@@ -261,5 +292,22 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
         datePickerDialog.show();
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ToastUtil.getInstance().makeShort(requestCode + " : " + resultCode);
+        if (resultCode == RESULT_OK && data != null) {
+            int selectIndex = data.getIntExtra("RESULT", 0);
+            switch (requestCode) {
+                case TRAIN_ARRIVAL_REQUEST_CODE:
+                    stationItemSelect(selectIndex, false);
+                    break;
+                case TRAIN_DEPARTURE_REQUEST_CODE:
+                    stationItemSelect(selectIndex, true);
+                    break;
+                case TRAIN_CODE_REQUEST_CODE:
+                    break;
+            }
+        }
+    }
 }
