@@ -262,6 +262,7 @@ public class KoreanIndexerRecyclerView extends RecyclerView {
 
         indexList.clear();
         indexList.trimToSize();
+        postInvalidate();
     }
 
     @Override
