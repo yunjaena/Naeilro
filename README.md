@@ -53,18 +53,18 @@
 
 ## Screen shot
 <p align="center">
-        <img src="./img/1.png" width="200" alt="1.png">&nbsp;&nbsp;&nbsp;
-        <img src="./img/2.png" width="200" alt="1.png">&nbsp;&nbsp;&nbsp;
-        <img src="./img/3.png" width="200" alt="1.png">&nbsp;&nbsp;&nbsp;
-        <img src="./img/4.png" width="200" alt="1.png">&nbsp;&nbsp;&nbsp;<br>
-        <img src="./img/5.png" width="200" alt="1.png">&nbsp;&nbsp;&nbsp;
-        <img src="./img/6.png" width="200" alt="1.png">&nbsp;&nbsp;&nbsp;
-        <img src="./img/7.png" width="200" alt="1.png">&nbsp;&nbsp;&nbsp;
-        <img src="./img/8.png" width="200" alt="1.png">&nbsp;&nbsp;&nbsp;<br>
-        <img src="./img/9.png" width="200" alt="1.png">&nbsp;&nbsp;&nbsp;
-        <img src="./img/10.png" width="200" alt="1.png">&nbsp;&nbsp;&nbsp;
-        <img src="./img/11.png" width="200" alt="1.png">&nbsp;&nbsp;&nbsp;
-        <img src="./img/12.png" width="200" alt="1.png">&nbsp;&nbsp;&nbsp;<br>
+        <img src="./img/1.png" width="20%" alt="1.png">&nbsp;&nbsp;&nbsp;
+        <img src="./img/2.png" width="20%" alt="1.png">&nbsp;&nbsp;&nbsp;
+        <img src="./img/3.png" width="20%" alt="1.png">&nbsp;&nbsp;&nbsp;
+        <img src="./img/4.png" width="20%" alt="1.png">&nbsp;&nbsp;&nbsp;<br>
+        <img src="./img/5.png" width="20%" alt="1.png">&nbsp;&nbsp;&nbsp;
+        <img src="./img/6.png" width="20%" alt="1.png">&nbsp;&nbsp;&nbsp;
+        <img src="./img/7.png" width="20%" alt="1.png">&nbsp;&nbsp;&nbsp;
+        <img src="./img/8.png" width="20%" alt="1.png">&nbsp;&nbsp;&nbsp;<br>
+        <img src="./img/9.png" width="20%" alt="1.png">&nbsp;&nbsp;&nbsp;
+        <img src="./img/10.png" width="20%" alt="1.png">&nbsp;&nbsp;&nbsp;
+        <img src="./img/11.png" width="20%" alt="1.png">&nbsp;&nbsp;&nbsp;
+        <img src="./img/12.png" width="20%" alt="1.png">&nbsp;&nbsp;&nbsp;<br>
 </p>
 
 
