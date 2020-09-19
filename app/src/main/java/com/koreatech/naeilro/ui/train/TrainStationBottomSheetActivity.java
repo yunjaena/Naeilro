@@ -109,7 +109,6 @@ public class TrainStationBottomSheetActivity extends ActivityBase {
                         break;
                     case STATE_HIDDEN:
                         finish();
-                        overridePendingTransition(0, 0);
                         break;
                 }
             }
@@ -125,6 +124,7 @@ public class TrainStationBottomSheetActivity extends ActivityBase {
         koreanIndexerRecyclerView.setKeywordList(searchStringList);
         koreanIndexerRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         koreanIndexerRecyclerView.setOnItemClickListener(i -> {
+            if(i < 0) return;
             Intent intent = new Intent();
             for (int index = 0; index < stringList.size(); index++) {
                 if (stringList.get(index).equals(searchStringList.get(i))) {
@@ -176,5 +176,11 @@ public class TrainStationBottomSheetActivity extends ActivityBase {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.heightPixels;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
     }
 }

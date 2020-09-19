@@ -281,4 +281,10 @@ public class MyPlanRecommendPathActivity extends ActivityBase implements MyPlanR
     public void setPresenter(MyPlanRecommendPathPresenter presenter) {
         this.myPlanRecommendPathPresenter = presenter;
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
 }
