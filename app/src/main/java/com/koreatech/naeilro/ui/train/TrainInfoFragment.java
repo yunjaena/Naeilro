@@ -42,7 +42,7 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
     private TextView arrivalStationTextView;
     private TextView departDateTextView;
     private TextView trainTypeTextView;
-    private LinearLayout searchLinearLayout;
+    private TextView searchLinearLayout;
     private int departStation;
     private int arrivalStation;
     private String departDate;
