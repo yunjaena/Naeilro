@@ -236,4 +236,10 @@ public class MyPlanBottomSheetActivity extends ActivityBase implements MyPlanBot
     public void onBackPressed() {
         behavior.setState(STATE_HIDDEN);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
 }

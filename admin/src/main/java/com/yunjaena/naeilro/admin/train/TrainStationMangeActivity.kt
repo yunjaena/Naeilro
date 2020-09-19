@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import com.koreatech.core.toast.ToastUtil
 import com.skt.Tmap.TMapData
@@ -36,9 +37,11 @@ class TrainStationMangeActivity : AppCompatActivity(), TMapView.OnCalloutRightBu
     private lateinit var tMapLinearLayout: LinearLayout
     private lateinit var coordinateTextView: TextView
     private lateinit var addButton: Button
+    private lateinit var restaurantButton: Button
     private lateinit var tMapView: TMapView
     private var selectedLatitude: Double? = null
     private var selectedLongitude: Double? = null
+    private var tMapMarker: TMapMarkerItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +88,7 @@ class TrainStationMangeActivity : AppCompatActivity(), TMapView.OnCalloutRightBu
         searchButton = search_button
         tMapLinearLayout = t_map_linear_layout
         coordinateTextView = coordinate_text_view
+        restaurantButton = restaurant_button
         addButton = add_button
         searchButton.setOnClickListener {
             if (searchEditText.text.toString().isNotEmpty()) {
@@ -96,9 +100,30 @@ class TrainStationMangeActivity : AppCompatActivity(), TMapView.OnCalloutRightBu
             moveToSelectedCurrentMarker()
         }
         addButton.setOnClickListener {
-            onClickedCoordinateButton();
+            onClickedCoordinateButton()
+        }
+        restaurantButton.setOnClickListener {
+            searchNearRestaurant()
         }
 
+    }
+
+    private fun searchNearRestaurant() {
+        tMapMarker?.let {
+            findWithPosition("음식점", it.latitude, it.longitude)
+        }
+    }
+
+
+    private fun findWithPosition(name: String, latitude: Double, longitude: Double) {
+        var point: TMapPoint = TMapPoint(latitude, longitude)
+        var tmapData = TMapData()
+        tmapData.findAroundNamePOI(point, name, 3, 100) {
+            for (item in it) {
+                addPin(item.poiName, item.poiAddress?: "", item.poiPoint.longitude, item.poiPoint.latitude, R.drawable.icon_marker)
+
+            }
+        }
     }
 
     private fun searchPOIByKeyWord(keyWord: String) {
@@ -107,19 +132,21 @@ class TrainStationMangeActivity : AppCompatActivity(), TMapView.OnCalloutRightBu
         tMapView.zoomLevel = 12
         tMapData.findAllPOI(keyWord) {
             for (tMapPOIItem in it) {
-                addPin(tMapPOIItem.poiName.toString(), tMapPOIItem.poiPoint.longitude, tMapPOIItem.poiPoint.latitude)
+                addPin(tMapPOIItem.poiName.toString(), tMapPOIItem.poiAddress?: "", tMapPOIItem.poiPoint.longitude, tMapPOIItem.poiPoint.latitude, R.drawable.map_marker)
             }
         }
     }
 
     override fun onCalloutRightButton(p0: TMapMarkerItem?) {
         selectCoordinate(p0!!.longitude, p0!!.latitude)
+        tMapMarker = p0
+
     }
 
-    fun addPin(name: String, longitude: Double, latitude: Double) {
+    fun addPin(name: String, subTitle: String, longitude: Double, latitude: Double, @DrawableRes drawable: Int) {
         val markerItem1 = TMapMarkerItem()
         val tMapPoint1 = TMapPoint(latitude, longitude) // SKT타워
-        val bitmap: Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.map_marker)
+        val bitmap: Bitmap = BitmapFactory.decodeResource(context.getResources(), drawable)
         val markerBitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false)
         val selectBitmap: Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_arrow_forward_white_36dp)
         val callOutSelectBitmap = Bitmap.createScaledBitmap(selectBitmap, 50, 50, false)
@@ -130,6 +157,7 @@ class TrainStationMangeActivity : AppCompatActivity(), TMapView.OnCalloutRightBu
         markerItem1.canShowCallout = true
         markerItem1.enableClustering = true
         markerItem1.calloutTitle = name
+        markerItem1.calloutSubTitle = subTitle
         markerItem1.calloutRightButtonImage = callOutSelectBitmap
         tMapView.addMarkerItem(name, markerItem1) // 지도에 마커 추가
         tMapView.setCenterPoint(longitude, latitude)

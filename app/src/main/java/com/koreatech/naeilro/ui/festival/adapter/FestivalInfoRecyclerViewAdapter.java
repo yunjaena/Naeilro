@@ -14,6 +14,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.event.Festival;
 import com.koreatech.naeilro.ui.main.MainActivity;
@@ -22,14 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FestivalInfoRecyclerViewAdapter extends RecyclerView.Adapter<FestivalInfoRecyclerViewAdapter.ViewHolder> {
-    private List<Festival> festivalList;
     NavController navController;
     Context context;
+    private List<Festival> festivalList;
 
     public FestivalInfoRecyclerViewAdapter(Context context) {
         this.context = context;
         festivalList = new ArrayList<>();
-        navController = Navigation.findNavController((MainActivity)context, R.id.nav_host_fragment);
+        navController = Navigation.findNavController((MainActivity) context, R.id.nav_host_fragment);
     }
 
     @NonNull
@@ -43,27 +45,30 @@ public class FestivalInfoRecyclerViewAdapter extends RecyclerView.Adapter<Festiv
     public void onBindViewHolder(@NonNull FestivalInfoRecyclerViewAdapter.ViewHolder holder, int position) {
         Festival festivalInfo = festivalList.get(position);
         holder.setIsRecyclable(false);
-        if(festivalInfo.getTitle() != null)
+        if (festivalInfo.getTitle() != null)
             holder.festivalTitleTextView.setText(festivalInfo.getTitle());
         else
             holder.festivalTitleTextView.setText("행사명이 등록되지 않았습니다.");
-        if(festivalInfo.getAddr1() != null)
+        if (festivalInfo.getAddr1() != null)
             holder.festivalAddressTextView.setText(festivalInfo.getAddr1());
         else
             holder.festivalAddressTextView.setText("주소가 등록되지 않았습니다.");
-        if(festivalInfo.getTel() != null)
+        if (festivalInfo.getTel() != null)
             holder.festivalTelTextView.setText(festivalInfo.getTel());
         else
-            holder.festivalTelTextView.setText("전화번호가 등록되지 않았습니다.");
-        if(festivalInfo.getFirstimage() != null){
+            holder.festivalTelTextView.setText("");
+        if (festivalInfo.getFirstimage() != null) {
             Glide.with(holder.festivalImageView)
                     .load(festivalInfo.getFirstimage())
                     .into(holder.festivalImageView);
-        }else
+        } else
             Glide.with(holder.festivalImageView)
                     .load(R.drawable.ic_no_image)
+                    .thumbnail(0.05f)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
                     .into(holder.festivalImageView);
-        holder.view.setOnClickListener(new View.OnClickListener(){
+        holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
@@ -79,13 +84,15 @@ public class FestivalInfoRecyclerViewAdapter extends RecyclerView.Adapter<Festiv
         });
 
     }
-    public void addItem(List<Festival> item){
-        for(int i=0;i<item.size();i++){
+
+    public void addItem(List<Festival> item) {
+        for (int i = 0; i < item.size(); i++) {
             festivalList.add(item.get(i));
         }
         notifyDataSetChanged();
     }
-    public void clearItem(){
+
+    public void clearItem() {
         festivalList.clear();
     }
 
@@ -93,13 +100,14 @@ public class FestivalInfoRecyclerViewAdapter extends RecyclerView.Adapter<Festiv
     public int getItemCount() {
         return festivalList.size();
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public final View view;
         public TextView festivalTitleTextView;
         public TextView festivalAddressTextView;
         public TextView festivalTelTextView;
         public TextView festivalColorTextView;
         public ImageView festivalImageView;
-        public final View view;
 
 
         public ViewHolder(@NonNull View itemView) {

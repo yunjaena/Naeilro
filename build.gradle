@@ -72,6 +72,10 @@ ext {
     butterknife = "com.jakewharton:butterknife:$butterknife_version"
     butterknifeAnnotation = "com.jakewharton:butterknife-compiler:$butterknife_version"
 
+    /* Dependency - lottie */
+    def lottie_verison = "3.4.2"
+    lottie = "com.airbnb.android:lottie:$lottie_verison"
+
     /* Dependency - okhttp */
     def okhttp_version = "3.4.2"
     okhttp = "com.squareup.okhttp3:okhttp:$okhttp_version"

@@ -11,6 +11,7 @@ import com.koreatech.naeilro.network.entity.myplan.MyPlan;
 import com.koreatech.naeilro.network.entity.myplan.MyPlanNode;
 import com.koreatech.naeilro.network.entity.myplan.MyPlanNodeResponse;
 import com.koreatech.naeilro.network.entity.myplan.MyPlanResponse;
+import com.koreatech.naeilro.network.entity.myplan.RecommendPath;
 import com.koreatech.naeilro.network.service.MyPlanService;
 
 import org.json.JSONObject;
@@ -28,7 +29,7 @@ import okhttp3.RequestBody;
 import retrofit2.HttpException;
 
 public class MyPlanRestInteractor implements MyPlanInteractor {
-    public static final String TAG = "MyPlanRestInteractor";
+    public static final String TAG = "MyPlanRestInteractor" ;
 
     @Override
     public void createNode(ApiCallback apiCallback, String planNumber, String contentID, String contentType, String contentTitle, String contentThumbnail, Float mapX, Float mapY, String areaCode) {
@@ -394,6 +395,51 @@ public class MyPlanRestInteractor implements MyPlanInteractor {
                             apiCallback.onSuccess(defaultMessage);
                         } else
                             apiCallback.onFailure(new Throwable(defaultMessage.getMessage()));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (e instanceof HttpException) {
+                            Log.d("TAG", ((HttpException) e).code() + " ");
+                        }
+                        apiCallback.onFailure(new Throwable("통신에 실패하였습니다."));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
+    public void getRecommendPath(ApiCallback apiCallback, String planNumber, String departNodeNumber, String arriveNodeNumber) {
+        Map<String, Object> jsonObject = new ArrayMap<>();
+        jsonObject.put("plan_no", planNumber);
+        jsonObject.put("depart_node_no", departNodeNumber);
+        jsonObject.put("arrive_node_no", arriveNodeNumber);
+
+        String token = JWTTokenManager.getInstance().getAccessToken();
+        if (token == null) {
+            apiCallback.onFailure(new Throwable("세션이 만료되었습니다."));
+            return;
+        }
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), (new JSONObject(jsonObject)).toString());
+        MyPlanRetrofitManager.getInstance().getRetrofit().create(MyPlanService.class).getRecommendPath(MyPlanRetrofitManager.addAuthorizationBearer(token), body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<RecommendPath>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<RecommendPath> recommendPath) {
+                        if (recommendPath != null) {
+                            apiCallback.onSuccess(recommendPath);
+                        } else
+                            apiCallback.onFailure(new Throwable("통신에 실패하였습니다."));
                     }
 
                     @Override

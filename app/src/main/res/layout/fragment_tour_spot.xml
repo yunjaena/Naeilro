@@ -9,44 +9,58 @@
         android:layout_marginBottom="@dimen/bottom_navigation_height"
         android:orientation="vertical">
 
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/bg_rect_boundary_gray5_4dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:background="@color/gray3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:padding="5dp"
+                android:text="관광지"
                 android:textSize="16sp"
-                android:text="관강지" />
+                android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/city_spinner"
-                android:layout_width="130dp"
-                android:layout_height="match_parent"
-                android:dropDownWidth="100dp"
-                android:dropDownHeight="150dp"
-                android:entries="@array/city_name_array"
-                android:textColor="@color/black" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_rect_boundary_gray5_4dp"
+                android:orientation="horizontal"
+                android:weightSum="10">
 
-            <Spinner
-                android:id="@+id/detail_city_spinner"
-                android:layout_width="130dp"
-                android:layout_height="match_parent"
-                android:dropDownWidth="100dp"
-                android:textColor="@color/black" />
+                <Spinner
+                    android:id="@+id/city_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:dropDownWidth="100dp"
+                    android:dropDownHeight="150dp"
+                    android:entries="@array/city_name_array"
+                    android:textColor="@color/black" />
 
-            <Button
-                android:id="@+id/search_tour"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:text="검색" />
+                <Spinner
+                    android:id="@+id/detail_city_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:dropDownWidth="100dp"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/search_tour"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:padding="1dp"
+                    android:text="검색" />
+            </LinearLayout>
         </LinearLayout>
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tour_info_recycler_view"

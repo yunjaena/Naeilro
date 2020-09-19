@@ -1,14 +1,18 @@
 package com.koreatech.naeilro.ui.house;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.koreatech.core.recyclerview.RecyclerViewClickListener;
+import com.koreatech.core.toast.ToastUtil;
 import com.koreatech.naeilro.NaeilroApplication;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.house.HouseInfo;
@@ -25,7 +30,10 @@ import com.koreatech.naeilro.ui.house.adapter.HouseImageRecyclerViewAdapter;
 import com.koreatech.naeilro.ui.house.presenter.HouseDetailFragmentPresenter;
 import com.koreatech.naeilro.ui.main.MainActivity;
 import com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity;
+import com.koreatech.naeilro.util.SearchKeyWordUtil;
+import com.skt.Tmap.TMapData;
 import com.skt.Tmap.TMapMarkerItem;
+import com.skt.Tmap.TMapPOIItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
 
@@ -37,6 +45,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import kr.co.prnd.readmore.ReadMoreTextView;
 
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_AREA_CODE;
 import static com.koreatech.naeilro.ui.myplan.MyPlanBottomSheetActivity.CONTENT_ID;
@@ -51,6 +60,7 @@ import static com.koreatech.naeilro.ui.tourspot.TourSpotDetailFragment.fromHtml;
 public class HouseDetailFragment extends Fragment implements HouseDetailFragmentContract.View {
     private static final double centerLon = 127.48318433761597;
     private static final double centerLat = 36.41592967015607;
+    private static final int ZOOM_LEVEL = 15;
     @BindView(R.id.accomtaion_number)
     TextView accomdationTextView;
     @BindView(R.id.room_type)
@@ -75,12 +85,21 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
     TextView camfireTextView;
     @BindView(R.id.pick_up)
     TextView pickUpTextView;
+    private CheckBox restaurantCheckBox;
+    private CheckBox convenienceStoreCheckBox;
+    private TextView resetMapTextView;
+    private TMapMarkerItem selectedTMapMarkerItem;
+    private ArrayList<TMapPOIItem> restaurantIDArrayList;
+    private ArrayList<TMapPOIItem> convenienceStoreIDArrayList;
+
     private View view;
     private Unbinder unbinder;
     private ImageView houseDetailImage;
     private TextView houseDetailTitle;
-    private TextView houseDetailOverview;
+    private ReadMoreTextView houseDetailOverview;
     private TextView houseDetailInfoTextView;
+    private LinearLayout houseDetailLinearLayout;
+    private TextView houseDetailInfoKoreanTextView;
     private LinearLayout houseImageLinearLayout;
     private ImageView houseExtraImageView;
     private RecyclerView houseExtraImageRecyclerView;
@@ -129,6 +148,8 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
 
 
     public void init(View view) {
+        restaurantIDArrayList = new ArrayList<>();
+        convenienceStoreIDArrayList = new ArrayList<>();
         imagehouseInfoList = new ArrayList<>();
         initView(view);
         initTMap(view);
@@ -144,6 +165,8 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
         houseDetailTitle = view.findViewById(R.id.house_detail_title);
         houseDetailOverview = view.findViewById(R.id.house_detail_overview);
         houseDetailInfoTextView = view.findViewById(R.id.house_detail_info_text_view);
+        houseDetailInfoKoreanTextView = view.findViewById(R.id.house_detail_info_korean_text_view);
+        houseDetailLinearLayout = view.findViewById(R.id.house_detail_linear_layout);
         houseImageLinearLayout = view.findViewById(R.id.house_image_linear_layout);
         houseExtraImageView = view.findViewById(R.id.house_extra_image_view);
         houseExtraImageRecyclerView = view.findViewById(R.id.house_extra_image_recycler_view);
@@ -152,7 +175,15 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
         houseAddressTextView = view.findViewById(R.id.house_address_text_view);
         houseDetailMapLinearLayout.setVisibility(View.GONE);
         houseImageLinearLayout.setVisibility(View.GONE);
-
+        houseDetailInfoTextView.setOnClickListener(v -> houseDetailOverview.toggle());
+        houseDetailInfoKoreanTextView.setOnClickListener(v -> houseDetailOverview.toggle());
+        houseDetailLinearLayout.setOnClickListener(v -> houseDetailOverview.toggle());
+        restaurantCheckBox = view.findViewById(R.id.restaurant_check_box);
+        convenienceStoreCheckBox = view.findViewById(R.id.convenience_store_check_box);
+        resetMapTextView = view.findViewById(R.id.reset_text_view);
+        restaurantCheckBox.setOnCheckedChangeListener(this::setRestaurantCheckBox);
+        convenienceStoreCheckBox.setOnCheckedChangeListener(this::setConvenienceStoreCheckBox);
+        resetMapTextView.setOnClickListener(v -> resetPosition());
 
     }
 
@@ -160,6 +191,7 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
         tMapView = new TMapView(Objects.requireNonNull(getActivity()));
         tMapView.setSKTMapApiKey(NaeilroApplication.getTMapApiKey());
         tMapView.setCenterPoint(centerLon, centerLat);
+        tMapView.setOnCalloutRightButtonClickListener(this::goToDetailPageByMarker);
         houseDetailTMapLinearLayout.addView(tMapView);
 
     }
@@ -169,10 +201,96 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
         houseAddressTextView.setText(address);
     }
 
+    private void goToDetailPageByMarker(TMapMarkerItem tMapMarkerItem){
+        String[] s = tMapMarkerItem.getCalloutSubTitle().split(" ");
+        String searchName = s[s.length - 1] + " " + tMapMarkerItem.getCalloutTitle();
+        SearchKeyWordUtil.searchByNaver(searchName, getContext());
+    }
+
+
+    public void setRestaurantCheckBox(View view, boolean isChecked) {
+        String id = "음식점";
+        if (selectedTMapMarkerItem == null) return;
+        if (isChecked) {
+            findAroundByName(id, R.drawable.ic_restaurant_color);
+        } else {
+            removeMapMarkerByID(id);
+        }
+    }
+
+    public void setConvenienceStoreCheckBox(View view, boolean isChecked) {
+        String id = "편의점";
+        if (selectedTMapMarkerItem == null) return;
+        if (isChecked) {
+            findAroundByName(id, R.drawable.ic_facility_color);
+        } else {
+            removeMapMarkerByID(id);
+        }
+    }
+
+    private void findAroundByName(String id, @DrawableRes int drawable) {
+        if (selectedTMapMarkerItem == null) return;
+        TMapPoint tMapPoint = new TMapPoint(selectedTMapMarkerItem.latitude, selectedTMapMarkerItem.longitude);
+        new TMapData().findAroundKeywordPOI(tMapPoint, id, 3, 50, arrayList -> {
+            if(id.equals("편의점")){
+                removeMapMarkerByID(id);
+                convenienceStoreIDArrayList.addAll(arrayList);
+            }else{
+                removeMapMarkerByID(id);
+                restaurantIDArrayList.addAll(arrayList);
+            }
+            for (TMapPOIItem point : arrayList) {
+                addPin(point.getPOIName(), point.getPOIAddress().replace("null", ""), point.getPOIPoint().getLongitude(), point.getPOIPoint().getLatitude(), drawable);
+            }
+            resetPosition();
+        });
+    }
+
+    private void removeMapMarkerByID(String id){
+        if(id.equals("편의점")){
+            for(TMapPOIItem mapPOIItem : convenienceStoreIDArrayList){
+                tMapView.removeMarkerItem(mapPOIItem.getPOIName());
+            }
+            convenienceStoreIDArrayList.clear();
+        }else{
+            for(TMapPOIItem mapPOIItem : restaurantIDArrayList){
+                tMapView.removeMarkerItem(mapPOIItem.getPOIName());
+            }
+            restaurantIDArrayList.clear();
+        }
+    }
+
+    private void resetPosition(){
+        if(selectedTMapMarkerItem == null) return;
+        tMapView.setCenterPoint(selectedTMapMarkerItem.longitude, selectedTMapMarkerItem.latitude, true);
+        tMapView.setZoomLevel(ZOOM_LEVEL);
+    }
+
+    private void addPin(String name, String subTitle, Double longitude, Double latitude, @DrawableRes int drawable) {
+        TMapMarkerItem markerItem1 = new TMapMarkerItem();
+        TMapPoint tMapPoint1 = new TMapPoint(latitude, longitude); // SKT타워
+        Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), drawable);
+        Bitmap markerBitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
+        Bitmap selectBitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_arrow_forward_white_36dp);
+        Bitmap callOutSelectBitmap = Bitmap.createScaledBitmap(selectBitmap, 50, 50, false);
+        markerItem1.setIcon(markerBitmap); // 마커 아이콘 지정
+        markerItem1.setPosition(0.5f, 1.0f); // 마커의 중심점을 중앙, 하단으로 설정
+        markerItem1.setTMapPoint(tMapPoint1); // 마커의 좌표 지정
+        markerItem1.setName(name); // 마커의 타이틀 지정
+        markerItem1.setCanShowCallout(true);
+        markerItem1.setEnableClustering(false);
+        markerItem1.setCalloutTitle(name);
+        markerItem1.setCalloutSubTitle(subTitle);
+        markerItem1.setCalloutRightButtonImage(callOutSelectBitmap);
+        tMapView.addMarkerItem(name, markerItem1); // 지도에 마커 추가
+        tMapView.setCenterPoint(longitude, latitude);
+    }
+
     private void showMapPoint(double x, double y, String title, String address) {
         houseDetailMapLinearLayout.setVisibility(View.VISIBLE);
         TMapMarkerItem markerItem = new TMapMarkerItem();
         TMapPoint tMapPoint1 = new TMapPoint(y, x);
+        selectedTMapMarkerItem = markerItem;
         markerItem.setVisible(TMapMarkerItem.VISIBLE);
         markerItem.setPosition(0f, 0f);
         markerItem.setTMapPoint(tMapPoint1);
@@ -182,7 +300,7 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
         markerItem.setCalloutSubTitle(address);
         tMapView.addMarkerItem(title, markerItem);
         tMapView.setCenterPoint(x, y, true);
-        tMapView.setZoomLevel(15);
+        tMapView.setZoomLevel(ZOOM_LEVEL);
         tMapView.initView();
     }
 
@@ -333,6 +451,20 @@ public class HouseDetailFragment extends Fragment implements HouseDetailFragment
     private void setSummary(String text) {
         if (text == null) return;
         houseDetailOverview.setText(fromHtml(text));
+        houseDetailOverview.setChangeListener(this::toggle);
+        toggle(houseDetailOverview.getState());
+    }
+
+    private void toggle(ReadMoreTextView.State state) {
+        if (state == ReadMoreTextView.State.COLLAPSED) {
+            houseDetailInfoTextView.setVisibility(View.GONE);
+            houseDetailLinearLayout.setVisibility(View.GONE);
+            houseDetailInfoKoreanTextView.setVisibility(View.GONE);
+        } else {
+            houseDetailInfoTextView.setVisibility(View.VISIBLE);
+            houseDetailLinearLayout.setVisibility(View.VISIBLE);
+            houseDetailInfoKoreanTextView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setTitle(String text) {

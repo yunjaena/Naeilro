@@ -14,25 +14,24 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.house.HouseInfo;
-import com.koreatech.naeilro.ui.house.HouseDetailFragment;
 import com.koreatech.naeilro.ui.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static androidx.core.os.BundleKt.bundleOf;
-
-public class HouseInfoRecyclerViewAdapter extends RecyclerView.Adapter<HouseInfoRecyclerViewAdapter.ViewHolder>{
+public class HouseInfoRecyclerViewAdapter extends RecyclerView.Adapter<HouseInfoRecyclerViewAdapter.ViewHolder> {
+    NavController navController;
     private List<HouseInfo> houseInfoList;
     private Context context;
-    NavController navController;
 
     public HouseInfoRecyclerViewAdapter(Context context) {
         this.context = context;
         houseInfoList = new ArrayList<>();
-        navController = Navigation.findNavController((MainActivity)context, R.id.nav_host_fragment);
+        navController = Navigation.findNavController((MainActivity) context, R.id.nav_host_fragment);
     }
 
     @NonNull
@@ -46,34 +45,37 @@ public class HouseInfoRecyclerViewAdapter extends RecyclerView.Adapter<HouseInfo
     public void onBindViewHolder(@NonNull HouseInfoRecyclerViewAdapter.ViewHolder holder, int position) {
         HouseInfo houseInfo = houseInfoList.get(position);
         holder.setIsRecyclable(false);
-        if(houseInfo.getTitle() != null)
+        if (houseInfo.getTitle() != null)
             holder.houseTitleTextView.setText(houseInfo.getTitle());
         else
             holder.houseTitleTextView.setText("숙소명이 등록되지 않았습니다.");
-        if(houseInfo.getAddr1() != null)
+        if (houseInfo.getAddr1() != null)
             holder.houseAddressTextView.setText(houseInfo.getAddr1());
         else
             holder.houseAddressTextView.setText("주소가 등록되지 않았습니다.");
-        if(houseInfo.getTel() != null)
+        if (houseInfo.getTel() != null)
             holder.houseTelTextView.setText(houseInfo.getTel());
         else
-            holder.houseTelTextView.setText("전화번호가 등록되지 않았습니다.");
-        if(houseInfo.getHanok() == 1)
+            holder.houseTelTextView.setText("");
+        if (houseInfo.getHanok() == 1)
             holder.houseHanokTextView.setVisibility(View.VISIBLE);
         else
             holder.houseHanokTextView.setVisibility(View.INVISIBLE);
-        if(houseInfo.getFirstimage() != null){
+        if (houseInfo.getFirstimage() != null) {
             Glide.with(holder.houseImageView)
                     .load(houseInfo.getFirstimage())
+                    .thumbnail(0.05f)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
                     .into(holder.houseImageView);
-        }else
+        } else
             Glide.with(holder.houseImageView)
                     .load(R.drawable.ic_no_image)
                     .into(holder.houseImageView);
 
-        holder.view.setOnClickListener(new View.OnClickListener(){
+        holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("contentTypeId", Integer.parseInt(houseInfo.getContenttypeid()));
                 bundle.putInt("contentId", Integer.parseInt(houseInfo.getContentid()));
@@ -84,15 +86,16 @@ public class HouseInfoRecyclerViewAdapter extends RecyclerView.Adapter<HouseInfo
         });
 
 
-
     }
-    public void addItem(List<HouseInfo> item){
-        for(int i=0;i<item.size();i++){
+
+    public void addItem(List<HouseInfo> item) {
+        for (int i = 0; i < item.size(); i++) {
             houseInfoList.add(item.get(i));
         }
         notifyDataSetChanged();
     }
-    public void clearItem(){
+
+    public void clearItem() {
         houseInfoList.clear();
     }
 
@@ -100,13 +103,14 @@ public class HouseInfoRecyclerViewAdapter extends RecyclerView.Adapter<HouseInfo
     public int getItemCount() {
         return houseInfoList.size();
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public final View view;
         public TextView houseTitleTextView;
         public TextView houseAddressTextView;
         public TextView houseTelTextView;
         public TextView houseHanokTextView;
         public ImageView houseImageView;
-        public final View view;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -59,6 +59,7 @@ public class MyPlanFragment extends Fragment implements MyPlanContract.View {
                 Bundle bundle = new Bundle();
                 Log.e("fragment", myPlans.get(position).getPlanNumber());
                 bundle.putString("planNumber", myPlans.get(position).getPlanNumber());
+                bundle.putString("planTitle", myPlans.get(position).getPlanTitle());
                 if(view.getId() != R.id.delete_plan_button){
                     navController.navigate(R.id.action_navigation_my_plan_to_navigation_my_plan_detail,bundle);
                 }

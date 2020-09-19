@@ -12,6 +12,7 @@ import com.koreatech.naeilro.util.DataAPIMessageUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,6 +41,7 @@ public class TrainInfoFragmentPresenter {
         @Override
         public void onSuccess(Object object) {
             List<TrainStationInfo> trainStationInfoList = (List<TrainStationInfo>) object;
+            Collections.sort(trainStationInfoList);
             trainInfoView.showTrainStationList(trainStationInfoList);
             trainInfoView.hideLoading();
         }

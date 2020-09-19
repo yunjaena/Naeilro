@@ -18,6 +18,8 @@ public interface MyPlanInteractor {
 
     void getPlanWithSelectNode(ApiCallback apiCallback, MyPlanNode myPlanNode);
 
+    void getRecommendPath(ApiCallback apiCallback, String planNumber, String departNodeNumber, String arriveNodeNumber);
+
     void updatePlanName(ApiCallback apiCallback, String planNumber, String planTitle);
 
 

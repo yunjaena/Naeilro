@@ -38,6 +38,8 @@ public class SignInActivity extends ActivityBase implements View.OnClickListener
     private TextInputLayout passwordTextInputLayout;
     private TextInputLayout phoneNumberTextInputLayout;
     private TextView personalInfoTermsTextView;
+    private TextInputLayout passwordCheckTextInputLayout;
+    private TextInputEditText passwordCheckTextInputEditText;
     private CheckBox personalInfoCheckBox;
     private SignInPresenter signInPresenter;
 
@@ -60,6 +62,8 @@ public class SignInActivity extends ActivityBase implements View.OnClickListener
         phoneNumberInputEditText = findViewById(R.id.signin_phone_text_input_edit_text);
         personalInfoTermsTextView = findViewById(R.id.signup_textview_personal_info_terms);
         personalInfoCheckBox = findViewById(R.id.signup_check_box_personal_info_terms);
+        passwordCheckTextInputLayout = findViewById(R.id.signin_password_check_text_input_layout);
+        passwordCheckTextInputEditText = findViewById(R.id.signin_password_check_text_input_edit_text);
         personalInfoTermsTextView.setPaintFlags(personalInfoTermsTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         signInPresenter = new SignInPresenter(new UserRestInteractor(), this);
         signInButton.setOnClickListener(this);
@@ -87,6 +91,7 @@ public class SignInActivity extends ActivityBase implements View.OnClickListener
         String phoneNumber = phoneNumberInputEditText.getText().toString();
         signInPresenter.getSignInResult(name, email, password, phoneNumber);
     }
+
 
     private boolean isNickNameFormatValidate() {
         String name = nameTextInputEditText.getText().toString();
@@ -125,7 +130,20 @@ public class SignInActivity extends ActivityBase implements View.OnClickListener
         if (FilterUtil.isPasswordValidate(password) && password.length() >= 8) {
             passwordTextInputLayout.setError(null);
         } else {
-            passwordTextInputLayout.setError("비밀번호 형식을 확인해주세요");
+            passwordTextInputLayout.setError("비밀번호 형식을 확인해주세요(8자리 이상)");
+            return false;
+        }
+        return true;
+    }
+
+
+    private boolean isPasswordSameValidate() {
+        String password = passwordTextInputEditText.getText().toString();
+        String checkPassword = passwordCheckTextInputEditText.getText().toString();
+        if (password.equals(checkPassword)) {
+            passwordCheckTextInputLayout.setError(null);
+        } else {
+            passwordCheckTextInputLayout.setError("비밀번호가 다릅니다.");
             return false;
         }
         return true;
@@ -143,7 +161,7 @@ public class SignInActivity extends ActivityBase implements View.OnClickListener
     }
 
     private boolean isSigninFormatCorrect() {
-        return isEmailFormatValidate() && isPasswordFormatValidate() && isPhoneNumberFormatValidate() && isNickNameFormatValidate();
+        return isNickNameFormatValidate() && isEmailFormatValidate() && isPasswordFormatValidate() && isPhoneNumberFormatValidate() && isPasswordSameValidate();
     }
 
     @Override

@@ -1,32 +1,30 @@
 package com.koreatech.core.progressdialog;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.koreatech.core.R;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 
 public class CustomProgressDialog extends AsyncTask<Void, Void, Void> {
     private final String TAG = "CustomProgressDialog";
 
-    private ProgressDialog progressDialog;
+    private DialogFragment progressDialog;
     private String message;
+    private FragmentManager fragmentManager;
 
-
-    public CustomProgressDialog(Context context, String msg) {
+    public CustomProgressDialog(Context context, FragmentManager fragmentManager, String msg) {
         this.message = msg;
-        progressDialog = new ProgressDialog(context, R.style.NaeilroProgress);
+        this.fragmentManager = fragmentManager;
+        progressDialog = new LottieDialogFragment().newInstance("lottie_running_train_with_light.json");
         progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setIndeterminate(true);
-
     }
 
     @Override
     protected void onPreExecute() {
-        progressDialog.setMessage(message);
-        progressDialog.show();
+        // progressDialog.setMessage(message);
+        progressDialog.show(fragmentManager, "lottieDialog");
     }
 
     @Override
@@ -47,10 +45,9 @@ public class CustomProgressDialog extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onCancelled(Void aVoid) {
+        super.onCancelled(aVoid);
         if (progressDialog != null)
             progressDialog.dismiss();
-        super.onCancelled(aVoid);
-
         progressDialog = null;
     }
 }

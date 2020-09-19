@@ -1,2 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.koreatech.core" />
+    package="com.koreatech.core">
+
+    <application>
+        <activity
+            android:name=".activity.WebViewActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+    </application>
+</manifest>

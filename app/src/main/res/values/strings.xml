@@ -47,9 +47,9 @@
     <string name="train_departure_time">출발</string>
     <string name="train_departure_date"> · 출발날짜</string>
     <string name="train_type"> · 열차종류</string>
-    <string name="train_type_dot_blank">열차\n종류</string>
+    <string name="train_type_dot_blank">열차</string>
     <string name="train_price">가격</string>
-    <string name="train_number">열차\n번호</string>
+    <string name="train_number">번호</string>
     <string name="train_arrival_station_select">도착역을 선택해주세요.</string>
     <string name="train_departure_station_select">출발역을 선택해주세요.</string>
     <string name="train_departure_date_select">출발날짜를 선택해주세요.</string>
@@ -65,6 +65,10 @@
 
     <!--my plan-->
     <string name="save_path">저장 위치</string>
+    <string name="path">경로</string>
+    <string name="select_departure_and_arrival">출발지&amp;도착지 선택</string>
+    <string name="departure">출발지</string>
+    <string name="arrival">도착지</string>
     <string name="add_my_plan_collection">마이플랜 컬랙션 추가하기</string>
     <string name="my_plan_collection_empty_string_warning">텍스트를 입력해주세요.</string>
     <string name="my_plan_collection_dialog_title">마이플랜 컬랙션 추가</string>

@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.koreatech.core.recyclerview.RecyclerViewClickListener;
 import com.koreatech.naeilro.R;
 import com.koreatech.naeilro.network.entity.search.SearchInfo;
@@ -57,7 +59,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         });
 
         if (searchInfo.getFirstImage() != null)
-            Glide.with(holder.searchImageView).load(searchInfo.getFirstImage()).into(holder.searchImageView);
+            Glide.with(holder.searchImageView)
+                    .load(searchInfo.getFirstImage())
+                    .thumbnail(0.05f)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+                    .error(R.drawable.ic_no_image)
+                    .into(holder.searchImageView);
         else
             Glide.with(holder.searchImageView).load(R.drawable.ic_no_image).into(holder.searchImageView);
 

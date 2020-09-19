@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import java.net.URLDecoder;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -54,7 +55,10 @@ public class UserRetrofitManager {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(interceptor).
-                addInterceptor(new UTFDecodeInterceptor()).build();
+                addInterceptor(new UTFDecodeInterceptor())
+                .connectTimeout(5, TimeUnit.MINUTES)
+                .readTimeout(5, TimeUnit.MINUTES)
+                .build();
         try {
             SSLContext sslContext;
             sslContext = SSLContext.getInstance("SSL");
