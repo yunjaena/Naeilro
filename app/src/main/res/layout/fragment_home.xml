@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="안녕하세요"
                 android:textColor="@color/black"
@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
+                android:layout_marginLeft="10dp"
                 android:text="오늘할일 내일로에 오신 것을"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -38,7 +38,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
+                android:layout_marginLeft="10dp"
                 android:text="환영합니다."
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -354,7 +354,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="30dp"
             android:text="추천여행지"
             android:textColor="@color/black"
@@ -366,7 +366,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:text="나의 취향에 맞는 여행지를 만나보세요"
             android:textColor="@color/black"
             android:textSize="16sp">
