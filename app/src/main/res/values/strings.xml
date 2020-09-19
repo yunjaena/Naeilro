@@ -47,9 +47,9 @@
     <string name="train_departure_time">출발</string>
     <string name="train_departure_date"> · 출발날짜</string>
     <string name="train_type"> · 열차종류</string>
-    <string name="train_type_dot_blank">열차\n종류</string>
+    <string name="train_type_dot_blank">열차</string>
     <string name="train_price">가격</string>
-    <string name="train_number">열차\n번호</string>
+    <string name="train_number">번호</string>
     <string name="train_arrival_station_select">도착역을 선택해주세요.</string>
     <string name="train_departure_station_select">출발역을 선택해주세요.</string>
     <string name="train_departure_date_select">출발날짜를 선택해주세요.</string>
