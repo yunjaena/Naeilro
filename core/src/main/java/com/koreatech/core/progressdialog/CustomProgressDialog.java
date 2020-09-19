@@ -45,10 +45,9 @@ public class CustomProgressDialog extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onCancelled(Void aVoid) {
+        super.onCancelled(aVoid);
         if (progressDialog != null)
             progressDialog.dismiss();
-        super.onCancelled(aVoid);
-
         progressDialog = null;
     }
 }
