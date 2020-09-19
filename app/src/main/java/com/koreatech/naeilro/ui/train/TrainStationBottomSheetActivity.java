@@ -159,8 +159,10 @@ public class TrainStationBottomSheetActivity extends ActivityBase {
         if (isSectionUse) {
             if (inputEditText.getText().length() > 0)
                 koreanIndexerRecyclerView.setUseSection(false);
-            else
+            else {
+                koreanIndexerRecyclerView.setKeywordList(searchStringList);
                 koreanIndexerRecyclerView.setUseSection(true);
+            }
         } else {
             koreanIndexerRecyclerView.setUseSection(false);
         }
