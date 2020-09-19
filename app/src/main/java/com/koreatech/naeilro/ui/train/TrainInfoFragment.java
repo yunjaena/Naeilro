@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -36,7 +35,7 @@ import java.util.Locale;
 import static android.app.Activity.RESULT_OK;
 
 
-public class TrainInfoFragment extends Fragment implements TrainInfoFragmentContract.View, TrainStationSelectDialog.DialogCallback, TrainTypeSelectDialog.DialogCallback, View.OnClickListener {
+public class TrainInfoFragment extends Fragment implements TrainInfoFragmentContract.View, View.OnClickListener {
     public static final String TAG = "TrainInfoFragment";
     public static final int TRAIN_ARRIVAL_REQUEST_CODE = 100;
     public static final int TRAIN_DEPARTURE_REQUEST_CODE = 101;
@@ -163,31 +162,16 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
     }
 
     public void openTrainStationSelectDialog(boolean isDepart) {
-//        TrainStationSelectDialog trainStationSelectDialog = new TrainStationSelectDialog(getActivity(), isDepart, this, trainStationInfoList);
-//        trainStationSelectDialog.show();
-//        Display display = getActivity().getWindowManager().getDefaultDisplay();
-//        Point size = new Point();
-//        display.getSize(size);
-//
-//        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-//        lp.copyFrom(trainStationSelectDialog.getWindow().getAttributes());
-//        lp.width = (int) (size.x * 0.9f);
-//        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-//
-//        trainStationSelectDialog.show();
-//        Window window = trainStationSelectDialog.getWindow();
-//        window.setAttributes(lp);
-
-
         Intent intent = new Intent(getActivity(), TrainStationBottomSheetActivity.class);
         intent.putExtra("RECYCLER_VIEW_TEXT", "기차역");
         intent.putStringArrayListExtra("LIST", getTrainStationList());
+        intent.putExtra("SECTION_USE", true);
         if (isDepart) {
             intent.putExtra("TITLE", "출발역");
             intent.putExtra("INPUT", "역명을 입력해주세요");
             startActivityForResult(intent, TRAIN_DEPARTURE_REQUEST_CODE);
         } else {
-            intent.putExtra("title", "도착역");
+            intent.putExtra("TITLE", "도착역");
             intent.putExtra("INPUT", "역명을 입력해주세요");
             startActivityForResult(intent, TRAIN_ARRIVAL_REQUEST_CODE);
         }
@@ -205,23 +189,23 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
     }
 
     public void openTrainTypeSelectDialog() {
-        TrainTypeSelectDialog trainTypeSelectDialog = new TrainTypeSelectDialog(getActivity(), this, trainInfoList);
-        trainTypeSelectDialog.show();
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(trainTypeSelectDialog.getWindow().getAttributes());
-        lp.width = (int) (size.x * 0.9f);
-        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-
-        trainTypeSelectDialog.show();
-        Window window = trainTypeSelectDialog.getWindow();
-        window.setAttributes(lp);
+        Intent intent = new Intent(getActivity(), TrainStationBottomSheetActivity.class);
+        intent.putExtra("RECYCLER_VIEW_TEXT", "기차 타입");
+        intent.putStringArrayListExtra("LIST", getTrainTypeList());
+        intent.putExtra("TITLE", "기차 타입");
+        intent.putExtra("INPUT", "기차 타입을 입력해주세요");
+        startActivityForResult(intent, TRAIN_CODE_REQUEST_CODE);
+    }
+    private ArrayList<String> getTrainTypeList() {
+        ArrayList<String> trainTypeList = new ArrayList<>();
+        if (trainInfoList != null) {
+            for (TrainInfo trainInfo : trainInfoList) {
+                trainTypeList.add(trainInfo.getVehicleName());
+            }
+        }
+        return trainTypeList;
     }
 
-    @Override
     public void stationItemSelect(int index, boolean isDepart) {
         if (isSameStation(index, isDepart)) {
             showMessage(R.string.train_depart_arrival_station_same_warning);
@@ -265,7 +249,6 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
     }
 
 
-    @Override
     public void trainItemSelect(int index) {
         trainType = index;
         updateUI();
@@ -295,7 +278,6 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ToastUtil.getInstance().makeShort(requestCode + " : " + resultCode);
         if (resultCode == RESULT_OK && data != null) {
             int selectIndex = data.getIntExtra("RESULT", 0);
             switch (requestCode) {
@@ -306,6 +288,7 @@ public class TrainInfoFragment extends Fragment implements TrainInfoFragmentCont
                     stationItemSelect(selectIndex, true);
                     break;
                 case TRAIN_CODE_REQUEST_CODE:
+                    trainItemSelect(selectIndex);
                     break;
             }
         }

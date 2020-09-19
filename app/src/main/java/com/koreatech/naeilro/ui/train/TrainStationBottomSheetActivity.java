@@ -2,6 +2,8 @@ package com.koreatech.naeilro.ui.train;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.github.windsekirun.koreanindexer.KoreanIndexerRecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.koreatech.core.activity.ActivityBase;
 import com.koreatech.naeilro.R;
+import com.koreatech.naeilro.ui.koreanindexer.KoreanIndexerRecyclerView;
 import com.koreatech.naeilro.ui.train.adapter.TrainBottomSheetAdapter;
 
 import java.util.ArrayList;
@@ -36,16 +38,21 @@ public class TrainStationBottomSheetActivity extends ActivityBase {
     private KoreanIndexerRecyclerView koreanIndexerRecyclerView;
     private TrainBottomSheetAdapter trainBottomSheetAdapter;
     private ArrayList<String> stringList;
+    private ArrayList<String> searchStringList;
     private String title;
     private String inputHint;
     private String recyclerViewTitleText;
+    private boolean isSectionUse;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_train_station_bottom_sheet);
         stringList = new ArrayList<>();
+        searchStringList = new ArrayList<>();
         stringList.addAll(getIntent().getStringArrayListExtra("LIST"));
+        searchStringList.addAll(stringList);
+        isSectionUse = getIntent().getBooleanExtra("SECTION_USE", false);
         title = getIntent().getStringExtra("TITLE");
         inputHint = getIntent().getStringExtra("INPUT");
         recyclerViewTitleText = getIntent().getStringExtra("RECYCLER_VIEW_TEXT");
@@ -69,7 +76,21 @@ public class TrainStationBottomSheetActivity extends ActivityBase {
         if (inputHint != null)
             inputEditText.setHint(inputHint);
         if (recyclerViewTitleText != null)
-            recyclerViewTitleTextView.setHint(inputHint);
+            recyclerViewTitleTextView.setHint(recyclerViewTitleText);
+        inputEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                updateRecyclerViewItem();
+            }
+        });
     }
 
     private void initBottomSheet() {
@@ -88,6 +109,7 @@ public class TrainStationBottomSheetActivity extends ActivityBase {
                         break;
                     case STATE_HIDDEN:
                         finish();
+                        overridePendingTransition(0, 0);
                         break;
                 }
             }
@@ -99,17 +121,49 @@ public class TrainStationBottomSheetActivity extends ActivityBase {
     }
 
     private void initRecyclerView() {
-        trainBottomSheetAdapter = new TrainBottomSheetAdapter(this, stringList);
-        koreanIndexerRecyclerView.setKeywordList(stringList);
+        trainBottomSheetAdapter = new TrainBottomSheetAdapter(this, searchStringList);
+        koreanIndexerRecyclerView.setKeywordList(searchStringList);
         koreanIndexerRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         koreanIndexerRecyclerView.setOnItemClickListener(i -> {
             Intent intent = new Intent();
-            intent.putExtra("RESULT", i);
-            setResult(RESULT_OK, intent);
-            behavior.setState(STATE_HIDDEN);
+            for (int index = 0; index < stringList.size(); index++) {
+                if (stringList.get(index).equals(searchStringList.get(i))) {
+                    intent.putExtra("RESULT", index);
+                    setResult(RESULT_OK, intent);
+                    behavior.setState(STATE_HIDDEN);
+                    return;
+                }
+            }
         });
         koreanIndexerRecyclerView.setAdapter(trainBottomSheetAdapter);
+        updateSection();
+    }
 
+    public void updateRecyclerViewItem() {
+        String searchText = inputEditText.getText().toString().trim();
+        searchStringList.clear();
+        if (searchText.isEmpty()) {
+            searchStringList.addAll(stringList);
+        } else {
+            for (int i = 0; i < stringList.size(); i++) {
+                if (stringList.get(i).contains(searchText)) {
+                    searchStringList.add(stringList.get(i));
+                }
+            }
+        }
+        trainBottomSheetAdapter.notifyDataSetChanged();
+        updateSection();
+    }
+
+    private void updateSection() {
+        if (isSectionUse) {
+            if (inputEditText.getText().length() > 0)
+                koreanIndexerRecyclerView.setUseSection(false);
+            else
+                koreanIndexerRecyclerView.setUseSection(true);
+        } else {
+            koreanIndexerRecyclerView.setUseSection(false);
+        }
     }
 
     private double getBottomSheetDialogDefaultHeight() {

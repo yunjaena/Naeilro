@@ -77,6 +77,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:background="@drawable/bg_rect_gray3"
             android:orientation="horizontal">
 
@@ -96,7 +98,7 @@
         </LinearLayout>
 
 
-        <com.github.windsekirun.koreanindexer.KoreanIndexerRecyclerView
+        <com.koreatech.naeilro.ui.koreanindexer.KoreanIndexerRecyclerView
             android:id="@+id/bottom_sheet_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,7 +106,9 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:clipChildren="false"
-            android:padding="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
             app:indexerBackground="@color/blue11"
             app:indexerMargin="0"
             app:indexerRadius="60"
