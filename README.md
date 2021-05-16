@@ -14,6 +14,7 @@
 </p>
 
 <p align="center">
+  • <a href="#Graduation-thesis">Graudation thesis</a>
   • <a href="#about">About</a>
   • <a href="#usage">Usage</a>
   • <a href="#screen-shot">Screen shot</a>
@@ -21,6 +22,9 @@
   • <a href="#license">License</a>
 </p>
 
+
+## Graduation thesis
+[협업 필터링 추천 시스템을 이용한 관심사 기반 자동 생성 앱 서비스 (Interest-based Auto-creation App Service Using Collaborative Filtering Recommendation System)](https://scienceon.kisti.re.kr/srch/selectPORSrchArticle.do?cn=ART002711800)
 
 ## About
 
